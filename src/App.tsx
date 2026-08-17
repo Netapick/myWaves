@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
 import { NavBar } from './components/layout/NavBar'
+import { UpdateBanner } from './components/common/UpdateBanner'
 import { SpotsListPage } from './pages/SpotsListPage'
 import { SpotPage } from './pages/SpotPage'
 import { SillPage } from './pages/SillPage'
@@ -13,6 +14,7 @@ function App() {
     <div className="flex min-h-full flex-col">
       <NavBar />
       <main className="mx-auto w-full max-w-5xl flex-1 p-4">
+        <UpdateBanner />
         <Routes>
           <Route path="/" element={<SpotsListPage />} />
           <Route path="/spots/:spotId" element={<SpotPage />} />
