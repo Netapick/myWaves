@@ -1,0 +1,68 @@
+@import 'tailwindcss';
+
+/*
+  Thème "marine" : lisible en extérieur / plein soleil, mode sombre par défaut
+  car l'app est surtout utilisée tôt le matin ou en fin de journée sur le bord de l'eau.
+*/
+:root {
+  color-scheme: light dark;
+
+  --color-bg: #f5f8fa;
+  --color-surface: #ffffff;
+  --color-border: #d7e0e5;
+  --color-text: #12232e;
+  --color-text-muted: #4a636e;
+
+  --color-accent: #0077b6;
+  --color-accent-strong: #023e8a;
+
+  --color-good: #2a9d8f;
+  --color-warn: #e9a02c;
+  --color-bad: #d84343;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0b1620;
+    --color-surface: #12222c;
+    --color-border: #223842;
+    --color-text: #e7f1f5;
+    --color-text-muted: #93aab3;
+
+    --color-accent: #48cae4;
+    --color-accent-strong: #90e0ef;
+
+    --color-good: #52c9ba;
+    --color-warn: #f2b53c;
+    --color-bad: #ef5b5b;
+  }
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font: 15px/1.45 system-ui, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Certains moteurs appliquent une police système par défaut à <details>/<summary>
+   au lieu de l'hériter du body — on force l'homogénéité avec le reste du texte. */
+details,
+summary {
+  font: inherit;
+  color: inherit;
+}
+
+/* Leaflet a besoin d'une hauteur explicite sur son conteneur */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  background: var(--color-surface);
+}
