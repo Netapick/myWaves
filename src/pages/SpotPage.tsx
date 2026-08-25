@@ -13,7 +13,7 @@ import { coefficientNear, estimateTideCoefficientSeries } from '../domain/tideCo
 import { valueNear, windowAround } from '../lib/timeseries'
 import { SEED_SPOTS, type Spot } from '../domain/spot'
 import { MARC_CURRENT_ATLAS } from '../domain/marcCurrentAtlas.generated'
-import { predictMarcCurrentSeries } from '../domain/marcCurrent'
+import { predictMarcCurrentSeries, predictMarcTideHeightSeries } from '../domain/marcCurrent'
 import { useFavoriteSpots, addFavoriteSpot, removeFavoriteSpot } from '../hooks/useFavoriteSpots'
 import { useSettings } from '../hooks/useSettings'
 import { NowPanel } from '../components/dashboard/NowPanel'
@@ -73,6 +73,16 @@ export function SpotPage() {
     return predictMarcCurrentSeries(marcTable, start, end)
   }, [marcTable, openMeteoCurrentSeries])
 
+  // Même point de grille, même modèle que le courant ci-dessus : évite un décalage de
+  // phase entre la hauteur et le courant affichés (constaté à Saint-Cast avec la hauteur
+  // Open-Meteo — plus d'1h d'écart sur l'heure de pleine mer face au courant MARC).
+  const marcHeightSeries = useMemo(() => {
+    if (!marcTable?.elevation) return null
+    const start = new Date(Date.now() - 24 * 3_600_000)
+    const end = new Date(Date.now() + 7 * 24 * 3_600_000)
+    return predictMarcTideHeightSeries(marcTable.elevation, start, end)
+  }, [marcTable])
+
   // Quand un marégraphe SHOM existe à proximité (Saint-Malo), on ancre la courbe sur
   // la vraie mesure plutôt que sur le seul modèle global Open-Meteo : le référentiel
   // vertical diffère (niveau moyen vs zéro hydrographique) et l'amplitude d'un modèle à
@@ -91,10 +101,10 @@ export function SpotPage() {
   const observed = useMemo(() => applyObservedCorrection(observedRaw), [observedRaw])
   const officialExtrema = officialTideQuery.data?.extrema ?? []
   const seaLevelSeries = useMemo(() => {
-    if (observedRaw.length === 0) return rawSeaLevelSeries
+    if (observedRaw.length === 0) return marcHeightSeries ?? rawSeaLevelSeries
     const calibrated = calibrateForecastToGauge(observedRaw, rawSeaLevelSeries)
     return mergeObservedWithForecast(observed, withOfficialTideWhereAvailable(officialExtrema, calibrated))
-  }, [observedRaw, observed, rawSeaLevelSeries, officialExtrema])
+  }, [observedRaw, observed, rawSeaLevelSeries, officialExtrema, marcHeightSeries])
 
   // Seuil de bruit uniquement quand la série contient de la vraie mesure (marégraphe) —
   // voir le commentaire de extractTideEvents : les courbes 100% modélisées n'en ont pas besoin.

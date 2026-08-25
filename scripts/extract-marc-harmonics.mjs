@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 /**
  * Extrait, pour les spots listés ci-dessous, les composantes harmoniques de courant de
- * marée (amplitude + phase par constituante, pour les vitesses U est-ouest et V nord-sud)
- * depuis l'atlas Ifremer/MARC — résolution ~1-2,5 km, bien plus fine que la maille globale
- * d'Open-Meteo qui peut être à 15-20 km du site réel sur une côte découpée.
+ * marée (vitesses U est-ouest et V nord-sud) ET de hauteur d'eau (XE) depuis l'atlas
+ * Ifremer/MARC — résolution ~1-2,5 km, bien plus fine que la maille globale d'Open-Meteo
+ * qui peut être à 15-20 km du site réel sur une côte découpée. Extraire aussi la hauteur
+ * (pas seulement le courant) au même point de grille évite un décalage de phase entre les
+ * deux courbes affichées dans l'app quand elles viendraient de deux modèles différents.
  *
  * Couvre toute la façade Manche/Atlantique française via 5 atlas régionaux (leurs
  * emprises se chevauchent légèrement, pas de trou de couverture) : la région est choisie
@@ -16,7 +18,7 @@
  * de hauteurs et courants de marée. Rapport Ifremer, 89p.
  * http://archimer.ifremer.fr/doc/00157/26801/
  *
- * Les fichiers NetCDF (~76 par région, ~5-12 Mo chacun) sont mis en cache localement dans
+ * Les fichiers NetCDF (~114 par région — U/V/XE × 38 constituantes —, ~5-19 Mo chacun) sont mis en cache localement dans
  * .marc-cache/ (gitignored) — relancer ce script ne re-télécharge que ce qui manque, et
  * ne télécharge que les régions réellement nécessaires pour les spots listés.
  *
@@ -116,8 +118,8 @@ export const CONSTITUENTS = [
 // ici et relancer ce script (ne télécharge que la région manquante, le reste est en cache).
 const SPOTS = [{ id: 'saint-cast-le-guildo', lat: 48.6408354, lon: -2.2449483 }]
 
-async function downloadIfMissing(region, component) {
-  for (const { marcName } of CONSTITUENTS) {
+async function downloadIfMissing(region, component, constituents = CONSTITUENTS) {
+  for (const { marcName } of constituents) {
     const remote = `${FTP_ROOT}/${region.dir}/${marcName}-${component}-${region.code}-atlas.nc`
     const local = path.join(CACHE_DIR, `${marcName}-${component}-${region.code}-atlas.nc`)
     if (existsSync(local)) continue
@@ -127,6 +129,10 @@ async function downloadIfMissing(region, component) {
     execFileSync('curl', ['-sf', '-o', local, url], { stdio: 'inherit' })
   }
 }
+
+// Z0 (terme moyen/résiduel) n'existe qu'en U/V — la hauteur d'eau est déjà exprimée par
+// rapport au niveau moyen local, il n'y a pas d'équivalent "élévation moyenne" publié.
+const ELEVATION_CONSTITUENTS = CONSTITUENTS.filter((c) => c.marcName !== 'Z0')
 
 function readNc(file) {
   return new NetCDFReader(readFileSync(file))
@@ -138,15 +144,19 @@ function attr(reader, varName, attrName) {
   return a ? a.value : undefined
 }
 
-/** Trouve l'index du point de grille le plus proche d'une cible, en ignorant les points masqués (terre). */
+/**
+ * Trouve l'index du point de grille le plus proche d'une cible, en ignorant les points
+ * masqués (terre). Les grilles U/V sont stockées en int16 (scale_factor/add_offset) ; la
+ * grille T (élévation) est stockée en double brut, sans scale_factor — d'où le `?? 1`/`?? 0`.
+ */
 function nearestIndex(reader, lonVar, latVar, ampVar, targetLat, targetLon) {
   const lonRaw = reader.getDataVariable(lonVar)
   const latRaw = reader.getDataVariable(latVar)
   const ampRaw = reader.getDataVariable(ampVar)
-  const lonScale = attr(reader, lonVar, 'scale_factor')
-  const lonOff = attr(reader, lonVar, 'add_offset')
-  const latScale = attr(reader, latVar, 'scale_factor')
-  const latOff = attr(reader, latVar, 'add_offset')
+  const lonScale = attr(reader, lonVar, 'scale_factor') ?? 1
+  const lonOff = attr(reader, lonVar, 'add_offset') ?? 0
+  const latScale = attr(reader, latVar, 'scale_factor') ?? 1
+  const latOff = attr(reader, latVar, 'add_offset') ?? 0
   const ampFill = attr(reader, ampVar, '_FillValue')
 
   let bestIdx = -1
@@ -169,7 +179,7 @@ function nearestIndex(reader, lonVar, latVar, ampVar, targetLat, targetLon) {
 function extractAt(reader, ampVar, phaseVar, index) {
   const ampRaw = reader.getDataVariable(ampVar)
   const phase = reader.getDataVariable(phaseVar)
-  const ampScale = attr(reader, ampVar, 'scale_factor')
+  const ampScale = attr(reader, ampVar, 'scale_factor') ?? 1
   return { amplitude: ampRaw[index] * ampScale, phase: phase[index] }
 }
 
@@ -179,25 +189,41 @@ async function main() {
     const region = selectRegion(spot.lat, spot.lon)
     await downloadIfMissing(region, 'U')
     await downloadIfMissing(region, 'V')
+    await downloadIfMissing(region, 'XE', ELEVATION_CONSTITUENTS)
 
     // Le point de grille le plus proche est le même pour toutes les constituantes (seule
     // la donnée harmonique change, pas la grille du modèle) — calculé une fois avec M2.
+    // XE (élévation) est sur la grille T (centre de maille), distincte des grilles U/V
+    // décalées (Arakawa C) — trois points de grille légèrement différents, tous à moins de
+    // quelques centaines de mètres les uns des autres en pratique.
     const m2u = readNc(path.join(CACHE_DIR, `M2-U-${region.code}-atlas.nc`))
     const m2v = readNc(path.join(CACHE_DIR, `M2-V-${region.code}-atlas.nc`))
+    const m2xe = readNc(path.join(CACHE_DIR, `M2-XE-${region.code}-atlas.nc`))
     const uGrid = nearestIndex(m2u, 'longitude_u', 'latitude_u', 'U_a', spot.lat, spot.lon)
     const vGrid = nearestIndex(m2v, 'longitude_v', 'latitude_v', 'V_a', spot.lat, spot.lon)
-    console.log(`${spot.id}: région ${region.code}, grille U à ${uGrid.distanceKm.toFixed(2)} km, grille V à ${vGrid.distanceKm.toFixed(2)} km`)
+    const tGrid = nearestIndex(m2xe, 'longitude', 'latitude', 'XE_a', spot.lat, spot.lon)
+    console.log(
+      `${spot.id}: région ${region.code}, grille U à ${uGrid.distanceKm.toFixed(2)} km, V à ${vGrid.distanceKm.toFixed(2)} km, T (élévation) à ${tGrid.distanceKm.toFixed(2)} km`,
+    )
 
     const constituents = []
+    const elevationConstituents = []
     for (const { marcName, speed } of CONSTITUENTS) {
       const u = extractAt(readNc(path.join(CACHE_DIR, `${marcName}-U-${region.code}-atlas.nc`)), 'U_a', 'U_G', uGrid.index)
       const v = extractAt(readNc(path.join(CACHE_DIR, `${marcName}-V-${region.code}-atlas.nc`)), 'V_a', 'V_G', vGrid.index)
       constituents.push({ name: marcName, speed, uAmplitude: u.amplitude, uPhase: u.phase, vAmplitude: v.amplitude, vPhase: v.phase })
+      if (marcName === 'Z0') continue // pas d'équivalent élévation, voir ELEVATION_CONSTITUENTS
+      const xe = extractAt(readNc(path.join(CACHE_DIR, `${marcName}-XE-${region.code}-atlas.nc`)), 'XE_a', 'XE_G', tGrid.index)
+      elevationConstituents.push({ name: marcName, speed, amplitude: xe.amplitude, phase: xe.phase })
     }
 
     results[spot.id] = {
       gridPoint: { uLat: uGrid.lat, uLon: uGrid.lon, vLat: vGrid.lat, vLon: vGrid.lon, distanceKm: Math.max(uGrid.distanceKm, vGrid.distanceKm) },
       constituents,
+      elevation: {
+        gridPoint: { tLat: tGrid.lat, tLon: tGrid.lon, distanceKm: tGrid.distanceKm },
+        constituents: elevationConstituents,
+      },
     }
   }
 
