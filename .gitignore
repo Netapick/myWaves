@@ -27,3 +27,8 @@ releases/
 *.njsproj
 *.sln
 *.sw?
+
+# Cache local des fichiers NetCDF de l'atlas Ifremer/MARC (volumineux, régénérable via
+# scripts/extract-marc-harmonics.mjs) — seul le résultat extrait (quelques Ko) est committé.
+.marc-cache/
+.tmp-marc/

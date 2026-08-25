@@ -12,6 +12,8 @@ import { useOfficialTideExtremes } from '../hooks/useOfficialTideExtremes'
 import { coefficientNear, estimateTideCoefficientSeries } from '../domain/tideCoefficient'
 import { valueNear, windowAround } from '../lib/timeseries'
 import { SEED_SPOTS, type Spot } from '../domain/spot'
+import { MARC_CURRENT_ATLAS } from '../domain/marcCurrentAtlas.generated'
+import { predictMarcCurrentSeries } from '../domain/marcCurrent'
 import { useFavoriteSpots, addFavoriteSpot, removeFavoriteSpot } from '../hooks/useFavoriteSpots'
 import { useSettings } from '../hooks/useSettings'
 import { NowPanel } from '../components/dashboard/NowPanel'
@@ -56,7 +58,20 @@ export function SpotPage() {
 
   const rawSeaLevelSeries =
     query.data?.data.marine.fine?.seaLevelHeightMsl ?? query.data?.data.marine.seaLevelHeightMsl ?? EMPTY_SERIES
-  const currentSeries = query.data?.data.marine.fine?.oceanCurrentVelocity ?? query.data?.data.marine.oceanCurrentVelocity ?? EMPTY_SERIES
+  const openMeteoCurrentSeries =
+    query.data?.data.marine.fine?.oceanCurrentVelocity ?? query.data?.data.marine.oceanCurrentVelocity ?? EMPTY_SERIES
+
+  // Quand un point de grille MARC/Ifremer a été extrait pour ce spot (voir
+  // scripts/extract-marc-harmonics.mjs), on lui préfère le courant recalculé
+  // localement par synthèse harmonique : résolution ~1 km contre 15-20 km pour le
+  // modèle global Open-Meteo sur cette côte découpée (voir domain/marcCurrent.ts).
+  const marcTable = spot ? MARC_CURRENT_ATLAS[spot.id] : undefined
+  const currentSeries = useMemo(() => {
+    if (!marcTable) return openMeteoCurrentSeries
+    const start = new Date(Date.now() - 24 * 3_600_000)
+    const end = new Date(Date.now() + 7 * 24 * 3_600_000)
+    return predictMarcCurrentSeries(marcTable, start, end)
+  }, [marcTable, openMeteoCurrentSeries])
 
   // Quand un marégraphe SHOM existe à proximité (Saint-Malo), on ancre la courbe sur
   // la vraie mesure plutôt que sur le seul modèle global Open-Meteo : le référentiel
@@ -250,7 +265,14 @@ export function SpotPage() {
                 Non affiché sur ce spot — courants non modélisés (voir avertissement ci-dessus).
               </p>
             ) : (
-              <SlackWindowsList windows={slackWindows} now={now} />
+              <>
+                <p className="mb-2 text-xs text-(--color-text-muted)">
+                  {marcTable
+                    ? `✓ Courant recalculé à partir de l'atlas de marée Ifremer/MARC (point à ${marcTable.gridPoint.distanceKm.toFixed(1)} km du site) — nettement plus précis qu'un modèle global, mais reste une donnée de marée pure (vent et autres effets non modélisés).`
+                    : "⚠️ Courant issu d'un modèle océanique global (maille large, point de calcul parfois à 15-20 km du site) — peu fiable près des pointes, chenaux et zones à courants forts. À recouper avec l'observation sur place."}
+                </p>
+                <SlackWindowsList windows={slackWindows} now={now} />
+              </>
             )}
           </div>
         </div>
