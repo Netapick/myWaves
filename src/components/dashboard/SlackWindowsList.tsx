@@ -1,16 +1,11 @@
 import type { SlackWindow } from '../../domain/types'
+import { MAX_PLAUSIBLE_WINDOW_MIN } from '../../domain/slackWindows'
 import { formatDateTimeParis, formatTimeParis } from '../../lib/format'
 
 // Une vraie étale (pleine mer ou basse mer) est un instant précis, généralement inférieur
 // à 20 minutes — pas une durée qu'il est pertinent de calculer à partir d'un seuil de
 // courant arbitraire (voir extractSlackWindows) : le seuil sert seulement à repérer QUAND
 // le courant repasse par un minimum, l'affichage se limite donc à cet instant (`center`).
-//
-// Un cycle de marée semi-diurne dure ~12h25 : une fenêtre sous le seuil plus longue qu'un
-// cycle complet ne correspond à aucune étale ponctuelle, mais à un courant qui reste
-// simplement faible sur toute la période affichée (cas réel sur certains spots avec le
-// courant harmonique MARC, voir domain/marcCurrent.ts) — on l'indique alors comme tel.
-const MAX_PLAUSIBLE_WINDOW_MIN = 20 * 60
 
 /** Liste lisible des prochaines étales (instants de courant minimal) — la fonctionnalité différenciante pour la plongée. */
 export function SlackWindowsList({ windows, now = new Date() }: { windows: SlackWindow[]; now?: Date }) {

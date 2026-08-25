@@ -3,10 +3,20 @@ import type { TimeSeriesPoint } from '../api/types'
 
 /**
  * Vitesse de courant en dessous de laquelle on considère qu'il est possible/confortable
- * de plonger : ~0,3 nœud, converti en km/h (1 nd = 1,852 km/h). Valeur par défaut,
- * réglable — les palanquées expérimentées tolèrent plus, les débutants moins.
+ * de plonger : ~0,3 nœud, converti en km/h (1 nd = 1,852 km/h). Sert uniquement à repérer
+ * QUAND le courant repasse par un minimum (voir `center` ci-dessous) — une vraie étale est
+ * un instant précis, pas une durée, donc ce seuil n'est plus exposé en réglage utilisateur.
  */
 export const DEFAULT_SLACK_THRESHOLD_KMH = 0.3 * 1.852
+
+/**
+ * Un cycle de marée semi-diurne dure ~12h25 : une fenêtre sous le seuil plus longue qu'un
+ * cycle complet ne correspond à aucune étale ponctuelle, mais à un courant qui reste
+ * simplement faible sur toute la période — cas réel sur certains spots avec le courant
+ * harmonique MARC (voir domain/marcCurrent.ts). Utilisé par l'affichage (liste et
+ * graphique) pour distinguer les deux cas plutôt que de montrer une "étale" de 10h.
+ */
+export const MAX_PLAUSIBLE_WINDOW_MIN = 20 * 60
 
 /**
  * Extrait les fenêtres d'étale : les intervalles où la vitesse du courant reste

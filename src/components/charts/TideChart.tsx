@@ -1,6 +1,7 @@
 import ReactECharts from 'echarts-for-react'
 import type { TimeSeriesPoint } from '../../api/types'
 import type { SlackWindow, TideEvent } from '../../domain/types'
+import { MAX_PLAUSIBLE_WINDOW_MIN } from '../../domain/slackWindows'
 import { coefficientNear, type TideCoefficientEstimate } from '../../domain/tideCoefficient'
 import { formatDateTimeParis, formatTimeParis } from '../../lib/format'
 import { valueNear } from '../../lib/timeseries'
@@ -100,13 +101,24 @@ export function TideChart({
     })
   }
 
-  const slackAreas = slackWindows.map((w) => [
-    {
-      xAxis: w.start.getTime(),
-      itemStyle: { color: 'rgba(42, 157, 143, 0.18)' },
-    },
-    { xAxis: w.end.getTime() },
-  ])
+  // Une étale est un instant précis (voir domain/slackWindows.ts), pas la durée pendant
+  // laquelle le courant reste sous un seuil arbitraire — d'où un simple repère vertical à
+  // `center`, pas une bande de w.start à w.end (qui peut légitimement s'étirer sur des
+  // heures sans que ça corresponde à une vraie étale, voir MAX_PLAUSIBLE_WINDOW_MIN).
+  const slackLines = slackWindows
+    .filter((w) => (w.end.getTime() - w.start.getTime()) / 60_000 <= MAX_PLAUSIBLE_WINDOW_MIN)
+    .map((w) => ({
+      xAxis: w.center.getTime(),
+      lineStyle: { color: '#2a9d8f', type: 'dashed' as const, width: 1.5 },
+      label: {
+        show: true,
+        formatter: () => `Étale\n${formatTimeParis(w.center)}`,
+        position: 'insideEndTop' as const,
+        fontSize: 10,
+        color: '#2a9d8f',
+        lineHeight: 12,
+      },
+    }))
 
   const option = {
     animation: false,
@@ -136,14 +148,13 @@ export function TideChart({
         data: levelData,
         lineStyle: { color: '#0077b6', width: 2 },
         markPoint: { data: markPoints, symbolSize: 0 },
-        markArea: { silent: true, data: slackAreas },
-        // Ligne fine sans étiquette (le texte est porté par le point marqué ci-dessus,
-        // pour ne pas dupliquer l'info) — sert juste de repère visuel sur l'axe du temps.
+        // Ligne "maintenant" sans étiquette (le texte est porté par le point marqué
+        // ci-dessus, pour ne pas dupliquer l'info) + un repère par étale (voir slackLines).
         markLine: {
           symbol: 'none',
           silent: true,
           label: { show: false },
-          data: [{ xAxis: now, lineStyle: { color: '#d84343', type: 'solid', width: 1.5 } }],
+          data: [{ xAxis: now, lineStyle: { color: '#d84343', type: 'solid', width: 1.5 } }, ...slackLines],
         },
       },
       ...(currentData.length
