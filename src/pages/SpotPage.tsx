@@ -15,7 +15,6 @@ import { SEED_SPOTS, type Spot } from '../domain/spot'
 import { MARC_CURRENT_ATLAS } from '../domain/marcCurrentAtlas.generated'
 import { predictMarcCurrentSeries, predictMarcTideHeightSeries } from '../domain/marcCurrent'
 import { useFavoriteSpots, addFavoriteSpot, removeFavoriteSpot } from '../hooks/useFavoriteSpots'
-import { useSettings } from '../hooks/useSettings'
 import { NowPanel } from '../components/dashboard/NowPanel'
 import { TideChart } from '../components/charts/TideChart'
 import { SeaTempChart } from '../components/charts/SeaTempChart'
@@ -54,7 +53,6 @@ export function SpotPage() {
   const gaugeQuery = useShomGauge(spot?.shomStationId)
   const brestQuery = useBrestSeaLevelSeries()
   const officialTideQuery = useOfficialTideExtremes()
-  const { settings } = useSettings()
 
   const rawSeaLevelSeries =
     query.data?.data.marine.fine?.seaLevelHeightMsl ?? query.data?.data.marine.seaLevelHeightMsl ?? EMPTY_SERIES
@@ -112,10 +110,7 @@ export function SpotPage() {
     () => extractTideEvents(seaLevelSeries, observed.length > 0 ? 0.15 : 0),
     [seaLevelSeries, observed.length],
   )
-  const slackWindows = useMemo(
-    () => extractSlackWindows(currentSeries, settings.slackThresholdKmh),
-    [currentSeries, settings.slackThresholdKmh],
-  )
+  const slackWindows = useMemo(() => extractSlackWindows(currentSeries), [currentSeries])
 
   // Le coefficient est national (calculé à Brest) : il s'applique tel quel à n'importe
   // quel spot de la façade Manche/Atlantique, pas seulement à Brest lui-même.

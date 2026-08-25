@@ -53,7 +53,6 @@ export async function writeCache<T>(key: string, payload: T, fetchedAt: number =
 export const SETTINGS_KEYS = {
   sillHeightM: 'sillHeightM',
   sillAlertClearanceM: 'sillAlertClearanceM',
-  slackThresholdKmh: 'slackThresholdKmh',
   sillAlertsEnabled: 'sillAlertsEnabled',
 } as const
 

@@ -26,15 +26,6 @@ export function SettingsPage() {
         unit="m"
         onChange={(v) => update('sillAlertClearanceM', v)}
       />
-
-      <Field
-        label="Seuil de vitesse pour une étale"
-        help="Vitesse de courant en dessous de laquelle une fenêtre est considérée comme une étale."
-        value={settings.slackThresholdKmh}
-        step={0.1}
-        unit="km/h"
-        onChange={(v) => update('slackThresholdKmh', v)}
-      />
     </div>
   )
 }
