@@ -40,9 +40,12 @@ export const SEED_SPOTS: Spot[] = [
   {
     id: 'saint-cast-le-guildo',
     name: 'Saint-Cast-le-Guildo',
-    // Coordonnées vérifiées via Nominatim/OSM (centroïde de la commune), pas une estimation.
-    latitude: 48.6241,
-    longitude: -2.2618,
+    // Port d'Armor (marina, vérifié via Nominatim/OSM) — pas le centroïde de la commune,
+    // qui peut tomber loin de la côte réelle et fausser le point de grille MARC/Open-Meteo
+    // le plus proche sur un littoral aussi découpé (capes, baies). À privilégier pour tout
+    // futur spot : port/plage précis plutôt que centre-ville.
+    latitude: 48.6408354,
+    longitude: -2.2449483,
     region: "Côtes-d'Armor",
   },
 ]

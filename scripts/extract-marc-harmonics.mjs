@@ -114,7 +114,7 @@ export const CONSTITUENTS = [
 // (naturelle) ne peut de toute façon pas représenter le rejet artificiel de l'usine
 // marémotrice — voir RanceWarning.tsx. Pour ajouter un spot : lui donner ses coordonnées
 // ici et relancer ce script (ne télécharge que la région manquante, le reste est en cache).
-const SPOTS = [{ id: 'saint-cast-le-guildo', lat: 48.6241, lon: -2.2618 }]
+const SPOTS = [{ id: 'saint-cast-le-guildo', lat: 48.6408354, lon: -2.2449483 }]
 
 async function downloadIfMissing(region, component) {
   for (const { marcName } of CONSTITUENTS) {
