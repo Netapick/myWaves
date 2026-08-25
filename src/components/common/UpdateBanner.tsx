@@ -5,7 +5,11 @@ export function UpdateBanner() {
   const update = useAppUpdate()
   const [dismissed, setDismissed] = useState(false)
 
-  if (dismissed || (update.status !== 'available' && update.status !== 'installing')) return null
+  if (
+    dismissed ||
+    (update.status !== 'available' && update.status !== 'downloading' && update.status !== 'installing')
+  )
+    return null
 
   return (
     <div
@@ -13,7 +17,11 @@ export function UpdateBanner() {
       style={{ borderColor: 'var(--color-accent)', background: 'color-mix(in srgb, var(--color-accent) 12%, transparent)' }}
     >
       <span>
-        {update.status === 'installing' ? 'Installation de la mise à jour…' : `Nouvelle version disponible (v${update.version})`}
+        {update.status === 'installing'
+          ? 'Installation de la mise à jour…'
+          : update.status === 'downloading'
+            ? `Téléchargement de la mise à jour… ${update.progress}%`
+            : `Nouvelle version disponible (v${update.version})`}
       </span>
       {update.status === 'available' && (
         <div className="flex shrink-0 gap-2">

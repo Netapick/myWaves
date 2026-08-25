@@ -1,4 +1,4 @@
-import type { SlackWindow } from './types'
+import type { EtaleEvent, SlackWindow, TideEvent } from './types'
 import type { TimeSeriesPoint } from '../api/types'
 
 /**
@@ -10,13 +10,23 @@ import type { TimeSeriesPoint } from '../api/types'
 export const DEFAULT_SLACK_THRESHOLD_KMH = 0.3 * 1.852
 
 /**
- * Un cycle de marée semi-diurne dure ~12h25 : une fenêtre sous le seuil plus longue qu'un
- * cycle complet ne correspond à aucune étale ponctuelle, mais à un courant qui reste
- * simplement faible sur toute la période — cas réel sur certains spots avec le courant
- * harmonique MARC (voir domain/marcCurrent.ts). Utilisé par l'affichage (liste et
- * graphique) pour distinguer les deux cas plutôt que de montrer une "étale" de 10h.
+ * Marge (km/h) au-dessus du minimum local de courant utilisée pour délimiter la DURÉE
+ * affichée d'une étale : le courant y reste proche de son minimum, pas nécessairement sous
+ * le seuil absolu de confort de plongée (`thresholdKmh` ci-dessous, qui décide seulement SI
+ * cette étale compte comme confortable pour plonger). Sur un site à courant globalement
+ * faible (Saint-Cast : jamais > 0,66 km/h), le courant reste sous ce seuil absolu pendant
+ * des heures — une durée calée sur le minimum LOCAL reste courte et représentative, quel
+ * que soit le niveau général de courant du site.
  */
-export const MAX_PLAUSIBLE_WINDOW_MIN = 20 * 60
+const DURATION_MARGIN_KMH = 0.05
+
+/**
+ * Durée max (min) plausible pour une pause de courant — au-delà, il ne s'agit plus d'un
+ * vrai creux mais d'un courant qui ondule faiblement sur une longue plage (composantes
+ * secondaires de marée) : mieux vaut ne pas afficher de chiffre plutôt qu'une durée qui
+ * suggère une précision illusoire.
+ */
+const MAX_CONFIRMED_DURATION_MIN = 90
 
 /**
  * Extrait les fenêtres d'étale : les intervalles où la vitesse du courant reste
@@ -83,6 +93,92 @@ export function extractSlackWindows(
   }
 
   return windows
+}
+
+/** Rayon de recherche (min) autour de chaque étale de marée pour y chercher le minimum
+ * local de courant : assez large pour attraper le vrai creux même s'il est décalé de
+ * quelques dizaines de minutes par rapport à l'extremum de hauteur (constaté : quelques
+ * minutes à Saint-Cast), mais assez court pour ne jamais dériver vers un creux SANS RAPPORT
+ * plus loin dans le même demi-cycle (~6h12/2) — sans cette borne, `minVelocityKmh` peut
+ * pointer vers un minimum réel mais étranger à cette étale précise. Borné en plus par la
+ * moitié de l'écart aux étales voisines, pour ne jamais empiéter sur celle d'à côté. */
+const NEIGHBORHOOD_MIN = 90
+
+/**
+ * Cherche, pour chaque étale de marée (extremum de hauteur — pleine mer ou basse mer, la
+ * vraie définition nautique, déjà validée à ±6 min des tables officielles), le courant
+ * minimal dans son voisinage immédiat, puis une éventuelle courte fenêtre sous le seuil.
+ *
+ * L'instant affiché (`time`) est TOUJOURS celui de l'extremum de marée, jamais celui du
+ * minimum de courant : ce dernier peut être bruité par des composantes secondaires du
+ * courant sans rapport avec l'étale elle-même, alors que l'extremum de hauteur, lui, est
+ * la définition nautique de référence. `minVelocityKmh`/`durationMin` restent des données
+ * auxiliaires (à quel point et combien de temps le courant est faible autour de cet instant).
+ *
+ * Une étale de marée existe TOUJOURS (une par pleine mer, une par basse mer, tous les
+ * ~6h12) même quand le courant local ne descend jamais sous le seuil à ce moment précis —
+ * `minVelocityKmh` reste alors renseigné (le minimum réel atteint, même au-dessus du
+ * seuil) mais `durationMin` reste null plutôt que d'afficher une durée trompeuse.
+ */
+export function extractEtaleEvents(
+  tideEvents: TideEvent[],
+  currentSeries: TimeSeriesPoint[],
+  thresholdKmh: number = DEFAULT_SLACK_THRESHOLD_KMH,
+): EtaleEvent[] {
+  const points = currentSeries.filter((p) => p.value !== null)
+
+  return tideEvents.map((e, i) => {
+    const prevBound =
+      i > 0 ? (tideEvents[i - 1].time.getTime() + e.time.getTime()) / 2 : e.time.getTime() - NEIGHBORHOOD_MIN * 60_000
+    const nextBound =
+      i < tideEvents.length - 1
+        ? (e.time.getTime() + tideEvents[i + 1].time.getTime()) / 2
+        : e.time.getTime() + NEIGHBORHOOD_MIN * 60_000
+    const lo = Math.max(prevBound, e.time.getTime() - NEIGHBORHOOD_MIN * 60_000)
+    const hi = Math.min(nextBound, e.time.getTime() + NEIGHBORHOOD_MIN * 60_000)
+
+    const neighborhood = points.filter((p) => p.time.getTime() >= lo && p.time.getTime() <= hi)
+    if (neighborhood.length === 0) {
+      return { time: e.time, phase: e.phase, durationMin: null, minVelocityKmh: null }
+    }
+
+    let minIndex = 0
+    for (let k = 1; k < neighborhood.length; k++) {
+      if (neighborhood[k].value! < neighborhood[minIndex].value!) minIndex = k
+    }
+
+    // Un minimum au bord même du voisinage n'est pas un vrai creux local : le courant
+    // était peut-être encore en train de baisser (le vrai creux est hors voisinage) — cas
+    // réel à Saint-Cast près de la pleine mer, où le courant est en fait à son MAXIMUM
+    // local (aucun creux à trouver ici, seulement le bord le plus faible de la montée).
+    if (minIndex === 0 || minIndex === neighborhood.length - 1) {
+      return { time: e.time, phase: e.phase, durationMin: null, minVelocityKmh: null }
+    }
+    const minVelocityKmh = neighborhood[minIndex].value!
+
+    let durationMin: number | null = null
+    if (minVelocityKmh <= thresholdKmh) {
+      const durationThreshold = minVelocityKmh + DURATION_MARGIN_KMH
+      let startTime = neighborhood[0].time
+      for (let k = minIndex; k > 0; k--) {
+        if (neighborhood[k - 1].value! > durationThreshold) {
+          startTime = interpolateCrossingTime(neighborhood[k - 1], neighborhood[k], durationThreshold)
+          break
+        }
+      }
+      let endTime = neighborhood[neighborhood.length - 1].time
+      for (let k = minIndex; k < neighborhood.length - 1; k++) {
+        if (neighborhood[k + 1].value! > durationThreshold) {
+          endTime = interpolateCrossingTime(neighborhood[k], neighborhood[k + 1], durationThreshold)
+          break
+        }
+      }
+      const rawDurationMin = (endTime.getTime() - startTime.getTime()) / 60_000
+      durationMin = rawDurationMin <= MAX_CONFIRMED_DURATION_MIN ? rawDurationMin : null
+    }
+
+    return { time: e.time, phase: e.phase, durationMin, minVelocityKmh }
+  })
 }
 
 function splitOnGaps(series: TimeSeriesPoint[]): TimeSeriesPoint[][] {

@@ -33,8 +33,10 @@ export function AboutPage() {
             Carte (température de l'eau, radar, vagues) : <strong>Windy.com</strong>.
           </li>
           <li>
-            Courant de marée (Saint-Cast-le-Guildo) : recalculé localement à partir de l'atlas de composantes
-            harmoniques <strong>Ifremer/MARC</strong> (résolution ~1 km) — voir « Limites connues » ci-dessous.
+            Courant de marée : recalculé localement à partir de l'atlas de composantes harmoniques{' '}
+            <strong>Ifremer/MARC</strong> (résolution ~1-2,5 km) pour tout point du littoral Manche/Atlantique
+            proche d'un des ~570 points pré-extraits ; sinon Open-Meteo Marine — voir « Limites connues »
+            ci-dessous.
           </li>
         </ul>
         <p className="mt-2 text-xs text-(--color-text-muted)">
@@ -65,13 +67,13 @@ export function AboutPage() {
           </li>
           <li>Les courants ne sont pas affichés à proximité du barrage de la Rance : le modèle météo-marin ne représente pas l'ouvrage, les valeurs y seraient fausses.</li>
           <li>
-            Les étales sont déduites d'un modèle numérique, pas d'observations directes. Pour Saint-Cast-le-Guildo,
-            elles viennent de l'atlas harmonique Ifremer/MARC (point de calcul à ~1 km du site). Pour les autres
-            spots, elles restent basées sur Open-Meteo Marine, dont la maille est large et le point de calcul
-            utilisé peut se trouver à 15-20 km du site réel sur cette côte découpée — sous-estime nettement les
-            courants près des pointes, chenaux et embouchures. Dans tous les cas, à recouper avec l'observation sur
-            place ; aucun des deux modèles ne capture les effets du vent ou d'ouvrages artificiels (barrage de la
-            Rance).
+            Les étales sont déduites d'un modèle numérique, pas d'observations directes. La plupart des spots du
+            littoral Manche/Atlantique bénéficient de l'atlas harmonique Ifremer/MARC (point de calcul à quelques
+            km du site, souvent moins d'1 km) ; au-delà d'~8 km de tout point pré-extrait, l'app retombe sur
+            Open-Meteo Marine, dont la maille est large et le point de calcul utilisé peut se trouver à 15-20 km du
+            site réel sur cette côte découpée — sous-estime nettement les courants près des pointes, chenaux et
+            embouchures. Dans tous les cas, à recouper avec l'observation sur place ; aucun des deux modèles ne
+            capture les effets du vent ou d'ouvrages artificiels (barrage de la Rance).
           </li>
           <li>
             La carte Windy.com est intégrée en usage personnel uniquement : Windy réserve son widget aux médias et

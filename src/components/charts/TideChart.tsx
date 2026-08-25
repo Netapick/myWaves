@@ -1,7 +1,6 @@
 import ReactECharts from 'echarts-for-react'
 import type { TimeSeriesPoint } from '../../api/types'
-import type { SlackWindow, TideEvent } from '../../domain/types'
-import { MAX_PLAUSIBLE_WINDOW_MIN } from '../../domain/slackWindows'
+import type { EtaleEvent, TideEvent } from '../../domain/types'
 import { coefficientNear, type TideCoefficientEstimate } from '../../domain/tideCoefficient'
 import { formatDateTimeParis, formatTimeParis } from '../../lib/format'
 import { valueNear } from '../../lib/timeseries'
@@ -10,7 +9,7 @@ import { CHART_CALLOUT_BG, CHART_CALLOUT_TEXT } from '../../lib/chartTheme'
 interface TideChartProps {
   seaLevelSeries: TimeSeriesPoint[]
   tideEvents: TideEvent[]
-  slackWindows: SlackWindow[]
+  etaleEvents: EtaleEvent[]
   currentVelocitySeries?: TimeSeriesPoint[]
   /** Coefficients estimés à Brest (voir domain/tideCoefficient.ts) — annote chaque PM/BM
    * du coefficient national en vigueur à cet instant. Omis si non fourni. */
@@ -25,7 +24,7 @@ interface TideChartProps {
 export function TideChart({
   seaLevelSeries,
   tideEvents,
-  slackWindows,
+  etaleEvents,
   currentVelocitySeries,
   tideCoefficients,
   height = 320,
@@ -101,24 +100,23 @@ export function TideChart({
     })
   }
 
-  // Une étale est un instant précis (voir domain/slackWindows.ts), pas la durée pendant
-  // laquelle le courant reste sous un seuil arbitraire — d'où un simple repère vertical à
-  // `center`, pas une bande de w.start à w.end (qui peut légitimement s'étirer sur des
-  // heures sans que ça corresponde à une vraie étale, voir MAX_PLAUSIBLE_WINDOW_MIN).
-  const slackLines = slackWindows
-    .filter((w) => (w.end.getTime() - w.start.getTime()) / 60_000 <= MAX_PLAUSIBLE_WINDOW_MIN)
-    .map((w) => ({
-      xAxis: w.center.getTime(),
-      lineStyle: { color: '#2a9d8f', type: 'dashed' as const, width: 1.5 },
-      label: {
-        show: true,
-        formatter: () => `Étale\n${formatTimeParis(w.center)}`,
-        position: 'insideEndTop' as const,
-        fontSize: 10,
-        color: '#2a9d8f',
-        lineHeight: 12,
-      },
-    }))
+  // Une étale par pleine mer et une par basse mer, TOUJOURS (voir extractEtaleEvents) —
+  // repère vertical à l'instant précis, avec la durée du passage sous le seuil en label
+  // quand elle est connue (courte par construction, voir MAX_PLAUSIBLE_WINDOW_MIN — jamais
+  // la bande de plusieurs heures de l'ancienne implémentation).
+  const slackLines = etaleEvents.map((e) => ({
+    xAxis: e.time.getTime(),
+    lineStyle: { color: '#2a9d8f', type: 'dashed' as const, width: 1.5 },
+    label: {
+      show: true,
+      formatter: () =>
+        `Étale\n${formatTimeParis(e.time)}${e.durationMin !== null ? ` (~${Math.round(e.durationMin)} min)` : ''}`,
+      position: 'insideEndTop' as const,
+      fontSize: 10,
+      color: '#2a9d8f',
+      lineHeight: 12,
+    },
+  }))
 
   const option = {
     animation: false,

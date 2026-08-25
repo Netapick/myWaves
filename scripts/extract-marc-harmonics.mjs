@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Extrait, pour les spots listés ci-dessous, les composantes harmoniques de courant de
+ * Extrait, pour une liste de points côtiers, les composantes harmoniques de courant de
  * marée (vitesses U est-ouest et V nord-sud) ET de hauteur d'eau (XE) depuis l'atlas
  * Ifremer/MARC — résolution ~1-2,5 km, bien plus fine que la maille globale d'Open-Meteo
  * qui peut être à 15-20 km du site réel sur une côte découpée. Extraire aussi la hauteur
@@ -9,7 +9,17 @@
  *
  * Couvre toute la façade Manche/Atlantique française via 5 atlas régionaux (leurs
  * emprises se chevauchent légèrement, pas de trou de couverture) : la région est choisie
- * automatiquement pour chaque spot selon ses coordonnées, voir REGIONS ci-dessous.
+ * automatiquement pour chaque point selon ses coordonnées, voir REGIONS ci-dessous.
+ *
+ * Deux sources de points, combinées :
+ *  - CURATED_POINTS ci-dessous : coordonnées vérifiées à la main (port/plage précis,
+ *    jamais un centroïde de commune — voir domain/spot.ts) pour les spots où la précision
+ *    compte le plus.
+ *  - scripts/coastal-points.generated.json : ~570 ports/communes côtières généré via
+ *    scripts/build-coastal-points.mjs (recherche OSM + filtre "proche d'un point de mer
+ *    MARC valide"), pour une couverture automatique de tout le littoral — n'importe quel
+ *    lieu trouvé par la recherche de l'app (Nominatim) retombera près d'un point déjà
+ *    extrait, voir domain/marcCurrent.ts:findNearestMarcTable.
  *
  * Source : accès FTP obtenu sur demande auprès d'Ifremer (formulaire
  * forms.ifremer.fr/lops-oc/marc-atlas-harmo/, réponse reçue le 2026-08-25 — voir mémoire
@@ -18,34 +28,40 @@
  * de hauteurs et courants de marée. Rapport Ifremer, 89p.
  * http://archimer.ifremer.fr/doc/00157/26801/
  *
- * Les fichiers NetCDF (~114 par région — U/V/XE × 38 constituantes —, ~5-19 Mo chacun) sont mis en cache localement dans
- * .marc-cache/ (gitignored) — relancer ce script ne re-télécharge que ce qui manque, et
- * ne télécharge que les régions réellement nécessaires pour les spots listés.
+ * Les fichiers NetCDF (~114 par région — U/V/XE × 38 constituantes —, ~5-19 Mo chacun) sont
+ * mis en cache localement dans .marc-cache/ (gitignored) — relancer ce script ne
+ * re-télécharge que ce qui manque. Chaque fichier n'est lu qu'UNE FOIS par région (pas une
+ * fois par point) : les points d'une région partagent la même lecture des 114 fichiers.
+ *
+ * Le parsing NetCDF (JS pur, non optimisé) domine largement le temps d'exécution — et son
+ * coût est quasi indépendant du nombre de points (il faut lire les 114 fichiers de toute
+ * façon). Les 5 régions sont donc traitées dans des PROCESS SÉPARÉS EN PARALLÈLE (voir
+ * runOrchestrator ci-dessous) : sans ça, tout tournait sur un seul cœur alors que la
+ * machine en a plusieurs, pour un script qui aurait pu utiliser un cœur par région.
  *
  * Usage :
  *   npm install --no-save netcdfjs
  *   MARC_FTP_USER=... MARC_FTP_PASS=... node scripts/extract-marc-harmonics.mjs
  * Résultat : src/domain/marcCurrentAtlas.generated.ts (committé — ce sont juste des
  * nombres, pas les fichiers NetCDF sources).
+ *
+ * (Usage interne : `node scripts/extract-marc-harmonics.mjs --region=MANE` traite une
+ * seule région et écrit .marc-cache/partial-MANE.json — c'est ce que l'orchestrateur
+ * lance en sous-process, pas un mode à utiliser directement.)
  */
-import { execFileSync } from 'node:child_process'
+import { execFileSync, spawn } from 'node:child_process'
 import { existsSync, readFileSync } from 'node:fs'
 import { mkdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { NetCDFReader } from 'netcdfjs'
 
-// Identifiants FTP Ifremer (obtenus sur demande, voir en-tête ci-dessus) — jamais en dur
-// dans le code, ce dépôt est public. Définir MARC_FTP_USER / MARC_FTP_PASS avant de lancer.
 const FTP_HOST = 'ftp.ifremer.fr'
 const FTP_USER = process.env.MARC_FTP_USER
 const FTP_PASS = process.env.MARC_FTP_PASS
 const FTP_ROOT = 'MARC_L1-ATLAS-AHRMONIQUES'
 const CACHE_DIR = '.marc-cache'
-
-if (!FTP_USER || !FTP_PASS) {
-  console.error('MARC_FTP_USER et MARC_FTP_PASS doivent être définis (identifiants reçus par email d’Ifremer).')
-  process.exit(1)
-}
+const SCRIPT_PATH = fileURLToPath(import.meta.url)
 
 // Emprises (lat/lon des points de mer valides, marge de sécurité incluse) des 5 atlas V1
 // couvrant la Manche et l'Atlantique — mesurées directement sur les fichiers (constituante
@@ -111,18 +127,21 @@ export const CONSTITUENTS = [
   { marcName: 'Z0', speed: 0 },
 ]
 
-// Spots pour lesquels on extrait un tableau harmonique local. Sablons n'y figure PAS
-// délibérément : sous influence du barrage de la Rance, un atlas de marée océanique
-// (naturelle) ne peut de toute façon pas représenter le rejet artificiel de l'usine
-// marémotrice — voir RanceWarning.tsx. Pour ajouter un spot : lui donner ses coordonnées
-// ici et relancer ce script (ne télécharge que la région manquante, le reste est en cache).
-const SPOTS = [{ id: 'saint-cast-le-guildo', lat: 48.6408354, lon: -2.2449483 }]
+// Points à coordonnées vérifiées à la main (port/plage précis, pas un centroïde de commune
+// — voir domain/spot.ts). Prioritaires sur les points auto-générés à proximité : gardés
+// même s'ils tombent à < MIN_SEPARATION_KM d'un point de scripts/coastal-points.generated.json.
+const CURATED_POINTS = [{ name: 'saint-cast-le-guildo', lat: 48.6408354, lon: -2.2449483 }]
+
+const MIN_SEPARATION_KM = 1.5
 
 async function downloadIfMissing(region, component, constituents = CONSTITUENTS) {
   for (const { marcName } of constituents) {
     const remote = `${FTP_ROOT}/${region.dir}/${marcName}-${component}-${region.code}-atlas.nc`
     const local = path.join(CACHE_DIR, `${marcName}-${component}-${region.code}-atlas.nc`)
     if (existsSync(local)) continue
+    if (!FTP_USER || !FTP_PASS) {
+      throw new Error(`${local} manquant en cache et MARC_FTP_USER/MARC_FTP_PASS non définis pour le télécharger.`)
+    }
     await mkdir(path.dirname(local), { recursive: true })
     const url = `ftp://${FTP_USER}:${FTP_PASS}@${FTP_HOST}/${remote}`
     console.log(`téléchargement ${remote}`)
@@ -148,20 +167,18 @@ function attr(reader, varName, attrName) {
  * Trouve l'index du point de grille le plus proche d'une cible, en ignorant les points
  * masqués (terre). Les grilles U/V sont stockées en int16 (scale_factor/add_offset) ; la
  * grille T (élévation) est stockée en double brut, sans scale_factor — d'où le `?? 1`/`?? 0`.
+ *
+ * Borné par la longueur du tableau de DONNÉES (amplitude), pas seulement lon/lat : sur
+ * certains fichiers, les tableaux de coordonnées ont un élément de plus que le tableau
+ * d'amplitude (décalage constaté sur l'atlas MANE) — sans cette borne, le point le plus
+ * proche pouvait tomber sur cet index surnuméraire, valide pour lon/lat mais hors bornes
+ * pour l'amplitude (→ NaN, sérialisé en `null` dans le JSON généré).
  */
-function nearestIndex(reader, lonVar, latVar, ampVar, targetLat, targetLon) {
-  const lonRaw = reader.getDataVariable(lonVar)
-  const latRaw = reader.getDataVariable(latVar)
-  const ampRaw = reader.getDataVariable(ampVar)
-  const lonScale = attr(reader, lonVar, 'scale_factor') ?? 1
-  const lonOff = attr(reader, lonVar, 'add_offset') ?? 0
-  const latScale = attr(reader, latVar, 'scale_factor') ?? 1
-  const latOff = attr(reader, latVar, 'add_offset') ?? 0
-  const ampFill = attr(reader, ampVar, '_FillValue')
-
+function nearestIndex(lonRaw, latRaw, ampRaw, lonScale, lonOff, latScale, latOff, ampFill, targetLat, targetLon) {
+  const n = Math.min(lonRaw.length, latRaw.length, ampRaw.length)
   let bestIdx = -1
   let bestDist = Infinity
-  for (let i = 0; i < lonRaw.length; i++) {
+  for (let i = 0; i < n; i++) {
     if (ampRaw[i] === ampFill) continue
     const lon = lonRaw[i] * lonScale + lonOff
     const lat = latRaw[i] * latScale + latOff
@@ -176,6 +193,23 @@ function nearestIndex(reader, lonVar, latVar, ampVar, targetLat, targetLon) {
   return { index: bestIdx, distanceKm: Math.sqrt(bestDist) * 111, lat: latRaw[bestIdx] * latScale + latOff, lon: lonRaw[bestIdx] * lonScale + lonOff }
 }
 
+function gridArrays(reader, lonVar, latVar, ampVar) {
+  return {
+    lonRaw: reader.getDataVariable(lonVar),
+    latRaw: reader.getDataVariable(latVar),
+    ampRaw: reader.getDataVariable(ampVar),
+    lonScale: attr(reader, lonVar, 'scale_factor') ?? 1,
+    lonOff: attr(reader, lonVar, 'add_offset') ?? 0,
+    latScale: attr(reader, latVar, 'scale_factor') ?? 1,
+    latOff: attr(reader, latVar, 'add_offset') ?? 0,
+    ampFill: attr(reader, ampVar, '_FillValue'),
+  }
+}
+
+function findNearest(g, targetLat, targetLon) {
+  return nearestIndex(g.lonRaw, g.latRaw, g.ampRaw, g.lonScale, g.lonOff, g.latScale, g.latOff, g.ampFill, targetLat, targetLon)
+}
+
 function extractAt(reader, ampVar, phaseVar, index) {
   const ampRaw = reader.getDataVariable(ampVar)
   const phase = reader.getDataVariable(phaseVar)
@@ -183,61 +217,141 @@ function extractAt(reader, ampVar, phaseVar, index) {
   return { amplitude: ampRaw[index] * ampScale, phase: phase[index] }
 }
 
-async function main() {
-  const results = {}
-  for (const spot of SPOTS) {
-    const region = selectRegion(spot.lat, spot.lon)
-    await downloadIfMissing(region, 'U')
-    await downloadIfMissing(region, 'V')
-    await downloadIfMissing(region, 'XE', ELEVATION_CONSTITUENTS)
+function haversineKm(a, b) {
+  const dLat = a.lat - b.lat
+  const dLon = (a.lon - b.lon) * Math.cos(((a.lat + b.lat) / 2) * (Math.PI / 180))
+  return Math.sqrt(dLat * dLat + dLon * dLon) * 111
+}
 
-    // Le point de grille le plus proche est le même pour toutes les constituantes (seule
-    // la donnée harmonique change, pas la grille du modèle) — calculé une fois avec M2.
-    // XE (élévation) est sur la grille T (centre de maille), distincte des grilles U/V
-    // décalées (Arakawa C) — trois points de grille légèrement différents, tous à moins de
-    // quelques centaines de mètres les uns des autres en pratique.
-    const m2u = readNc(path.join(CACHE_DIR, `M2-U-${region.code}-atlas.nc`))
-    const m2v = readNc(path.join(CACHE_DIR, `M2-V-${region.code}-atlas.nc`))
-    const m2xe = readNc(path.join(CACHE_DIR, `M2-XE-${region.code}-atlas.nc`))
-    const uGrid = nearestIndex(m2u, 'longitude_u', 'latitude_u', 'U_a', spot.lat, spot.lon)
-    const vGrid = nearestIndex(m2v, 'longitude_v', 'latitude_v', 'V_a', spot.lat, spot.lon)
-    const tGrid = nearestIndex(m2xe, 'longitude', 'latitude', 'XE_a', spot.lat, spot.lon)
-    console.log(
-      `${spot.id}: région ${region.code}, grille U à ${uGrid.distanceKm.toFixed(2)} km, V à ${vGrid.distanceKm.toFixed(2)} km, T (élévation) à ${tGrid.distanceKm.toFixed(2)} km`,
-    )
+function loadPoints() {
+  const auto = JSON.parse(readFileSync('scripts/coastal-points.generated.json', 'utf8'))
+  const points = [...CURATED_POINTS]
+  for (const a of auto) {
+    if (points.some((p) => haversineKm(p, a) < MIN_SEPARATION_KM)) continue // un point vérifié à la main est déjà là
+    points.push(a)
+  }
+  return points
+}
 
-    const constituents = []
-    const elevationConstituents = []
-    for (const { marcName, speed } of CONSTITUENTS) {
-      const u = extractAt(readNc(path.join(CACHE_DIR, `${marcName}-U-${region.code}-atlas.nc`)), 'U_a', 'U_G', uGrid.index)
-      const v = extractAt(readNc(path.join(CACHE_DIR, `${marcName}-V-${region.code}-atlas.nc`)), 'V_a', 'V_G', vGrid.index)
-      constituents.push({ name: marcName, speed, uAmplitude: u.amplitude, uPhase: u.phase, vAmplitude: v.amplitude, vPhase: v.phase })
-      if (marcName === 'Z0') continue // pas d'équivalent élévation, voir ELEVATION_CONSTITUENTS
-      const xe = extractAt(readNc(path.join(CACHE_DIR, `${marcName}-XE-${region.code}-atlas.nc`)), 'XE_a', 'XE_G', tGrid.index)
-      elevationConstituents.push({ name: marcName, speed, amplitude: xe.amplitude, phase: xe.phase })
-    }
+/** Traite UNE région (appelé dans un sous-process dédié, voir runOrchestrator) et écrit son
+ * résultat partiel — jamais appelé directement pour plusieurs régions dans le même process. */
+async function processRegion(region, regionPoints) {
+  console.log(`[${region.code}] ${regionPoints.length} points`)
+  await downloadIfMissing(region, 'U')
+  await downloadIfMissing(region, 'V')
+  await downloadIfMissing(region, 'XE', ELEVATION_CONSTITUENTS)
 
-    results[spot.id] = {
-      gridPoint: { uLat: uGrid.lat, uLon: uGrid.lon, vLat: vGrid.lat, vLon: vGrid.lon, distanceKm: Math.max(uGrid.distanceKm, vGrid.distanceKm) },
-      constituents,
-      elevation: {
-        gridPoint: { tLat: tGrid.lat, tLon: tGrid.lon, distanceKm: tGrid.distanceKm },
-        constituents: elevationConstituents,
-      },
+  // Grille identique pour toutes les constituantes (seule la donnée harmonique change) —
+  // calculée une fois avec M2, puis réutilisée pour situer chaque point de la région.
+  const m2u = gridArrays(readNc(path.join(CACHE_DIR, `M2-U-${region.code}-atlas.nc`)), 'longitude_u', 'latitude_u', 'U_a')
+  const m2v = gridArrays(readNc(path.join(CACHE_DIR, `M2-V-${region.code}-atlas.nc`)), 'longitude_v', 'latitude_v', 'V_a')
+  const m2xe = gridArrays(readNc(path.join(CACHE_DIR, `M2-XE-${region.code}-atlas.nc`)), 'longitude', 'latitude', 'XE_a')
+
+  const located = regionPoints.map((p) => ({
+    point: p,
+    uGrid: findNearest(m2u, p.lat, p.lon),
+    vGrid: findNearest(m2v, p.lat, p.lon),
+    tGrid: findNearest(m2xe, p.lat, p.lon),
+    constituents: [],
+    elevationConstituents: [],
+  }))
+
+  // Un seul passage par fichier de constituante (114 au total pour la région), partagé par
+  // tous les points de la région — c'est ce qui rend l'extraction de ~150 points aussi
+  // rapide que celle d'un seul point à l'ancienne (relire un fichier de 5-19 Mo par point et
+  // par constituante n'aurait pas tenu à cette échelle).
+  for (const { marcName, speed } of CONSTITUENTS) {
+    const uReader = readNc(path.join(CACHE_DIR, `${marcName}-U-${region.code}-atlas.nc`))
+    const vReader = readNc(path.join(CACHE_DIR, `${marcName}-V-${region.code}-atlas.nc`))
+    const xeReader = marcName === 'Z0' ? null : readNc(path.join(CACHE_DIR, `${marcName}-XE-${region.code}-atlas.nc`))
+
+    for (const loc of located) {
+      const u = extractAt(uReader, 'U_a', 'U_G', loc.uGrid.index)
+      const v = extractAt(vReader, 'V_a', 'V_G', loc.vGrid.index)
+      loc.constituents.push({ name: marcName, speed, uAmplitude: u.amplitude, uPhase: u.phase, vAmplitude: v.amplitude, vPhase: v.phase })
+      if (xeReader) {
+        const xe = extractAt(xeReader, 'XE_a', 'XE_G', loc.tGrid.index)
+        loc.elevationConstituents.push({ name: marcName, speed, amplitude: xe.amplitude, phase: xe.phase })
+      }
     }
   }
+
+  const results = located.map((loc) => ({
+    lat: loc.point.lat,
+    lon: loc.point.lon,
+    gridPoint: {
+      uLat: loc.uGrid.lat,
+      uLon: loc.uGrid.lon,
+      vLat: loc.vGrid.lat,
+      vLon: loc.vGrid.lon,
+      distanceKm: Math.max(loc.uGrid.distanceKm, loc.vGrid.distanceKm),
+    },
+    constituents: loc.constituents,
+    elevation: {
+      gridPoint: { tLat: loc.tGrid.lat, tLon: loc.tGrid.lon, distanceKm: loc.tGrid.distanceKm },
+      constituents: loc.elevationConstituents,
+    },
+  }))
+
+  const invalid = results.filter((r) => r.constituents.some((c) => !Number.isFinite(c.uAmplitude) || !Number.isFinite(c.vAmplitude)))
+  if (invalid.length > 0) {
+    throw new Error(`[${region.code}] ${invalid.length} point(s) avec une amplitude non finie (NaN) après extraction — bug de correspondance d'index.`)
+  }
+
+  console.log(`[${region.code}] terminé (${located.length} points)`)
+  return results
+}
+
+/** Mode sous-process : traite une seule région et écrit son résultat partiel sur disque. */
+async function runRegionWorker(regionCode) {
+  const region = REGIONS.find((r) => r.code === regionCode)
+  if (!region) throw new Error(`Région inconnue : ${regionCode}`)
+  const points = loadPoints().filter((p) => selectRegion(p.lat, p.lon).code === regionCode)
+  const results = await processRegion(region, points)
+  await writeFile(path.join(CACHE_DIR, `partial-${regionCode}.json`), JSON.stringify(results))
+}
+
+/** Mode orchestrateur (défaut) : un sous-process par région, en parallèle — le parsing
+ * NetCDF est CPU-bound et mono-thread par nature (netcdfjs), le paralléliser par région est
+ * la façon la plus simple d'utiliser plusieurs cœurs sans réécrire le parseur lui-même. */
+async function runOrchestrator() {
+  const points = loadPoints()
+  console.log(`${points.length} points à extraire (${CURATED_POINTS.length} vérifiés à la main + auto-générés)`)
+
+  const regionCodes = [...new Set(points.map((p) => selectRegion(p.lat, p.lon).code))]
+  console.log(`${regionCodes.length} régions à traiter en parallèle : ${regionCodes.join(', ')}`)
+
+  await mkdir(CACHE_DIR, { recursive: true })
+
+  await Promise.all(
+    regionCodes.map(
+      (code) =>
+        new Promise((resolve, reject) => {
+          const child = spawn(process.execPath, [SCRIPT_PATH, `--region=${code}`], { stdio: 'inherit' })
+          child.on('exit', (exitCode) => (exitCode === 0 ? resolve() : reject(new Error(`région ${code} : sous-process en échec (code ${exitCode})`))))
+          child.on('error', reject)
+        }),
+    ),
+  )
+
+  const results = regionCodes.flatMap((code) => JSON.parse(readFileSync(path.join(CACHE_DIR, `partial-${code}.json`), 'utf8')))
 
   const header = `// Généré par scripts/extract-marc-harmonics.mjs — ne pas éditer à la main.
 // Source : atlas de composantes harmoniques de courant de marée Ifremer/MARC.
 // Citation requise : Pineau-Guillou Lucia (2013). PREVIMER Validation des atlas de
 // composantes harmoniques de hauteurs et courants de marée. Rapport Ifremer, 89p.
 // http://archimer.ifremer.fr/doc/00157/26801/
-import type { MarcHarmonicTable } from './marcCurrent'
+import type { MarcAtlasEntry } from './marcCurrent'
 
-export const MARC_CURRENT_ATLAS: Record<string, MarcHarmonicTable> = ${JSON.stringify(results, null, 2)}
+export const MARC_CURRENT_ATLAS: MarcAtlasEntry[] = ${JSON.stringify(results)}
 `
   await writeFile('src/domain/marcCurrentAtlas.generated.ts', header)
-  console.log('écrit src/domain/marcCurrentAtlas.generated.ts')
+  console.log(`\nécrit src/domain/marcCurrentAtlas.generated.ts (${results.length} points)`)
 }
 
-main()
+const regionArg = process.argv.find((a) => a.startsWith('--region='))
+if (regionArg) {
+  await runRegionWorker(regionArg.slice('--region='.length))
+} else {
+  await runOrchestrator()
+}

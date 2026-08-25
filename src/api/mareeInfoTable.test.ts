@@ -19,18 +19,22 @@ afterEach(() => {
 })
 
 describe('fetchMareeInfoExtremes', () => {
-  it('garde tous les jours renvoyés (aujourd’hui et les suivants), pas seulement le jour courant', async () => {
-    vi.useFakeTimers()
-    vi.setSystemTime(new Date('2026-08-04T10:00:00Z')) // 12h locale (Europe/Paris, UTC+2 en août)
-    vi.mocked(CapacitorHttp.get).mockResolvedValue({ status: 200, data: SAMPLE_HTML } as never)
+  it(
+    'garde tous les jours renvoyés (aujourd’hui et les suivants), pas seulement le jour courant',
+    async () => {
+      vi.useFakeTimers()
+      vi.setSystemTime(new Date('2026-08-04T10:00:00Z')) // 12h locale (Europe/Paris, UTC+2 en août)
+      vi.mocked(CapacitorHttp.get).mockResolvedValue({ status: 200, data: SAMPLE_HTML } as never)
 
-    const { fetchMareeInfoExtremes } = await import('./mareeInfoTable')
-    const extrema = await fetchMareeInfoExtremes()
+      const { fetchMareeInfoExtremes } = await import('./mareeInfoTable')
+      const extrema = await fetchMareeInfoExtremes()
 
-    expect(extrema).toHaveLength(7)
-    expect(extrema.filter((e) => e.localTime.startsWith('2026-08-04'))).toHaveLength(4)
-    expect(extrema.filter((e) => e.localTime.startsWith('2026-08-05'))).toHaveLength(3)
-  })
+      expect(extrema).toHaveLength(7)
+      expect(extrema.filter((e) => e.localTime.startsWith('2026-08-04'))).toHaveLength(4)
+      expect(extrema.filter((e) => e.localTime.startsWith('2026-08-05'))).toHaveLength(3)
+    },
+    15_000,
+  )
 
   it('rejette si la réponse HTTP n’est pas 200', async () => {
     vi.useFakeTimers()

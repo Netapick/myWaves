@@ -7,6 +7,26 @@ Toutes les évolutions notables de myWaves sont listées ici, par version.
 > déjà distribués ; ils pointent tous sur le même commit initial et ne
 > reflètent donc pas l'état réel du code à l'époque de chaque version.
 
+## 1.4.5 — 2026-08-25
+
+- Détection des étales revue en profondeur : ancrée sur les extrema de marée
+  (fiable même sur les sites à courant faible comme Saint-Cast) plutôt que sur
+  un simple seuil de vitesse. Toutes les étales sont désormais affichées sur
+  le graphique (plus une seule), chacune avec sa durée quand elle est
+  significative, et « Prochaine étale » réaffiche l'heure.
+- Couverture du courant de marée étendue à ~570 points le long du littoral
+  français (marinas, ports, communes côtières), au lieu des seuls spots
+  choisis à la main : rechercher n'importe quel lieu ou cliquer sur la carte
+  donne désormais une vraie donnée de courant (recherche du point d'atlas
+  MARC le plus proche), avec repli propre au-delà de 8 km de couverture.
+- Ajout d'un point personnalisé en cliquant sur la carte, avec nom modifiable
+  après coup. La recherche de lieu et le clic sur la carte ne font plus que
+  prévisualiser un spot : il faut désormais l'étoile ★ pour l'ajouter
+  vraiment aux favoris. Retirer un favori ramène à la liste des spots.
+- Édition desktop : abandon d'Electron au profit exclusif de Tauri (plus
+  léger). Les liens externes s'ouvrent enfin dans le navigateur système sur
+  desktop.
+
 ## 1.2.0 — 2026-08-05
 
 - Nouvelles éditions **desktop Windows** : Electron et Tauri (installeur

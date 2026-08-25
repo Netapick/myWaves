@@ -1,13 +1,13 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
   "productName": "myWaves",
-  "version": "1.4.0",
+  "version": "1.4.5",
   "identifier": "com.mywaves.desktop.tauri",
   "build": {
-    "frontendDist": "../dist-electron",
+    "frontendDist": "../dist-desktop",
     "devUrl": "http://localhost:5173",
     "beforeDevCommand": "npm run dev",
-    "beforeBuildCommand": "npm run build:electron"
+    "beforeBuildCommand": "npm run build:desktop"
   },
   "app": {
     "windows": [
@@ -25,7 +25,7 @@
   },
   "plugins": {
     "updater": {
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEI0NTM2N0FENUIwRTU1QkUKUldTK1ZRNWJyV2RUdE9GcW5ienFTSWcxRVQ2OEJmUlROck5RZTc3ZlNVVEsvM0FwdFVDTjRNaEwK",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEFBQTcyMzZEMjMyREVDNTkKUldSWjdDMGpiU09ucWo4N044WFBnNU5mdlZzcjhQNGpMK3k4WjBIT3NmUWs4blcvVFM3NlF4L1oK",
       "endpoints": [
         "https://github.com/Netapick/myWaves/releases/latest/download/latest.json"
       ]

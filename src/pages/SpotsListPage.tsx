@@ -1,14 +1,14 @@
 import { useMemo, useState } from 'react'
 import type { FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
+import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet'
 import L from 'leaflet'
 import { Geolocation } from '@capacitor/geolocation'
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png'
 import markerIcon from 'leaflet/dist/images/marker-icon.png'
 import markerShadow from 'leaflet/dist/images/marker-shadow.png'
 import { SEED_SPOTS, type Spot } from '../domain/spot'
-import { addFavoriteSpot, useFavoriteSpots } from '../hooks/useFavoriteSpots'
+import { useFavoriteSpots } from '../hooks/useFavoriteSpots'
 import { reverseGeocode, searchPlaces, type GeocodeResult } from '../api/geocode'
 
 // react-leaflet ne résout pas les icônes par défaut via le bundler sans ce correctif.
@@ -33,6 +33,26 @@ function spotFromGeocodeResult(result: GeocodeResult): Spot {
     // (typiquement département + région) comme sous-titre, sans l'adresse complète.
     region: result.displayName.split(',').slice(1, 3).join(',').trim(),
   }
+}
+
+interface PendingPoint {
+  lat: number
+  lon: number
+  name: string
+  region: string
+}
+
+/** Capture les clics sur la carte pour placer un point personnalisé — doit être monté À
+ * L'INTÉRIEUR de <MapContainer> (useMapEvents a besoin du contexte carte de react-leaflet).
+ * Ne rend rien lui-même : le marqueur temporaire est géré par le parent (SpotsListPage),
+ * pour partager son état avec le formulaire de nommage dans la Popup. */
+function MapClickCapture({ onPick }: { onPick: (lat: number, lon: number) => void }) {
+  useMapEvents({
+    click(e) {
+      onPick(e.latlng.lat, e.latlng.lng)
+    },
+  })
+  return null
 }
 
 /** Traduit les erreurs de géolocalisation natives (souvent en anglais) en français. */
@@ -62,6 +82,7 @@ export function SpotsListPage() {
   const [placeBusy, setPlaceBusy] = useState(false)
   const [placeError, setPlaceError] = useState<string | null>(null)
   const [myPositionBusy, setMyPositionBusy] = useState(false)
+  const [pendingPoint, setPendingPoint] = useState<PendingPoint | null>(null)
   const navigate = useNavigate()
 
   const allSpots = useMemo<Spot[]>(() => {
@@ -89,12 +110,14 @@ export function SpotsListPage() {
     }
   }
 
-  const handleAddPlace = async (result: GeocodeResult) => {
+  // Consulte le spot SANS l'enregistrer comme favori (même logique que "Ma position" plus
+  // bas) : l'utilisateur décide lui-même via l'étoile sur la page du spot s'il veut le
+  // garder — une recherche ne doit pas remplir la liste de favoris toute seule.
+  const handleViewPlace = (result: GeocodeResult) => {
     const spot = spotFromGeocodeResult(result)
-    await addFavoriteSpot(spot)
     setPlaceResults([])
     setPlaceQuery('')
-    navigate(`/spots/${spot.id}`)
+    navigate(`/spots/${spot.id}`, { state: { previewSpot: spot } })
   }
 
   // Géolocalise puis identifie le nom du lieu (reverse geocoding) pour afficher direct-
@@ -128,12 +151,40 @@ export function SpotsListPage() {
     }
   }
 
+  // Clic sur la carte : place un point provisoire tout de suite (retour visuel immédiat),
+  // puis tente un reverse geocoding pour suggérer un nom — best-effort, l'utilisateur peut
+  // de toute façon corriger le nom avant de confirmer (voir la Popup du marqueur provisoire).
+  const handleMapPick = async (lat: number, lon: number) => {
+    setPendingPoint({ lat, lon, name: '', region: '' })
+    try {
+      const result = await reverseGeocode(lat, lon)
+      setPendingPoint({ lat, lon, name: result.name, region: result.displayName.split(',').slice(1, 3).join(',').trim() })
+    } catch {
+      // Nom laissé vide : l'utilisateur le saisit lui-même dans la Popup.
+    }
+  }
+
+  // Consulte le point cliqué SANS l'enregistrer comme favori (même logique que la recherche
+  // de lieu et que "Ma position") — seule l'étoile sur la page du spot l'ajoute pour de bon.
+  const handleConfirmPendingPoint = () => {
+    if (!pendingPoint) return
+    const spot: Spot = {
+      id: `custom-${Date.now()}`,
+      name: pendingPoint.name.trim() || 'Nouveau spot',
+      latitude: pendingPoint.lat,
+      longitude: pendingPoint.lon,
+      region: pendingPoint.region,
+    }
+    setPendingPoint(null)
+    navigate(`/spots/${spot.id}`, { state: { previewSpot: spot } })
+  }
+
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-xl font-semibold">Mes spots</h1>
 
       <form onSubmit={handleSearchPlace} className="flex flex-col gap-2">
-        <label className="text-sm font-semibold text-(--color-text-muted)">Ajouter un lieu ou site de plongée</label>
+        <label className="text-sm font-semibold text-(--color-text-muted)">Chercher un lieu ou site de plongée</label>
         <div className="flex flex-col gap-2 sm:flex-row">
           <input
             type="search"
@@ -185,11 +236,11 @@ export function SpotsListPage() {
               </div>
               <button
                 type="button"
-                onClick={() => handleAddPlace(r)}
+                onClick={() => handleViewPlace(r)}
                 className="whitespace-nowrap rounded-md border px-2 py-1 text-xs"
                 style={{ borderColor: 'var(--color-border)' }}
               >
-                + Ajouter
+                Consulter
               </button>
             </li>
           ))}
@@ -205,12 +256,17 @@ export function SpotsListPage() {
         style={{ borderColor: 'var(--color-border)', background: 'var(--color-surface)' }}
       />
 
+      <p className="text-xs text-(--color-text-muted)">
+        Clique sur la carte pour consulter les conditions à cet endroit précis (étoile sur la page du spot pour le
+        garder en favori).
+      </p>
       <div className="h-80 overflow-hidden rounded-lg border" style={{ borderColor: 'var(--color-border)' }}>
         <MapContainer center={[47.5, -2.5]} zoom={6} scrollWheelZoom={false}>
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
+          <MapClickCapture onPick={handleMapPick} />
           {filtered.map((spot) => (
             <Marker key={spot.id} position={[spot.latitude, spot.longitude]}>
               <Popup>
@@ -218,6 +274,54 @@ export function SpotsListPage() {
               </Popup>
             </Marker>
           ))}
+          {pendingPoint && (
+            // La Popup d'un Marker ne s'ouvre pas seule (comportement Leaflet standard, il
+            // faut cliquer le marqueur) — on force l'ouverture via la ref dès le montage,
+            // pour que le formulaire de nommage apparaisse tout de suite après le clic.
+            <Marker
+              position={[pendingPoint.lat, pendingPoint.lon]}
+              ref={(marker) => {
+                marker?.openPopup()
+              }}
+            >
+              <Popup autoClose={false} closeOnClick={false}>
+                {/* Sans stopPropagation, un clic sur les boutons ci-dessous remonte jusqu'à
+                    la carte (Leaflet ne désactive pas la propagation pour les événements
+                    synthétiques React) : ça rouvre un nouveau point pile là où on vient de
+                    cliquer "Annuler", qui semble alors ne rien faire. */}
+                <form
+                  onClick={(e) => e.stopPropagation()}
+                  onSubmit={(e) => {
+                    e.preventDefault()
+                    handleConfirmPendingPoint()
+                  }}
+                  className="flex flex-col gap-1"
+                >
+                  <input
+                    autoFocus
+                    placeholder={pendingPoint.name ? undefined : 'Recherche du nom…'}
+                    value={pendingPoint.name}
+                    onChange={(e) => setPendingPoint({ ...pendingPoint, name: e.target.value })}
+                    className="rounded border px-1.5 py-1 text-sm"
+                    style={{ borderColor: 'var(--color-border)' }}
+                  />
+                  <div className="flex gap-1">
+                    <button type="submit" className="flex-1 rounded border px-2 py-1 text-xs" style={{ borderColor: 'var(--color-border)' }}>
+                      Consulter ce point
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setPendingPoint(null)}
+                      className="rounded border px-2 py-1 text-xs"
+                      style={{ borderColor: 'var(--color-border)' }}
+                    >
+                      Annuler
+                    </button>
+                  </div>
+                </form>
+              </Popup>
+            </Marker>
+          )}
         </MapContainer>
       </div>
 

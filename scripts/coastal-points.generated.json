@@ -1,0 +1,3985 @@
+[
+  {
+    "name": "Andernos-les-Bains",
+    "lat": 44.7476897,
+    "lon": -1.0925184,
+    "region": "AQUI",
+    "distanceKm": 1.3118965425821283
+  },
+  {
+    "name": "Anglet",
+    "lat": 43.4813927,
+    "lon": -1.5149935,
+    "region": "AQUI",
+    "distanceKm": 3.192063556095805
+  },
+  {
+    "name": "Angoulins",
+    "lat": 46.1049651,
+    "lon": -1.1093352,
+    "region": "AQUI",
+    "distanceKm": 0.6311670630958659
+  },
+  {
+    "name": "Arbonne",
+    "lat": 43.4329374,
+    "lon": -1.5520445,
+    "region": "AQUI",
+    "distanceKm": 3.5164995426983694
+  },
+  {
+    "name": "Arces",
+    "lat": 45.5535505,
+    "lon": -0.8600576,
+    "region": "AQUI",
+    "distanceKm": 3.5732492026643823
+  },
+  {
+    "name": "Arès",
+    "lat": 44.767644,
+    "lon": -1.1379928,
+    "region": "AQUI",
+    "distanceKm": 1.0092335839615567
+  },
+  {
+    "name": "Ars-en-Ré",
+    "lat": 46.208056,
+    "lon": -1.515833,
+    "region": "AQUI",
+    "distanceKm": 1.1028722145732617
+  },
+  {
+    "name": "Aytré",
+    "lat": 46.1333325,
+    "lon": -1.1146694,
+    "region": "AQUI",
+    "distanceKm": 1.5258970462460555
+  },
+  {
+    "name": "Barzan",
+    "lat": 45.5260122,
+    "lon": -0.8549253,
+    "region": "AQUI",
+    "distanceKm": 1.5329080954637992
+  },
+  {
+    "name": "Biarritz",
+    "lat": 43.4832523,
+    "lon": -1.5592776,
+    "region": "AQUI",
+    "distanceKm": 0.4528794380930664
+  },
+  {
+    "name": "Bidart",
+    "lat": 43.4391702,
+    "lon": -1.5898909,
+    "region": "AQUI",
+    "distanceKm": 0.3919620503283859
+  },
+  {
+    "name": "Biganos",
+    "lat": 44.642014,
+    "lon": -0.9766226,
+    "region": "AQUI",
+    "distanceKm": 2.6649714949539822
+  },
+  {
+    "name": "Bourcefranc-le-Chapus",
+    "lat": 45.8469846,
+    "lon": -1.1466191,
+    "region": "AQUI",
+    "distanceKm": 0.9129880463225061
+  },
+  {
+    "name": "Boyardville",
+    "lat": 45.9662821,
+    "lon": -1.24303,
+    "region": "AQUI",
+    "distanceKm": 0.6474745374108323
+  },
+  {
+    "name": "Brem-sur-Mer",
+    "lat": 46.6055556,
+    "lon": -1.8297222,
+    "region": "AQUI",
+    "distanceKm": 2.113924768659981
+  },
+  {
+    "name": "Bretignolles-sur-Mer",
+    "lat": 46.6286111,
+    "lon": -1.8538889,
+    "region": "AQUI",
+    "distanceKm": 1.8195986970625317
+  },
+  {
+    "name": "Breuil-Magné",
+    "lat": 45.9839283,
+    "lon": -0.9584142,
+    "region": "AQUI",
+    "distanceKm": 3.043862806864172
+  },
+  {
+    "name": "Brouage",
+    "lat": 45.8663772,
+    "lon": -1.0700753,
+    "region": "AQUI",
+    "distanceKm": 2.904203797903118
+  },
+  {
+    "name": "Capbreton",
+    "lat": 43.6403659,
+    "lon": -1.4315213,
+    "region": "AQUI",
+    "distanceKm": 1.4591698037431655
+  },
+  {
+    "name": "Centre Nautique du Coureau d'Oléron",
+    "lat": 45.82975,
+    "lon": -1.1959903,
+    "region": "AQUI",
+    "distanceKm": 0.20130469147252328
+  },
+  {
+    "name": "Charron",
+    "lat": 46.295278,
+    "lon": -1.105,
+    "region": "AQUI",
+    "distanceKm": 1.6388557304715028
+  },
+  {
+    "name": "Châtelaillon-Plage",
+    "lat": 46.0738633,
+    "lon": -1.0903991,
+    "region": "AQUI",
+    "distanceKm": 0.586807639680483
+  },
+  {
+    "name": "Domino",
+    "lat": 45.9731188,
+    "lon": -1.3787789,
+    "region": "AQUI",
+    "distanceKm": 1.1557031440747894
+  },
+  {
+    "name": "Esnandes",
+    "lat": 46.250253,
+    "lon": -1.1134192,
+    "region": "AQUI",
+    "distanceKm": 1.417870501126051
+  },
+  {
+    "name": "Floirac",
+    "lat": 45.4772347,
+    "lon": -0.7484051,
+    "region": "AQUI",
+    "distanceKm": 3.8635102358549216
+  },
+  {
+    "name": "Givrand",
+    "lat": 46.6722222,
+    "lon": -1.8836111,
+    "region": "AQUI",
+    "distanceKm": 2.7629451345950096
+  },
+  {
+    "name": "Halte nautique",
+    "lat": 44.2090906,
+    "lon": -1.2909556,
+    "region": "AQUI",
+    "distanceKm": 0.8335324078883439
+  },
+  {
+    "name": "Hendaye",
+    "lat": 43.3641518,
+    "lon": -1.7616499,
+    "region": "AQUI",
+    "distanceKm": 1.4367773099858523
+  },
+  {
+    "name": "Île-d'Aix",
+    "lat": 46.0121794,
+    "lon": -1.1737893,
+    "region": "AQUI",
+    "distanceKm": 0.43224926518318185
+  },
+  {
+    "name": "Jau-Dignac-et-Loirac",
+    "lat": 45.4079954,
+    "lon": -0.9583826,
+    "region": "AQUI",
+    "distanceKm": 3.7543972806846835
+  },
+  {
+    "name": "L'Houmeau",
+    "lat": 46.1906042,
+    "lon": -1.1870102,
+    "region": "AQUI",
+    "distanceKm": 1.28830301727815
+  },
+  {
+    "name": "La Cotinière",
+    "lat": 45.9164042,
+    "lon": -1.3305321,
+    "region": "AQUI",
+    "distanceKm": 0.40154250668308855
+  },
+  {
+    "name": "La Couarde-sur-Mer",
+    "lat": 46.1941088,
+    "lon": -1.4246132,
+    "region": "AQUI",
+    "distanceKm": 0.7569729676337725
+  },
+  {
+    "name": "La Dive",
+    "lat": 46.3037565,
+    "lon": -1.2530884,
+    "region": "AQUI",
+    "distanceKm": 1.0887650524291892
+  },
+  {
+    "name": "La Flotte",
+    "lat": 46.1886242,
+    "lon": -1.325123,
+    "region": "AQUI",
+    "distanceKm": 0.289622062411006
+  },
+  {
+    "name": "La Guittière",
+    "lat": 46.4447647,
+    "lon": -1.6282167,
+    "region": "AQUI",
+    "distanceKm": 1.3082182513938807
+  },
+  {
+    "name": "La Noue",
+    "lat": 46.1553624,
+    "lon": -1.332324,
+    "region": "AQUI",
+    "distanceKm": 0.7053398455767642
+  },
+  {
+    "name": "La Palmyre",
+    "lat": 45.6912417,
+    "lon": -1.1776166,
+    "region": "AQUI",
+    "distanceKm": 1.0808086795148817
+  },
+  {
+    "name": "La Rochelle",
+    "lat": 46.159732,
+    "lon": -1.1515951,
+    "region": "AQUI",
+    "distanceKm": 0.9345814815302789
+  },
+  {
+    "name": "La Teste-de-Buch",
+    "lat": 44.6316943,
+    "lon": -1.1491319,
+    "region": "AQUI",
+    "distanceKm": 2.1284850150384598
+  },
+  {
+    "name": "La Tranche-sur-Mer",
+    "lat": 46.3440097,
+    "lon": -1.4380541,
+    "region": "AQUI",
+    "distanceKm": 0.42140162390779834
+  },
+  {
+    "name": "La Tremblade",
+    "lat": 45.7686998,
+    "lon": -1.1415773,
+    "region": "AQUI",
+    "distanceKm": 2.7782948675394024
+  },
+  {
+    "name": "Labenne",
+    "lat": 43.5977,
+    "lon": -1.42811,
+    "region": "AQUI",
+    "distanceKm": 3.443651833452361
+  },
+  {
+    "name": "Lanton",
+    "lat": 44.703858,
+    "lon": -1.0388076,
+    "region": "AQUI",
+    "distanceKm": 0.6732556921708749
+  },
+  {
+    "name": "Le Château-d'Oléron",
+    "lat": 45.8866143,
+    "lon": -1.1953301,
+    "region": "AQUI",
+    "distanceKm": 0.5379812131121873
+  },
+  {
+    "name": "Le Grand-Village-Plage",
+    "lat": 45.8610217,
+    "lon": -1.2356495,
+    "region": "AQUI",
+    "distanceKm": 1.7841823831874908
+  },
+  {
+    "name": "Le Penon",
+    "lat": 43.6934864,
+    "lon": -1.4329343,
+    "region": "AQUI",
+    "distanceKm": 0.8089312276315755
+  },
+  {
+    "name": "Le Verdon-sur-Mer",
+    "lat": 45.547543,
+    "lon": -1.0622993,
+    "region": "AQUI",
+    "distanceKm": 0.7154201869809157
+  },
+  {
+    "name": "Lège-Cap-Ferret",
+    "lat": 44.7951052,
+    "lon": -1.1472098,
+    "region": "AQUI",
+    "distanceKm": 2.851737716412584
+  },
+  {
+    "name": "Les Allards",
+    "lat": 45.9311603,
+    "lon": -1.2581608,
+    "region": "AQUI",
+    "distanceKm": 2.3852394298957473
+  },
+  {
+    "name": "Les Conches",
+    "lat": 46.3923067,
+    "lon": -1.4691702,
+    "region": "AQUI",
+    "distanceKm": 2.105611889663871
+  },
+  {
+    "name": "Les Portes-en-Ré",
+    "lat": 46.250833,
+    "lon": -1.497222,
+    "region": "AQUI",
+    "distanceKm": 0.7145608540086053
+  },
+  {
+    "name": "Les Sables-d'Olonne",
+    "lat": 46.4990505,
+    "lon": -1.7767859,
+    "region": "AQUI",
+    "distanceKm": 0.7566933436597194
+  },
+  {
+    "name": "Loix",
+    "lat": 46.2240177,
+    "lon": -1.4364756,
+    "region": "AQUI",
+    "distanceKm": 0.6876118116224225
+  },
+  {
+    "name": "Longeville-sur-Mer",
+    "lat": 46.4251677,
+    "lon": -1.488347,
+    "region": "AQUI",
+    "distanceKm": 3.215273596869325
+  },
+  {
+    "name": "Marennes",
+    "lat": 45.8210675,
+    "lon": -1.108208,
+    "region": "AQUI",
+    "distanceKm": 2.4603465084973686
+  },
+  {
+    "name": "Meschers-sur-Gironde",
+    "lat": 45.558105,
+    "lon": -0.9538537,
+    "region": "AQUI",
+    "distanceKm": 0.5360561229672867
+  },
+  {
+    "name": "Messanges",
+    "lat": 43.815079,
+    "lon": -1.3784085,
+    "region": "AQUI",
+    "distanceKm": 2.3802744461084004
+  },
+  {
+    "name": "Moliets-et-Maâ",
+    "lat": 43.8487438,
+    "lon": -1.359045,
+    "region": "AQUI",
+    "distanceKm": 3.015380268866566
+  },
+  {
+    "name": "Mortagne-sur-Gironde",
+    "lat": 45.4822422,
+    "lon": -0.7875322,
+    "region": "AQUI",
+    "distanceKm": 1.7427344210965952
+  },
+  {
+    "name": "Ondres",
+    "lat": 43.5651547,
+    "lon": -1.453883,
+    "region": "AQUI",
+    "distanceKm": 3.22540416864846
+  },
+  {
+    "name": "Pauillac",
+    "lat": 45.1995626,
+    "lon": -0.7484994,
+    "region": "AQUI",
+    "distanceKm": 2.3796035563760416
+  },
+  {
+    "name": "Petit Port",
+    "lat": 44.6616892,
+    "lon": -1.1527159,
+    "region": "AQUI",
+    "distanceKm": 0.03438782601860203
+  },
+  {
+    "name": "Port Bourgenay",
+    "lat": 46.4440156,
+    "lon": -1.6703321,
+    "region": "AQUI",
+    "distanceKm": 0.7312606014836649
+  },
+  {
+    "name": "Port de l'Épine",
+    "lat": 46.3287733,
+    "lon": -1.1153384,
+    "region": "AQUI",
+    "distanceKm": 1.8815422950124567
+  },
+  {
+    "name": "Port de la Cale",
+    "lat": 43.5225374,
+    "lon": -1.4904678,
+    "region": "AQUI",
+    "distanceKm": 2.6555128572216793
+  },
+  {
+    "name": "Port de la Mole",
+    "lat": 44.6438741,
+    "lon": -1.0525852,
+    "region": "AQUI",
+    "distanceKm": 0.31457057755489576
+  },
+  {
+    "name": "Port du Douhet",
+    "lat": 46.001499,
+    "lon": -1.3210759,
+    "region": "AQUI",
+    "distanceKm": 0.24680897453507739
+  },
+  {
+    "name": "Port du Virly",
+    "lat": 46.3230307,
+    "lon": -1.3064806,
+    "region": "AQUI",
+    "distanceKm": 0.3918325082689323
+  },
+  {
+    "name": "Port Sud",
+    "lat": 45.9837035,
+    "lon": -1.095076,
+    "region": "AQUI",
+    "distanceKm": 0.17123060472136747
+  },
+  {
+    "name": "Port-des-Barques",
+    "lat": 45.9485018,
+    "lon": -1.0780706,
+    "region": "AQUI",
+    "distanceKm": 0.2600889801946678
+  },
+  {
+    "name": "Rivedoux-Plage",
+    "lat": 46.1568361,
+    "lon": -1.2748439,
+    "region": "AQUI",
+    "distanceKm": 0.6384398119276512
+  },
+  {
+    "name": "Ronce-les-Bains",
+    "lat": 45.7962629,
+    "lon": -1.1628785,
+    "region": "AQUI",
+    "distanceKm": 0.6364608652161022
+  },
+  {
+    "name": "Royan",
+    "lat": 45.6245332,
+    "lon": -1.0287636,
+    "region": "AQUI",
+    "distanceKm": 0.5651666932636576
+  },
+  {
+    "name": "Saint-Augustin",
+    "lat": 45.678889,
+    "lon": -1.098056,
+    "region": "AQUI",
+    "distanceKm": 3.747400816297802
+  },
+  {
+    "name": "Saint-Christoly-Médoc",
+    "lat": 45.3546805,
+    "lon": -0.8292433,
+    "region": "AQUI",
+    "distanceKm": 1.1930476499115306
+  },
+  {
+    "name": "Saint-Clément-des-Baleines",
+    "lat": 46.228863,
+    "lon": -1.5426674,
+    "region": "AQUI",
+    "distanceKm": 0.716536517030263
+  },
+  {
+    "name": "Saint-Denis-d'Oléron",
+    "lat": 46.033611,
+    "lon": -1.3775,
+    "region": "AQUI",
+    "distanceKm": 0.6724751777073645
+  },
+  {
+    "name": "Saint-Estèphe",
+    "lat": 45.2642784,
+    "lon": -0.7706847,
+    "region": "AQUI",
+    "distanceKm": 1.2485091243556803
+  },
+  {
+    "name": "Saint-Froult",
+    "lat": 45.9188366,
+    "lon": -1.0568976,
+    "region": "AQUI",
+    "distanceKm": 1.7084137198916018
+  },
+  {
+    "name": "Saint-Georges-de-Didonne",
+    "lat": 45.6024886,
+    "lon": -0.997949,
+    "region": "AQUI",
+    "distanceKm": 0.6222607474802496
+  },
+  {
+    "name": "Saint-Gilles-Croix-de-Vie",
+    "lat": 46.692985,
+    "lon": -1.9254545,
+    "region": "AQUI",
+    "distanceKm": 1.2857374399106603
+  },
+  {
+    "name": "Saint-Hilaire-de-Riez",
+    "lat": 46.7199488,
+    "lon": -1.9461437,
+    "region": "AQUI",
+    "distanceKm": 2.7534516610440023
+  },
+  {
+    "name": "Saint-Laurent-de-la-Prée",
+    "lat": 45.981944,
+    "lon": -1.04,
+    "region": "AQUI",
+    "distanceKm": 2.3002115812086905
+  },
+  {
+    "name": "Saint-Martin-de-Ré",
+    "lat": 46.2016893,
+    "lon": -1.3681861,
+    "region": "AQUI",
+    "distanceKm": 0.72888881716424
+  },
+  {
+    "name": "Saint-Palais-sur-Mer",
+    "lat": 45.6428769,
+    "lon": -1.0859957,
+    "region": "AQUI",
+    "distanceKm": 0.6026810158660563
+  },
+  {
+    "name": "Saint-Seurin-d'Uzet",
+    "lat": 45.5023397,
+    "lon": -0.8335361,
+    "region": "AQUI",
+    "distanceKm": 0.550807704370954
+  },
+  {
+    "name": "Saint-Thomas-de-Conac",
+    "lat": 45.3876458,
+    "lon": -0.6866415,
+    "region": "AQUI",
+    "distanceKm": 3.9334720626692574
+  },
+  {
+    "name": "Saint-Vincent-sur-Jard",
+    "lat": 46.4160524,
+    "lon": -1.5482619,
+    "region": "AQUI",
+    "distanceKm": 1.0488359428424257
+  },
+  {
+    "name": "Saint-Yzans-de-Médoc",
+    "lat": 45.3225786,
+    "lon": -0.8215714,
+    "region": "AQUI",
+    "distanceKm": 2.445999156271612
+  },
+  {
+    "name": "Salles-sur-Mer",
+    "lat": 46.1049709,
+    "lon": -1.0571737,
+    "region": "AQUI",
+    "distanceKm": 3.8492065696802
+  },
+  {
+    "name": "Sauzelle",
+    "lat": 45.9692107,
+    "lon": -1.2943799,
+    "region": "AQUI",
+    "distanceKm": 2.2135894315757083
+  },
+  {
+    "name": "Socoa",
+    "lat": 43.3949351,
+    "lon": -1.6838447,
+    "region": "AQUI",
+    "distanceKm": 0.2991675206321565
+  },
+  {
+    "name": "Soubise",
+    "lat": 45.9262797,
+    "lon": -1.007683,
+    "region": "AQUI",
+    "distanceKm": 3.8702942382084995
+  },
+  {
+    "name": "Soulac-sur-Mer",
+    "lat": 45.513149,
+    "lon": -1.1228789,
+    "region": "AQUI",
+    "distanceKm": 0.8292027348703237
+  },
+  {
+    "name": "Talais",
+    "lat": 45.4706445,
+    "lon": -1.0593227,
+    "region": "AQUI",
+    "distanceKm": 3.4328579655756553
+  },
+  {
+    "name": "Talmont-sur-Gironde",
+    "lat": 45.5350413,
+    "lon": -0.9072627,
+    "region": "AQUI",
+    "distanceKm": 0.13655394901625736
+  },
+  {
+    "name": "Urrugne",
+    "lat": 43.3624715,
+    "lon": -1.7003017,
+    "region": "AQUI",
+    "distanceKm": 3.13363033370344
+  },
+  {
+    "name": "Valeyrac",
+    "lat": 45.3960861,
+    "lon": -0.8947997,
+    "region": "AQUI",
+    "distanceKm": 1.168466229053111
+  },
+  {
+    "name": "Vergeroux",
+    "lat": 45.9633855,
+    "lon": -0.9838675,
+    "region": "AQUI",
+    "distanceKm": 1.0307510418315018
+  },
+  {
+    "name": "Vieux-Boucau-les-Bains",
+    "lat": 43.7854047,
+    "lon": -1.4044029,
+    "region": "AQUI",
+    "distanceKm": 1.0303184275152162
+  },
+  {
+    "name": "Yves",
+    "lat": 46.0186887,
+    "lon": -1.0496286,
+    "region": "AQUI",
+    "distanceKm": 0.7068356390995165
+  },
+  {
+    "name": "Beuzec",
+    "lat": 47.8507478,
+    "lon": -4.3092826,
+    "region": "FINIS",
+    "distanceKm": 3.207242405677449
+  },
+  {
+    "name": "Beuzec-Cap-Sizun",
+    "lat": 48.0756527,
+    "lon": -4.5115232,
+    "region": "FINIS",
+    "distanceKm": 1.7552356666451685
+  },
+  {
+    "name": "Brélès",
+    "lat": 48.4778761,
+    "lon": -4.7142981,
+    "region": "FINIS",
+    "distanceKm": 3.791938492735373
+  },
+  {
+    "name": "Brignogan-Plages",
+    "lat": 48.6646534,
+    "lon": -4.3268166,
+    "region": "FINIS",
+    "distanceKm": 0.39798204630495876
+  },
+  {
+    "name": "Camaret-sur-Mer",
+    "lat": 48.2772747,
+    "lon": -4.5968963,
+    "region": "FINIS",
+    "distanceKm": 0.3381418726974334
+  },
+  {
+    "name": "Cléder",
+    "lat": 48.6612675,
+    "lon": -4.1039679,
+    "region": "FINIS",
+    "distanceKm": 3.6593600852164223
+  },
+  {
+    "name": "Concarneau",
+    "lat": 47.8757017,
+    "lon": -3.9223889,
+    "region": "FINIS",
+    "distanceKm": 0.8075657527033656
+  },
+  {
+    "name": "Corn Ar Gazel",
+    "lat": 48.5746207,
+    "lon": -4.6253277,
+    "region": "FINIS",
+    "distanceKm": 0.2236087181498216
+  },
+  {
+    "name": "Dirinon",
+    "lat": 48.3980187,
+    "lon": -4.2718991,
+    "region": "FINIS",
+    "distanceKm": 3.7623639391662724
+  },
+  {
+    "name": "Goulien",
+    "lat": 48.0559152,
+    "lon": -4.5931059,
+    "region": "FINIS",
+    "distanceKm": 2.4461766304316064
+  },
+  {
+    "name": "Goulven",
+    "lat": 48.6303229,
+    "lon": -4.3023695,
+    "region": "FINIS",
+    "distanceKm": 0.46026707297412695
+  },
+  {
+    "name": "Grouaneg",
+    "lat": 48.5913972,
+    "lon": -4.4622503,
+    "region": "FINIS",
+    "distanceKm": 3.9513929398446144
+  },
+  {
+    "name": "Guimaëc",
+    "lat": 48.66723,
+    "lon": -3.708354,
+    "region": "FINIS",
+    "distanceKm": 2.688186449487746
+  },
+  {
+    "name": "Guissény",
+    "lat": 48.6342787,
+    "lon": -4.409954,
+    "region": "FINIS",
+    "distanceKm": 0.5204145803503271
+  },
+  {
+    "name": "Île-de-Batz",
+    "lat": 48.74465,
+    "lon": -4.0131095,
+    "region": "FINIS",
+    "distanceKm": 0.22707966527255405
+  },
+  {
+    "name": "Île-de-Sein",
+    "lat": 48.0368188,
+    "lon": -4.8510835,
+    "region": "FINIS",
+    "distanceKm": 0.43611928302298286
+  },
+  {
+    "name": "Île-Tudy",
+    "lat": 47.8427124,
+    "lon": -4.1679541,
+    "region": "FINIS",
+    "distanceKm": 0.2792875949850247
+  },
+  {
+    "name": "Keremma",
+    "lat": 48.6431368,
+    "lon": -4.2528339,
+    "region": "FINIS",
+    "distanceKm": 0.8371075045799492
+  },
+  {
+    "name": "Kerlaz",
+    "lat": 48.0912954,
+    "lon": -4.2719988,
+    "region": "FINIS",
+    "distanceKm": 1.9917864399514507
+  },
+  {
+    "name": "Kerlouan",
+    "lat": 48.644456,
+    "lon": -4.3637438,
+    "region": "FINIS",
+    "distanceKm": 2.682960861802847
+  },
+  {
+    "name": "L'Hôpital-Camfrout",
+    "lat": 48.3276782,
+    "lon": -4.2447145,
+    "region": "FINIS",
+    "distanceKm": 2.568591157302006
+  },
+  {
+    "name": "La Forest-Landerneau",
+    "lat": 48.4279152,
+    "lon": -4.3177287,
+    "region": "FINIS",
+    "distanceKm": 1.0873957780530028
+  },
+  {
+    "name": "Lambell",
+    "lat": 47.8463223,
+    "lon": -3.8663421,
+    "region": "FINIS",
+    "distanceKm": 2.156663557165825
+  },
+  {
+    "name": "Landévennec",
+    "lat": 48.292629,
+    "lon": -4.2679655,
+    "region": "FINIS",
+    "distanceKm": 0.4388897726145293
+  },
+  {
+    "name": "Lannilis",
+    "lat": 48.569633,
+    "lon": -4.5215472,
+    "region": "FINIS",
+    "distanceKm": 3.7678399393153987
+  },
+  {
+    "name": "Le Guilvinec",
+    "lat": 47.795376,
+    "lon": -4.2833195,
+    "region": "FINIS",
+    "distanceKm": 0.3973856000614472
+  },
+  {
+    "name": "Le Passage",
+    "lat": 48.3930926,
+    "lon": -4.3806448,
+    "region": "FINIS",
+    "distanceKm": 0.038089044415411985
+  },
+  {
+    "name": "Lesconil",
+    "lat": 47.7984846,
+    "lon": -4.2140485,
+    "region": "FINIS",
+    "distanceKm": 0.4138375601453285
+  },
+  {
+    "name": "Locmaria-Plouzané",
+    "lat": 48.3747011,
+    "lon": -4.6444051,
+    "region": "FINIS",
+    "distanceKm": 3.1440842029630067
+  },
+  {
+    "name": "Loperhet",
+    "lat": 48.3754847,
+    "lon": -4.3065629,
+    "region": "FINIS",
+    "distanceKm": 2.3248488154644567
+  },
+  {
+    "name": "Marina du Moulin Blanc",
+    "lat": 48.3918972,
+    "lon": -4.4284022,
+    "region": "FINIS",
+    "distanceKm": 0.10696507807516133
+  },
+  {
+    "name": "Moguériec",
+    "lat": 48.6900365,
+    "lon": -4.0810488,
+    "region": "FINIS",
+    "distanceKm": 0.29863135146405667
+  },
+  {
+    "name": "Morgat",
+    "lat": 48.2263236,
+    "lon": -4.5052705,
+    "region": "FINIS",
+    "distanceKm": 0.520005482324568
+  },
+  {
+    "name": "Mouillage collectif du Kelenn",
+    "lat": 48.6707717,
+    "lon": -3.9091748,
+    "region": "FINIS",
+    "distanceKm": 0.048524847869185206
+  },
+  {
+    "name": "Mouillage de Lanvéoc",
+    "lat": 48.2936797,
+    "lon": -4.4578528,
+    "region": "FINIS",
+    "distanceKm": 0.2579587696705381
+  },
+  {
+    "name": "Penhors",
+    "lat": 47.9413758,
+    "lon": -4.4031081,
+    "region": "FINIS",
+    "distanceKm": 0.46594016679298295
+  },
+  {
+    "name": "Penmarc'h",
+    "lat": 47.8126044,
+    "lon": -4.3377655,
+    "region": "FINIS",
+    "distanceKm": 1.611182293997737
+  },
+  {
+    "name": "Pentrez",
+    "lat": 48.196627,
+    "lon": -4.3026628,
+    "region": "FINIS",
+    "distanceKm": 0.3131129213681587
+  },
+  {
+    "name": "Perguet",
+    "lat": 47.877925,
+    "lon": -4.0470093,
+    "region": "FINIS",
+    "distanceKm": 2.6175776811740845
+  },
+  {
+    "name": "Ploéven",
+    "lat": 48.1571549,
+    "lon": -4.2333681,
+    "region": "FINIS",
+    "distanceKm": 3.195371479890709
+  },
+  {
+    "name": "Plouarzel",
+    "lat": 48.433792,
+    "lon": -4.7309245,
+    "region": "FINIS",
+    "distanceKm": 3.989275334489811
+  },
+  {
+    "name": "Ploudalmézeau",
+    "lat": 48.5410278,
+    "lon": -4.6576826,
+    "region": "FINIS",
+    "distanceKm": 3.528825478677867
+  },
+  {
+    "name": "Plouescat",
+    "lat": 48.6572057,
+    "lon": -4.1743159,
+    "region": "FINIS",
+    "distanceKm": 2.0313751298527922
+  },
+  {
+    "name": "Plougonvelin",
+    "lat": 48.3415116,
+    "lon": -4.7192399,
+    "region": "FINIS",
+    "distanceKm": 1.4041435570934646
+  },
+  {
+    "name": "Plouhinec",
+    "lat": 48.0153626,
+    "lon": -4.4877863,
+    "region": "FINIS",
+    "distanceKm": 1.9663941174945152
+  },
+  {
+    "name": "Plounévez-Lochrist",
+    "lat": 48.6174675,
+    "lon": -4.2110063,
+    "region": "FINIS",
+    "distanceKm": 3.6790621270123296
+  },
+  {
+    "name": "Plovan",
+    "lat": 47.915713,
+    "lon": -4.361785,
+    "region": "FINIS",
+    "distanceKm": 1.5691432826176765
+  },
+  {
+    "name": "Pont-l'Abbé",
+    "lat": 47.86592,
+    "lon": -4.2208461,
+    "region": "FINIS",
+    "distanceKm": 2.403934243691387
+  },
+  {
+    "name": "Pors Ar Stréat",
+    "lat": 48.6687407,
+    "lon": -4.2119139,
+    "region": "FINIS",
+    "distanceKm": 0.31129263400813756
+  },
+  {
+    "name": "Pors Beac'h",
+    "lat": 48.3375627,
+    "lon": -4.3004304,
+    "region": "FINIS",
+    "distanceKm": 0.20547883534553357
+  },
+  {
+    "name": "Port d'Argenton",
+    "lat": 48.5221494,
+    "lon": -4.7629237,
+    "region": "FINIS",
+    "distanceKm": 0.23856414668976303
+  },
+  {
+    "name": "Port de Daoulas",
+    "lat": 48.3586832,
+    "lon": -4.2622955,
+    "region": "FINIS",
+    "distanceKm": 1.635621623139135
+  },
+  {
+    "name": "Port de Lampaul",
+    "lat": 48.4547314,
+    "lon": -5.096257,
+    "region": "FINIS",
+    "distanceKm": 0.33213544520483923
+  },
+  {
+    "name": "Port de Molène",
+    "lat": 48.3977435,
+    "lon": -4.9548505,
+    "region": "FINIS",
+    "distanceKm": 0.29083512268511463
+  },
+  {
+    "name": "Port de pêche de Porscaff",
+    "lat": 48.4681583,
+    "lon": -4.7571071,
+    "region": "FINIS",
+    "distanceKm": 0.5750551435684884
+  },
+  {
+    "name": "Port de Perros",
+    "lat": 48.6017271,
+    "lon": -4.5489831,
+    "region": "FINIS",
+    "distanceKm": 0.11981769292149409
+  },
+  {
+    "name": "Port de Porspaul",
+    "lat": 48.4395355,
+    "lon": -4.7788921,
+    "region": "FINIS",
+    "distanceKm": 0.44104414872951586
+  },
+  {
+    "name": "Port de Roscanvel",
+    "lat": 48.3140641,
+    "lon": -4.5451112,
+    "region": "FINIS",
+    "distanceKm": 0.2322195388615031
+  },
+  {
+    "name": "Port de Saint-Guénolé",
+    "lat": 47.8148894,
+    "lon": -4.3783651,
+    "region": "FINIS",
+    "distanceKm": 0.3287399097217078
+  },
+  {
+    "name": "Port de Trémazan",
+    "lat": 48.5580628,
+    "lon": -4.7160071,
+    "region": "FINIS",
+    "distanceKm": 0.1587029876498251
+  },
+  {
+    "name": "Port du Conquet",
+    "lat": 48.3599416,
+    "lon": -4.7796539,
+    "region": "FINIS",
+    "distanceKm": 0.36988302378444765
+  },
+  {
+    "name": "Port du Correjou",
+    "lat": 48.6285602,
+    "lon": -4.5064127,
+    "region": "FINIS",
+    "distanceKm": 0.14247524641307915
+  },
+  {
+    "name": "Port du Dourduff",
+    "lat": 48.6290846,
+    "lon": -3.8455605,
+    "region": "FINIS",
+    "distanceKm": 0.1694009709014308
+  },
+  {
+    "name": "Port du Faou",
+    "lat": 48.2964749,
+    "lon": -4.1859284,
+    "region": "FINIS",
+    "distanceKm": 0.4230692401708634
+  },
+  {
+    "name": "Port du Fret",
+    "lat": 48.2863867,
+    "lon": -4.5042321,
+    "region": "FINIS",
+    "distanceKm": 0.1329284967350977
+  },
+  {
+    "name": "Port du Stiff",
+    "lat": 48.4690439,
+    "lon": -5.0550366,
+    "region": "FINIS",
+    "distanceKm": 0.15903791076539794
+  },
+  {
+    "name": "Port du Tinduff",
+    "lat": 48.3357821,
+    "lon": -4.3670918,
+    "region": "FINIS",
+    "distanceKm": 0.288252203826801
+  },
+  {
+    "name": "Port Militaire",
+    "lat": 48.3709366,
+    "lon": -4.5054813,
+    "region": "FINIS",
+    "distanceKm": 0.03745375807740927
+  },
+  {
+    "name": "Port-Abri du Vorlen",
+    "lat": 48.0523729,
+    "lon": -4.7125914,
+    "region": "FINIS",
+    "distanceKm": 0.1870318582601122
+  },
+  {
+    "name": "Port-la-Forêt",
+    "lat": 47.9011029,
+    "lon": -3.9706175,
+    "region": "FINIS",
+    "distanceKm": 0.7169327174254629
+  },
+  {
+    "name": "Porz Meur",
+    "lat": 48.3310288,
+    "lon": -4.4501224,
+    "region": "FINIS",
+    "distanceKm": 0.1815881273115579
+  },
+  {
+    "name": "Porzh Loubous",
+    "lat": 48.0251049,
+    "lon": -4.6633296,
+    "region": "FINIS",
+    "distanceKm": 0.13471787729236767
+  },
+  {
+    "name": "Porzh Poulc'han",
+    "lat": 47.9852338,
+    "lon": -4.4631848,
+    "region": "FINIS",
+    "distanceKm": 0.23623705206625695
+  },
+  {
+    "name": "Pouldreuzic",
+    "lat": 47.9546691,
+    "lon": -4.3600721,
+    "region": "FINIS",
+    "distanceKm": 3.769498607641031
+  },
+  {
+    "name": "Poulgoazec",
+    "lat": 48.0183244,
+    "lon": -4.5314827,
+    "region": "FINIS",
+    "distanceKm": 1.0340453652937471
+  },
+  {
+    "name": "Poullan-sur-Mer",
+    "lat": 48.0803295,
+    "lon": -4.4144643,
+    "region": "FINIS",
+    "distanceKm": 2.6674368096317167
+  },
+  {
+    "name": "Primelin",
+    "lat": 48.0254591,
+    "lon": -4.6109181,
+    "region": "FINIS",
+    "distanceKm": 1.1813210489142596
+  },
+  {
+    "name": "Rosmeur",
+    "lat": 48.0987908,
+    "lon": -4.322106,
+    "region": "FINIS",
+    "distanceKm": 0.18919141260990308
+  },
+  {
+    "name": "Rosnoën",
+    "lat": 48.2639592,
+    "lon": -4.1954004,
+    "region": "FINIS",
+    "distanceKm": 3.340593616195792
+  },
+  {
+    "name": "Saint-Hernot",
+    "lat": 48.2037144,
+    "lon": -4.5298957,
+    "region": "FINIS",
+    "distanceKm": 1.3026619647934967
+  },
+  {
+    "name": "Saint-Philibert",
+    "lat": 47.8053502,
+    "lon": -3.832204,
+    "region": "FINIS",
+    "distanceKm": 1.1588188992620923
+  },
+  {
+    "name": "Saint-Pol-de-Léon",
+    "lat": 48.6849601,
+    "lon": -3.9868641,
+    "region": "FINIS",
+    "distanceKm": 1.537299440196091
+  },
+  {
+    "name": "Tal ar Groas",
+    "lat": 48.2482858,
+    "lon": -4.4182903,
+    "region": "FINIS",
+    "distanceKm": 2.497427856903984
+  },
+  {
+    "name": "Telgruc-sur-Mer",
+    "lat": 48.2315385,
+    "lon": -4.3570296,
+    "region": "FINIS",
+    "distanceKm": 2.312226375547019
+  },
+  {
+    "name": "Térénez",
+    "lat": 48.6782097,
+    "lon": -3.8465345,
+    "region": "FINIS",
+    "distanceKm": 0.38328824893675567
+  },
+  {
+    "name": "Trébabu",
+    "lat": 48.370346,
+    "lon": -4.735298,
+    "region": "FINIS",
+    "distanceKm": 2.169877492465079
+  },
+  {
+    "name": "Tréfeuntec",
+    "lat": 48.1282578,
+    "lon": -4.2699612,
+    "region": "FINIS",
+    "distanceKm": 0.8056864792340119
+  },
+  {
+    "name": "Tréguennec",
+    "lat": 47.890602,
+    "lon": -4.333023,
+    "region": "FINIS",
+    "distanceKm": 2.5595340734683236
+  },
+  {
+    "name": "Tréméoc",
+    "lat": 47.905719,
+    "lon": -4.211824,
+    "region": "FINIS",
+    "distanceKm": 3.7080205334053282
+  },
+  {
+    "name": "Audresselles",
+    "lat": 50.8241806,
+    "lon": 1.5957355,
+    "region": "MANE",
+    "distanceKm": 0.6342656796269464
+  },
+  {
+    "name": "Ault",
+    "lat": 50.1015635,
+    "lon": 1.4473006,
+    "region": "MANE",
+    "distanceKm": 0.3119095265458302
+  },
+  {
+    "name": "Avant-port",
+    "lat": 49.7623986,
+    "lon": 0.3666865,
+    "region": "MANE",
+    "distanceKm": 0.4702148214097484
+  },
+  {
+    "name": "Banville",
+    "lat": 49.3126421,
+    "lon": -0.4897293,
+    "region": "MANE",
+    "distanceKm": 3.225602170192133
+  },
+  {
+    "name": "Bassin de l'Atlantique",
+    "lat": 51.0121366,
+    "lon": 2.1767553,
+    "region": "MANE",
+    "distanceKm": 0.08045923958729845
+  },
+  {
+    "name": "Bassin Maritime",
+    "lat": 51.0473242,
+    "lon": 2.2938992,
+    "region": "MANE",
+    "distanceKm": 0.3388246921803745
+  },
+  {
+    "name": "Baudre",
+    "lat": 49.0895953,
+    "lon": -1.0723745,
+    "region": "MANE",
+    "distanceKm": 2.2361285260820587
+  },
+  {
+    "name": "Belbeuf",
+    "lat": 49.3880756,
+    "lon": 1.1428248,
+    "region": "MANE",
+    "distanceKm": 1.384299648659927
+  },
+  {
+    "name": "Belleville-sur-Mer",
+    "lat": 49.9497599,
+    "lon": 1.1633151,
+    "region": "MANE",
+    "distanceKm": 0.8511857725892261
+  },
+  {
+    "name": "Bénouville",
+    "lat": 49.7176881,
+    "lon": 0.2520246,
+    "region": "MANE",
+    "distanceKm": 0.7766662792343172
+  },
+  {
+    "name": "Berck",
+    "lat": 50.4052576,
+    "lon": 1.5711617,
+    "region": "MANE",
+    "distanceKm": 1.1240846698595885
+  },
+  {
+    "name": "Berville-sur-Mer",
+    "lat": 49.4303476,
+    "lon": 0.3637502,
+    "region": "MANE",
+    "distanceKm": 0.9605367577573205
+  },
+  {
+    "name": "Bihorel",
+    "lat": 49.4543405,
+    "lon": 1.1159756,
+    "region": "MANE",
+    "distanceKm": 3.0671728744471802
+  },
+  {
+    "name": "Boismont",
+    "lat": 50.1532075,
+    "lon": 1.6841349,
+    "region": "MANE",
+    "distanceKm": 2.6763316984925036
+  },
+  {
+    "name": "Bonsecours",
+    "lat": 49.4222278,
+    "lon": 1.1239654,
+    "region": "MANE",
+    "distanceKm": 1.0323740422519947
+  },
+  {
+    "name": "Boulogne-sur-Mer",
+    "lat": 50.7259985,
+    "lon": 1.6118771,
+    "region": "MANE",
+    "distanceKm": 1.7624675003418646
+  },
+  {
+    "name": "Brutelles",
+    "lat": 50.1408507,
+    "lon": 1.5224643,
+    "region": "MANE",
+    "distanceKm": 3.8244967451243097
+  },
+  {
+    "name": "Cabourg",
+    "lat": 49.2934373,
+    "lon": -0.1155085,
+    "region": "MANE",
+    "distanceKm": 0.32731436429531485
+  },
+  {
+    "name": "Cauville-sur-Mer",
+    "lat": 49.5952267,
+    "lon": 0.1307202,
+    "region": "MANE",
+    "distanceKm": 1.142898494504575
+  },
+  {
+    "name": "Cayeux-sur-Mer",
+    "lat": 50.1792004,
+    "lon": 1.4933839,
+    "region": "MANE",
+    "distanceKm": 0.5240386547805885
+  },
+  {
+    "name": "Colleville-sur-Mer",
+    "lat": 49.3487616,
+    "lon": -0.8520938,
+    "region": "MANE",
+    "distanceKm": 1.60253425010057
+  },
+  {
+    "name": "Conchil-le-Temple",
+    "lat": 50.3709278,
+    "lon": 1.6657542,
+    "region": "MANE",
+    "distanceKm": 2.654169887628536
+  },
+  {
+    "name": "Coquelles",
+    "lat": 50.9363698,
+    "lon": 1.8000938,
+    "region": "MANE",
+    "distanceKm": 2.4722330342413383
+  },
+  {
+    "name": "Courseulles-sur-Mer",
+    "lat": 49.329893,
+    "lon": -0.4566897,
+    "region": "MANE",
+    "distanceKm": 0.7856194773218071
+  },
+  {
+    "name": "Cucq",
+    "lat": 50.4865763,
+    "lon": 1.6246227,
+    "region": "MANE",
+    "distanceKm": 3.70999226920297
+  },
+  {
+    "name": "Derchigny",
+    "lat": 49.9386015,
+    "lon": 1.2106438,
+    "region": "MANE",
+    "distanceKm": 3.5591487827845953
+  },
+  {
+    "name": "Dieppe",
+    "lat": 49.9246182,
+    "lon": 1.0791444,
+    "region": "MANE",
+    "distanceKm": 0.7166175612169616
+  },
+  {
+    "name": "Douvres-la-Délivrande",
+    "lat": 49.2963189,
+    "lon": -0.3752057,
+    "region": "MANE",
+    "distanceKm": 3.173971393467587
+  },
+  {
+    "name": "Dunkerque",
+    "lat": 51.0347708,
+    "lon": 2.3772525,
+    "region": "MANE",
+    "distanceKm": 1.7322267352043286
+  },
+  {
+    "name": "École de voile",
+    "lat": 49.279708,
+    "lon": -0.2240172,
+    "region": "MANE",
+    "distanceKm": 0.1833430310459761
+  },
+  {
+    "name": "École de Voile",
+    "lat": 49.2580823,
+    "lon": -0.2552565,
+    "region": "MANE",
+    "distanceKm": 2.664100857402497
+  },
+  {
+    "name": "Életot",
+    "lat": 49.7878126,
+    "lon": 0.4519036,
+    "region": "MANE",
+    "distanceKm": 0.8539666033433705
+  },
+  {
+    "name": "Équihen-Plage",
+    "lat": 50.679393,
+    "lon": 1.5716648,
+    "region": "MANE",
+    "distanceKm": 0.6877502993864048
+  },
+  {
+    "name": "Escalles",
+    "lat": 50.9179845,
+    "lon": 1.7136049,
+    "region": "MANE",
+    "distanceKm": 1.1588461782513593
+  },
+  {
+    "name": "Étaples",
+    "lat": 50.5139552,
+    "lon": 1.6386252,
+    "region": "MANE",
+    "distanceKm": 1.3395591462529923
+  },
+  {
+    "name": "Étretat",
+    "lat": 49.7074621,
+    "lon": 0.2031905,
+    "region": "MANE",
+    "distanceKm": 0.2810233203034528
+  },
+  {
+    "name": "Eu",
+    "lat": 50.0491699,
+    "lon": 1.4175744,
+    "region": "MANE",
+    "distanceKm": 3.356481407147567
+  },
+  {
+    "name": "Fatouville-Grestain",
+    "lat": 49.4054165,
+    "lon": 0.3274509,
+    "region": "MANE",
+    "distanceKm": 3.148510645475353
+  },
+  {
+    "name": "Favières",
+    "lat": 50.2376564,
+    "lon": 1.6638454,
+    "region": "MANE",
+    "distanceKm": 2.6953620447111084
+  },
+  {
+    "name": "Flocques",
+    "lat": 50.0376628,
+    "lon": 1.3639538,
+    "region": "MANE",
+    "distanceKm": 2.3372685926025536
+  },
+  {
+    "name": "Fort-Mahon-Plage",
+    "lat": 50.3418305,
+    "lon": 1.5623072,
+    "region": "MANE",
+    "distanceKm": 1.2166106942224828
+  },
+  {
+    "name": "Gonneville-en-Auge",
+    "lat": 49.2604691,
+    "lon": -0.1902724,
+    "region": "MANE",
+    "distanceKm": 2.964508856615741
+  },
+  {
+    "name": "Gonneville-sur-Mer",
+    "lat": 49.2821632,
+    "lon": -0.0389728,
+    "region": "MANE",
+    "distanceKm": 3.408494340612347
+  },
+  {
+    "name": "Gourfaleur",
+    "lat": 49.0816158,
+    "lon": -1.1119071,
+    "region": "MANE",
+    "distanceKm": 1.6167078132122814
+  },
+  {
+    "name": "Gouy",
+    "lat": 49.3546705,
+    "lon": 1.1477221,
+    "region": "MANE",
+    "distanceKm": 2.857069369634059
+  },
+  {
+    "name": "Grand-Fort-Philippe",
+    "lat": 51.0014456,
+    "lon": 2.1045965,
+    "region": "MANE",
+    "distanceKm": 0.7221868383708415
+  },
+  {
+    "name": "Grèges",
+    "lat": 49.9221087,
+    "lon": 1.1479991,
+    "region": "MANE",
+    "distanceKm": 3.001201525247008
+  },
+  {
+    "name": "Groffliers",
+    "lat": 50.3827288,
+    "lon": 1.622814,
+    "region": "MANE",
+    "distanceKm": 1.4751382517482934
+  },
+  {
+    "name": "Hervelinghen",
+    "lat": 50.8818091,
+    "lon": 1.7139881,
+    "region": "MANE",
+    "distanceKm": 3.5215957236515583
+  },
+  {
+    "name": "Honfleur",
+    "lat": 49.4197222,
+    "lon": 0.2338889,
+    "region": "MANE",
+    "distanceKm": 1.0541667009388629
+  },
+  {
+    "name": "Houlgate",
+    "lat": 49.3008653,
+    "lon": -0.0751662,
+    "region": "MANE",
+    "distanceKm": 0.5957478160326634
+  },
+  {
+    "name": "La Chapelle-sur-Dun",
+    "lat": 49.8606733,
+    "lon": 0.8498953,
+    "region": "MANE",
+    "distanceKm": 3.419315623072588
+  },
+  {
+    "name": "La plage des ammonites",
+    "lat": 49.3490491,
+    "lon": 0.0471911,
+    "region": "MANE",
+    "distanceKm": 0.2199736918321328
+  },
+  {
+    "name": "La Poterie-Cap-d'Antifer",
+    "lat": 49.6714411,
+    "lon": 0.1897265,
+    "region": "MANE",
+    "distanceKm": 2.3522743194655837
+  },
+  {
+    "name": "La Rivière-Saint-Sauveur",
+    "lat": 49.4076106,
+    "lon": 0.2716348,
+    "region": "MANE",
+    "distanceKm": 2.399362308534486
+  },
+  {
+    "name": "Le Crotoy",
+    "lat": 50.2165693,
+    "lon": 1.624047,
+    "region": "MANE",
+    "distanceKm": 0.44841066690378606
+  },
+  {
+    "name": "Le Petit-Quevilly",
+    "lat": 49.4238,
+    "lon": 1.06208,
+    "region": "MANE",
+    "distanceKm": 3.474882049983661
+  },
+  {
+    "name": "Le Portel",
+    "lat": 50.7074811,
+    "lon": 1.5736655,
+    "region": "MANE",
+    "distanceKm": 0.585361192740204
+  },
+  {
+    "name": "Le Touquet-Paris-Plage",
+    "lat": 50.5200083,
+    "lon": 1.5864532,
+    "region": "MANE",
+    "distanceKm": 0.7775461514546271
+  },
+  {
+    "name": "Le Tréport",
+    "lat": 50.0647429,
+    "lon": 1.3694902,
+    "region": "MANE",
+    "distanceKm": 0.042761449168717325
+  },
+  {
+    "name": "Lefaux",
+    "lat": 50.5424164,
+    "lon": 1.6591158,
+    "region": "MANE",
+    "distanceKm": 3.1491619658002543
+  },
+  {
+    "name": "Leffrinckoucke",
+    "lat": 51.0509395,
+    "lon": 2.438674,
+    "region": "MANE",
+    "distanceKm": 1.1906434674519724
+  },
+  {
+    "name": "Les Loges",
+    "lat": 49.6991265,
+    "lon": 0.2827091,
+    "region": "MANE",
+    "distanceKm": 3.6564315368285505
+  },
+  {
+    "name": "Lion-sur-Mer",
+    "lat": 49.3005915,
+    "lon": -0.3154642,
+    "region": "MANE",
+    "distanceKm": 0.3361020079907275
+  },
+  {
+    "name": "Longues-sur-Mer",
+    "lat": 49.3357159,
+    "lon": -0.6976428,
+    "region": "MANE",
+    "distanceKm": 1.3691648379137469
+  },
+  {
+    "name": "Loon-Plage",
+    "lat": 50.9946103,
+    "lon": 2.2192457,
+    "region": "MANE",
+    "distanceKm": 3.1581305043647863
+  },
+  {
+    "name": "Manneville-ès-Plains",
+    "lat": 49.855753,
+    "lon": 0.7500464,
+    "region": "MANE",
+    "distanceKm": 1.960770190109704
+  },
+  {
+    "name": "Mannevillette",
+    "lat": 49.5971248,
+    "lon": 0.1752755,
+    "region": "MANE",
+    "distanceKm": 3.8224452973845087
+  },
+  {
+    "name": "Merlimont",
+    "lat": 50.4553061,
+    "lon": 1.614809,
+    "region": "MANE",
+    "distanceKm": 3.257437281495466
+  },
+  {
+    "name": "Neufchâtel-Hardelot",
+    "lat": 50.6188491,
+    "lon": 1.6306156,
+    "region": "MANE",
+    "distanceKm": 3.8851826769323208
+  },
+  {
+    "name": "Notre-Dame-de-Gravenchon",
+    "lat": 49.4898201,
+    "lon": 0.5680054,
+    "region": "MANE",
+    "distanceKm": 3.430218877833218
+  },
+  {
+    "name": "Noyelles-sur-Mer",
+    "lat": 50.1828403,
+    "lon": 1.7074603,
+    "region": "MANE",
+    "distanceKm": 1.7666568094481638
+  },
+  {
+    "name": "Octeville-sur-Mer",
+    "lat": 49.5553201,
+    "lon": 0.1161519,
+    "region": "MANE",
+    "distanceKm": 2.015654737193118
+  },
+  {
+    "name": "Oye-Plage",
+    "lat": 50.9809,
+    "lon": 2.04198,
+    "region": "MANE",
+    "distanceKm": 1.956158022403266
+  },
+  {
+    "name": "Paluel",
+    "lat": 49.8324987,
+    "lon": 0.6294445,
+    "region": "MANE",
+    "distanceKm": 3.1469527545455875
+  },
+  {
+    "name": "Pendé",
+    "lat": 50.1579745,
+    "lon": 1.5844858,
+    "region": "MANE",
+    "distanceKm": 3.250293238867359
+  },
+  {
+    "name": "Penly",
+    "lat": 49.9788462,
+    "lon": 1.2316989,
+    "region": "MANE",
+    "distanceKm": 0.9463063660156394
+  },
+  {
+    "name": "Pennedepie",
+    "lat": 49.4078302,
+    "lon": 0.1762432,
+    "region": "MANE",
+    "distanceKm": 0.6682743910343317
+  },
+  {
+    "name": "Peuplingues",
+    "lat": 50.915136,
+    "lon": 1.7698883,
+    "region": "MANE",
+    "distanceKm": 3.8360002376429025
+  },
+  {
+    "name": "Ponthoile",
+    "lat": 50.2156352,
+    "lon": 1.7115997,
+    "region": "MANE",
+    "distanceKm": 2.5432432951688484
+  },
+  {
+    "name": "Port de Plaisance de Calais",
+    "lat": 50.9609477,
+    "lon": 1.8441757,
+    "region": "MANE",
+    "distanceKm": 0.7767252425746496
+  },
+  {
+    "name": "Port de plaisance du Havre",
+    "lat": 49.4895745,
+    "lon": 0.0939237,
+    "region": "MANE",
+    "distanceKm": 0.11983924021003615
+  },
+  {
+    "name": "Port du Havre-Antifer",
+    "lat": 49.6591017,
+    "lon": 0.1338545,
+    "region": "MANE",
+    "distanceKm": 0.10187307302393574
+  },
+  {
+    "name": "Port Est de Dunkerque",
+    "lat": 51.0601414,
+    "lon": 2.351159,
+    "region": "MANE",
+    "distanceKm": 0.08179496623383944
+  },
+  {
+    "name": "Port Ouest de Dunkerque",
+    "lat": 51.0409128,
+    "lon": 2.1625074,
+    "region": "MANE",
+    "distanceKm": 0.05709461977864802
+  },
+  {
+    "name": "Quiberville-sur-Mer",
+    "lat": 49.9031626,
+    "lon": 0.9232605,
+    "region": "MANE",
+    "distanceKm": 0.42571641781955416
+  },
+  {
+    "name": "Quillebeuf-sur-Seine",
+    "lat": 49.4705499,
+    "lon": 0.526914,
+    "region": "MANE",
+    "distanceKm": 0.9508198150126285
+  },
+  {
+    "name": "Saint-Aubin-sur-Mer",
+    "lat": 49.3291667,
+    "lon": -0.3886111,
+    "region": "MANE",
+    "distanceKm": 0.3702288047557823
+  },
+  {
+    "name": "Saint-Aubin-sur-Mer",
+    "lat": 49.8889942,
+    "lon": 0.8768462,
+    "region": "MANE",
+    "distanceKm": 0.7758815999422715
+  },
+  {
+    "name": "Saint-Étienne-du-Rouvray",
+    "lat": 49.3831,
+    "lon": 1.09163,
+    "region": "MANE",
+    "distanceKm": 2.3968409776110984
+  },
+  {
+    "name": "Saint-Lô",
+    "lat": 49.115808,
+    "lon": -1.0909278,
+    "region": "MANE",
+    "distanceKm": 2.480562045739463
+  },
+  {
+    "name": "Saint-Martin-aux-Buneaux",
+    "lat": 49.8243383,
+    "lon": 0.552795,
+    "region": "MANE",
+    "distanceKm": 1.8125626954650476
+  },
+  {
+    "name": "Saint-Pierre-en-Port",
+    "lat": 49.8069179,
+    "lon": 0.4946787,
+    "region": "MANE",
+    "distanceKm": 0.9095324227947359
+  },
+  {
+    "name": "Saint-Quentin-en-Tourmont",
+    "lat": 50.2810375,
+    "lon": 1.5909417,
+    "region": "MANE",
+    "distanceKm": 2.954592151924397
+  },
+  {
+    "name": "Saint-Quentin-la-Motte-Croix-au-Bailly",
+    "lat": 50.0735315,
+    "lon": 1.4525575,
+    "region": "MANE",
+    "distanceKm": 2.9093117442366294
+  },
+  {
+    "name": "Saint-Samson-de-la-Roque",
+    "lat": 49.4277897,
+    "lon": 0.4308161,
+    "region": "MANE",
+    "distanceKm": 2.7577860637989504
+  },
+  {
+    "name": "Saint-Sylvain",
+    "lat": 49.8457822,
+    "lon": 0.6727233,
+    "region": "MANE",
+    "distanceKm": 2.5678187550403258
+  },
+  {
+    "name": "Saint-Valery-en-Caux",
+    "lat": 49.8733845,
+    "lon": 0.7094799,
+    "region": "MANE",
+    "distanceKm": 0.036882194634155624
+  },
+  {
+    "name": "Saint-Valery-sur-Somme",
+    "lat": 50.1887006,
+    "lon": 1.6279147,
+    "region": "MANE",
+    "distanceKm": 0.31131631127218945
+  },
+  {
+    "name": "Sainte-Cécile-Plage",
+    "lat": 50.5751399,
+    "lon": 1.582982,
+    "region": "MANE",
+    "distanceKm": 0.7698954291746161
+  },
+  {
+    "name": "Sangatte",
+    "lat": 50.9458037,
+    "lon": 1.753713,
+    "region": "MANE",
+    "distanceKm": 0.34847507657171706
+  },
+  {
+    "name": "Stella-Plage",
+    "lat": 50.4799397,
+    "lon": 1.577138,
+    "region": "MANE",
+    "distanceKm": 0.3564326062639481
+  },
+  {
+    "name": "Tancarville",
+    "lat": 49.4869212,
+    "lon": 0.4523174,
+    "region": "MANE",
+    "distanceKm": 1.7208066074029456
+  },
+  {
+    "name": "Tardinghen",
+    "lat": 50.8665917,
+    "lon": 1.6314516,
+    "region": "MANE",
+    "distanceKm": 1.1372846915779817
+  },
+  {
+    "name": "Tocqueville-sur-Eu",
+    "lat": 50.0011419,
+    "lon": 1.2826536,
+    "region": "MANE",
+    "distanceKm": 1.8599382499683574
+  },
+  {
+    "name": "Touques",
+    "lat": 49.343477,
+    "lon": 0.1016715,
+    "region": "MANE",
+    "distanceKm": 3.4839903710481517
+  },
+  {
+    "name": "Tourgéville",
+    "lat": 49.3237572,
+    "lon": 0.064252,
+    "region": "MANE",
+    "distanceKm": 3.16036767631338
+  },
+  {
+    "name": "Trouville-sur-Mer",
+    "lat": 49.3679823,
+    "lon": 0.0809113,
+    "region": "MANE",
+    "distanceKm": 0.5084290666699902
+  },
+  {
+    "name": "Varengeville-sur-Mer",
+    "lat": 49.9046335,
+    "lon": 1.0021825,
+    "region": "MANE",
+    "distanceKm": 1.5378411664296257
+  },
+  {
+    "name": "Veules-les-Roses",
+    "lat": 49.8722029,
+    "lon": 0.7990652,
+    "region": "MANE",
+    "distanceKm": 0.6574876907921193
+  },
+  {
+    "name": "Veulettes-sur-Mer",
+    "lat": 49.8503223,
+    "lon": 0.5971459,
+    "region": "MANE",
+    "distanceKm": 0.5610254164488221
+  },
+  {
+    "name": "Villers-sur-Mer",
+    "lat": 49.3214437,
+    "lon": -0.0052517,
+    "region": "MANE",
+    "distanceKm": 0.45446889991781375
+  },
+  {
+    "name": "Villerville",
+    "lat": 49.4016667,
+    "lon": 0.1294444,
+    "region": "MANE",
+    "distanceKm": 0.40760189106321637
+  },
+  {
+    "name": "Wimereux",
+    "lat": 50.7696528,
+    "lon": 1.6119368,
+    "region": "MANE",
+    "distanceKm": 0.6766469168572101
+  },
+  {
+    "name": "Wissant",
+    "lat": 50.8853828,
+    "lon": 1.6629024,
+    "region": "MANE",
+    "distanceKm": 0.7115061709751338
+  },
+  {
+    "name": "Woignarue",
+    "lat": 50.109473,
+    "lon": 1.4946768,
+    "region": "MANE",
+    "distanceKm": 3.004035510076268
+  },
+  {
+    "name": "Yport",
+    "lat": 49.7378489,
+    "lon": 0.3133709,
+    "region": "MANE",
+    "distanceKm": 0.5362278250019095
+  },
+  {
+    "name": "Zuydcoote",
+    "lat": 51.0639093,
+    "lon": 2.4907115,
+    "region": "MANE",
+    "distanceKm": 1.2555014411264747
+  },
+  {
+    "name": "Angoville-sur-Ay",
+    "lat": 49.2535071,
+    "lon": -1.5487007,
+    "region": "MANW",
+    "distanceKm": 3.74664753255218
+  },
+  {
+    "name": "Anneville-sur-Mer",
+    "lat": 49.1183561,
+    "lon": -1.5810351,
+    "region": "MANW",
+    "distanceKm": 1.6027749978941446
+  },
+  {
+    "name": "Aumeville-Lestre",
+    "lat": 49.539997,
+    "lon": -1.320528,
+    "region": "MANW",
+    "distanceKm": 1.2535803973839483
+  },
+  {
+    "name": "Bacilly",
+    "lat": 48.7006867,
+    "lon": -1.441434,
+    "region": "MANW",
+    "distanceKm": 3.332941463322174
+  },
+  {
+    "name": "Barneville Plage",
+    "lat": 49.3678008,
+    "lon": -1.7647031,
+    "region": "MANW",
+    "distanceKm": 0.556633729904045
+  },
+  {
+    "name": "Base Nautique des Murs Blancs",
+    "lat": 48.5844931,
+    "lon": -2.5627771,
+    "region": "MANW",
+    "distanceKm": 0.16006448203765378
+  },
+  {
+    "name": "Baubigny",
+    "lat": 49.4298481,
+    "lon": -1.8034564,
+    "region": "MANW",
+    "distanceKm": 1.590621958322145
+  },
+  {
+    "name": "Beauvoir",
+    "lat": 48.5980448,
+    "lon": -1.5042851,
+    "region": "MANW",
+    "distanceKm": 2.654397544410956
+  },
+  {
+    "name": "Biville",
+    "lat": 49.6129876,
+    "lon": -1.8223477,
+    "region": "MANW",
+    "distanceKm": 1.8244446996372947
+  },
+  {
+    "name": "Bréhec",
+    "lat": 48.727499,
+    "lon": -2.9491096,
+    "region": "MANW",
+    "distanceKm": 0.4339545313831404
+  },
+  {
+    "name": "Bretteville",
+    "lat": 49.6557634,
+    "lon": -1.5199361,
+    "region": "MANW",
+    "distanceKm": 0.5387753089721878
+  },
+  {
+    "name": "Bretteville-sur-Ay",
+    "lat": 49.2600419,
+    "lon": -1.6330942,
+    "region": "MANW",
+    "distanceKm": 2.216574789033014
+  },
+  {
+    "name": "Brévands",
+    "lat": 49.3308714,
+    "lon": -1.1906359,
+    "region": "MANW",
+    "distanceKm": 2.7299484945285695
+  },
+  {
+    "name": "Bréville-sur-Mer",
+    "lat": 48.8651125,
+    "lon": -1.5576965,
+    "region": "MANW",
+    "distanceKm": 1.589530865422443
+  },
+  {
+    "name": "Bricqueville-sur-Mer",
+    "lat": 48.913039,
+    "lon": -1.5212779,
+    "region": "MANW",
+    "distanceKm": 2.279913163160609
+  },
+  {
+    "name": "Brucheville",
+    "lat": 49.3736179,
+    "lon": -1.2058428,
+    "region": "MANW",
+    "distanceKm": 2.218279258346309
+  },
+  {
+    "name": "Cancale",
+    "lat": 48.6771721,
+    "lon": -1.8506953,
+    "region": "MANW",
+    "distanceKm": 0.5292607002634768
+  },
+  {
+    "name": "Cherbourg-en-Cotentin",
+    "lat": 49.6425343,
+    "lon": -1.6249565,
+    "region": "MANW",
+    "distanceKm": 0.7630631827624591
+  },
+  {
+    "name": "Cherrueix",
+    "lat": 48.6060853,
+    "lon": -1.7110157,
+    "region": "MANW",
+    "distanceKm": 0.25874502919579834
+  },
+  {
+    "name": "Courtils",
+    "lat": 48.627798,
+    "lon": -1.4096506,
+    "region": "MANW",
+    "distanceKm": 1.7091141779130548
+  },
+  {
+    "name": "Coutainville",
+    "lat": 49.0480038,
+    "lon": -1.5996185,
+    "region": "MANW",
+    "distanceKm": 0.3745963435515314
+  },
+  {
+    "name": "Créances",
+    "lat": 49.2015204,
+    "lon": -1.5649743,
+    "region": "MANW",
+    "distanceKm": 2.654726606500235
+  },
+  {
+    "name": "Créhen",
+    "lat": 48.546319,
+    "lon": -2.213879,
+    "region": "MANW",
+    "distanceKm": 3.1582962351550234
+  },
+  {
+    "name": "Denneville Plage",
+    "lat": 49.3055842,
+    "lon": -1.6956624,
+    "region": "MANW",
+    "distanceKm": 0.38463492811091204
+  },
+  {
+    "name": "Erquy",
+    "lat": 48.6286582,
+    "lon": -2.4642309,
+    "region": "MANW",
+    "distanceKm": 0.6456635660412126
+  },
+  {
+    "name": "Fermanville",
+    "lat": 49.686996,
+    "lon": -1.441599,
+    "region": "MANW",
+    "distanceKm": 0.9435249490698443
+  },
+  {
+    "name": "Flamanville",
+    "lat": 49.5320334,
+    "lon": -1.8660203,
+    "region": "MANW",
+    "distanceKm": 1.6885298054466724
+  },
+  {
+    "name": "Gatteville-Phare",
+    "lat": 49.686724,
+    "lon": -1.2827292,
+    "region": "MANW",
+    "distanceKm": 0.8900222229457396
+  },
+  {
+    "name": "Géfosse-Fontenay",
+    "lat": 49.3656348,
+    "lon": -1.0922597,
+    "region": "MANW",
+    "distanceKm": 1.142357003140601
+  },
+  {
+    "name": "Genêts",
+    "lat": 48.6853447,
+    "lon": -1.4772987,
+    "region": "MANW",
+    "distanceKm": 0.4347962097255724
+  },
+  {
+    "name": "Gonneville",
+    "lat": 49.6412225,
+    "lon": -1.4659492,
+    "region": "MANW",
+    "distanceKm": 3.7324103333983945
+  },
+  {
+    "name": "Grandcamp-Maisy",
+    "lat": 49.3883142,
+    "lon": -1.0413789,
+    "region": "MANW",
+    "distanceKm": 0.22321920158180025
+  },
+  {
+    "name": "Granville",
+    "lat": 48.8376296,
+    "lon": -1.5959177,
+    "region": "MANW",
+    "distanceKm": 0.43475408718232134
+  },
+  {
+    "name": "Gréville-Hague",
+    "lat": 49.6746397,
+    "lon": -1.8008265,
+    "region": "MANW",
+    "distanceKm": 1.5809243522827354
+  },
+  {
+    "name": "Hattainville",
+    "lat": 49.3998206,
+    "lon": -1.8011838,
+    "region": "MANW",
+    "distanceKm": 1.7144626360626745
+  },
+  {
+    "name": "Hauteville-sur-Mer",
+    "lat": 48.9770263,
+    "lon": -1.5407539,
+    "region": "MANW",
+    "distanceKm": 1.602873182754119
+  },
+  {
+    "name": "Héauville",
+    "lat": 49.5813583,
+    "lon": -1.7999667,
+    "region": "MANW",
+    "distanceKm": 3.2879890469884896
+  },
+  {
+    "name": "Henvic",
+    "lat": 48.6327111,
+    "lon": -3.92758,
+    "region": "MANW",
+    "distanceKm": 2.84326990875669
+  },
+  {
+    "name": "Heugueville-sur-Sienne",
+    "lat": 49.0356395,
+    "lon": -1.5226376,
+    "region": "MANW",
+    "distanceKm": 0.9519575408346932
+  },
+  {
+    "name": "Hirel",
+    "lat": 48.606156,
+    "lon": -1.8019488,
+    "region": "MANW",
+    "distanceKm": 0.25085021776606614
+  },
+  {
+    "name": "Huisnes-sur-Mer",
+    "lat": 48.6084562,
+    "lon": -1.4519837,
+    "region": "MANW",
+    "distanceKm": 1.989098009107913
+  },
+  {
+    "name": "Isigny-sur-Mer",
+    "lat": 49.3194311,
+    "lon": -1.1008065,
+    "region": "MANW",
+    "distanceKm": 3.3442560785176583
+  },
+  {
+    "name": "Jobourg",
+    "lat": 49.6839074,
+    "lon": -1.9042283,
+    "region": "MANW",
+    "distanceKm": 2.0912528538076782
+  },
+  {
+    "name": "Jullouville",
+    "lat": 48.7713045,
+    "lon": -1.5658162,
+    "region": "MANW",
+    "distanceKm": 0.511087240447359
+  },
+  {
+    "name": "Kerfot",
+    "lat": 48.737888,
+    "lon": -3.028577,
+    "region": "MANW",
+    "distanceKm": 3.6112284888533783
+  },
+  {
+    "name": "Kermouster",
+    "lat": 48.826449,
+    "lon": -3.088937,
+    "region": "MANW",
+    "distanceKm": 0.5349414749926624
+  },
+  {
+    "name": "L'Arcouest",
+    "lat": 48.8202161,
+    "lon": -3.0175188,
+    "region": "MANW",
+    "distanceKm": 0.25152197778874036
+  },
+  {
+    "name": "L'Armor Pleubian",
+    "lat": 48.8601611,
+    "lon": -3.103098,
+    "region": "MANW",
+    "distanceKm": 0.837929572193357
+  },
+  {
+    "name": "La Grandville",
+    "lat": 48.5192987,
+    "lon": -2.6408633,
+    "region": "MANW",
+    "distanceKm": 0.6409106703256768
+  },
+  {
+    "name": "La Haye-d'Ectot",
+    "lat": 49.3908682,
+    "lon": -1.7328175,
+    "region": "MANW",
+    "distanceKm": 3.9716370019419114
+  },
+  {
+    "name": "La Richardais",
+    "lat": 48.6068393,
+    "lon": -2.0348424,
+    "region": "MANW",
+    "distanceKm": 0.5125261434690211
+  },
+  {
+    "name": "La Roche Jaune",
+    "lat": 48.824235,
+    "lon": -3.2096579,
+    "region": "MANW",
+    "distanceKm": 0.833375759665278
+  },
+  {
+    "name": "Landemer",
+    "lat": 49.6495641,
+    "lon": -1.2444107,
+    "region": "MANW",
+    "distanceKm": 0.37608143923879556
+  },
+  {
+    "name": "Langueux",
+    "lat": 48.4991,
+    "lon": -2.70959,
+    "region": "MANW",
+    "distanceKm": 1.2684529668893136
+  },
+  {
+    "name": "Le Havre de Quinéville",
+    "lat": 49.5157387,
+    "lon": -1.2893262,
+    "region": "MANW",
+    "distanceKm": 0.46177740807574746
+  },
+  {
+    "name": "Le Légué",
+    "lat": 48.5243489,
+    "lon": -2.7476634,
+    "region": "MANW",
+    "distanceKm": 2.659812223351454
+  },
+  {
+    "name": "Le Mont-Saint-Michel",
+    "lat": 48.6355232,
+    "lon": -1.5102571,
+    "region": "MANW",
+    "distanceKm": 0.2679828414645407
+  },
+  {
+    "name": "Le Rozel",
+    "lat": 49.4884424,
+    "lon": -1.8280875,
+    "region": "MANW",
+    "distanceKm": 1.5104468680523073
+  },
+  {
+    "name": "Le Sund",
+    "lat": 48.874846,
+    "lon": -1.8256642,
+    "region": "MANW",
+    "distanceKm": 0.06357040163947134
+  },
+  {
+    "name": "Le Val-Saint-Père",
+    "lat": 48.6635492,
+    "lon": -1.3743633,
+    "region": "MANW",
+    "distanceKm": 1.4949272462900722
+  },
+  {
+    "name": "Les Pieux",
+    "lat": 49.513753,
+    "lon": -1.8083081,
+    "region": "MANW",
+    "distanceKm": 3.3177801350776073
+  },
+  {
+    "name": "Lessay",
+    "lat": 49.2188034,
+    "lon": -1.5324202,
+    "region": "MANW",
+    "distanceKm": 3.450075061504474
+  },
+  {
+    "name": "Lézardrieux",
+    "lat": 48.7867932,
+    "lon": -3.1064982,
+    "region": "MANW",
+    "distanceKm": 1.4477770504873844
+  },
+  {
+    "name": "Lingreville",
+    "lat": 48.9501492,
+    "lon": -1.5257754,
+    "region": "MANW",
+    "distanceKm": 2.0689751147854536
+  },
+  {
+    "name": "Linverville",
+    "lat": 49.0908087,
+    "lon": -1.5836036,
+    "region": "MANW",
+    "distanceKm": 2.1514419971998344
+  },
+  {
+    "name": "Locquémeau",
+    "lat": 48.7230989,
+    "lon": -3.5634145,
+    "region": "MANW",
+    "distanceKm": 0.5969372503037734
+  },
+  {
+    "name": "Louannec",
+    "lat": 48.7939968,
+    "lon": -3.4119987,
+    "region": "MANW",
+    "distanceKm": 0.9100110625433008
+  },
+  {
+    "name": "Maisons",
+    "lat": 49.3188308,
+    "lon": -0.7568691,
+    "region": "MANW",
+    "distanceKm": 3.450659252308501
+  },
+  {
+    "name": "Marina de Binic",
+    "lat": 48.6011353,
+    "lon": -2.820454,
+    "region": "MANW",
+    "distanceKm": 0.20954967443665914
+  },
+  {
+    "name": "Mont-Dol",
+    "lat": 48.5700826,
+    "lon": -1.7683797,
+    "region": "MANW",
+    "distanceKm": 3.7907747837596584
+  },
+  {
+    "name": "Morsalines",
+    "lat": 49.572257,
+    "lon": -1.3122419,
+    "region": "MANW",
+    "distanceKm": 0.680061551561507
+  },
+  {
+    "name": "Néville-sur-Mer",
+    "lat": 49.6913137,
+    "lon": -1.3396722,
+    "region": "MANW",
+    "distanceKm": 1.341775891000692
+  },
+  {
+    "name": "Notre-Dame-du-Guildo",
+    "lat": 48.5792308,
+    "lon": -2.2202534,
+    "region": "MANW",
+    "distanceKm": 0.8231215767728212
+  },
+  {
+    "name": "Paimpol",
+    "lat": 48.7794818,
+    "lon": -3.0484022,
+    "region": "MANW",
+    "distanceKm": 0.714883319998457
+  },
+  {
+    "name": "Penvénan",
+    "lat": 48.8120152,
+    "lon": -3.2973357,
+    "region": "MANW",
+    "distanceKm": 2.700907803643919
+  },
+  {
+    "name": "Perros-Guirec",
+    "lat": 48.8147283,
+    "lon": -3.4431909,
+    "region": "MANW",
+    "distanceKm": 0.5739213810648511
+  },
+  {
+    "name": "Pirou-Plage",
+    "lat": 49.1680104,
+    "lon": -1.5968045,
+    "region": "MANW",
+    "distanceKm": 0.46376653270625984
+  },
+  {
+    "name": "Planguenoual",
+    "lat": 48.5334276,
+    "lon": -2.5773174,
+    "region": "MANW",
+    "distanceKm": 3.1895233982922213
+  },
+  {
+    "name": "Pléhérel-Plage",
+    "lat": 48.652384,
+    "lon": -2.3640432,
+    "region": "MANW",
+    "distanceKm": 0.6238664517813352
+  },
+  {
+    "name": "Plestin-les-Grèves",
+    "lat": 48.6546054,
+    "lon": -3.6317207,
+    "region": "MANW",
+    "distanceKm": 2.573471765724581
+  },
+  {
+    "name": "Pleubian",
+    "lat": 48.841766,
+    "lon": -3.138518,
+    "region": "MANW",
+    "distanceKm": 1.7157302815142066
+  },
+  {
+    "name": "Pleudihen-sur-Rance",
+    "lat": 48.5102781,
+    "lon": -1.9510009,
+    "region": "MANW",
+    "distanceKm": 3.9089965057463485
+  },
+  {
+    "name": "Pleumeur-Bodou",
+    "lat": 48.7732657,
+    "lon": -3.5187179,
+    "region": "MANW",
+    "distanceKm": 3.409388877527978
+  },
+  {
+    "name": "Pleumeur-Gautier",
+    "lat": 48.803288,
+    "lon": -3.157576,
+    "region": "MANW",
+    "distanceKm": 3.6224176676161917
+  },
+  {
+    "name": "Pleurtuit",
+    "lat": 48.5815,
+    "lon": -2.05912,
+    "region": "MANW",
+    "distanceKm": 3.443525959489262
+  },
+  {
+    "name": "Ploubalay",
+    "lat": 48.5805196,
+    "lon": -2.1395612,
+    "region": "MANW",
+    "distanceKm": 1.8740095837337363
+  },
+  {
+    "name": "Plouër-sur-Rance",
+    "lat": 48.5277014,
+    "lon": -2.0030697,
+    "region": "MANW",
+    "distanceKm": 2.569562015660109
+  },
+  {
+    "name": "Plouguiel",
+    "lat": 48.7975717,
+    "lon": -3.238924,
+    "region": "MANW",
+    "distanceKm": 3.285462974343384
+  },
+  {
+    "name": "Plouha",
+    "lat": 48.6755038,
+    "lon": -2.928296,
+    "region": "MANW",
+    "distanceKm": 3.435901811864048
+  },
+  {
+    "name": "Ploulec'h",
+    "lat": 48.7179229,
+    "lon": -3.5014976,
+    "region": "MANW",
+    "distanceKm": 3.14495587692432
+  },
+  {
+    "name": "Ploumanac'h",
+    "lat": 48.8317817,
+    "lon": -3.4844446,
+    "region": "MANW",
+    "distanceKm": 0.6702398039793714
+  },
+  {
+    "name": "Ploumilliau",
+    "lat": 48.6789548,
+    "lon": -3.5233682,
+    "region": "MANW",
+    "distanceKm": 3.48855544260683
+  },
+  {
+    "name": "Plourhan",
+    "lat": 48.6307804,
+    "lon": -2.8698225,
+    "region": "MANW",
+    "distanceKm": 3.4986062626750596
+  },
+  {
+    "name": "Pontaubault",
+    "lat": 48.6294828,
+    "lon": -1.3510019,
+    "region": "MANW",
+    "distanceKm": 1.3141437065273105
+  },
+  {
+    "name": "Pordic",
+    "lat": 48.5722681,
+    "lon": -2.8140481,
+    "region": "MANW",
+    "distanceKm": 2.2188765954718144
+  },
+  {
+    "name": "Pors Scaff",
+    "lat": 48.8541339,
+    "lon": -3.2498449,
+    "region": "MANW",
+    "distanceKm": 0.05319766147415794
+  },
+  {
+    "name": "Port d'échouage de l'Islet",
+    "lat": 48.6197988,
+    "lon": -2.1501275,
+    "region": "MANW",
+    "distanceKm": 0.09461569479776638
+  },
+  {
+    "name": "Port de la Bouvette",
+    "lat": 48.6242131,
+    "lon": -2.2390142,
+    "region": "MANW",
+    "distanceKm": 0.18701781073062834
+  },
+  {
+    "name": "Port de Landrellec",
+    "lat": 48.8085238,
+    "lon": -3.5463412,
+    "region": "MANW",
+    "distanceKm": 0.06778069294756567
+  },
+  {
+    "name": "Port de Locquirec",
+    "lat": 48.6899957,
+    "lon": -3.6471143,
+    "region": "MANW",
+    "distanceKm": 0.18021439414129883
+  },
+  {
+    "name": "Port de Plaisance de Port-en-Bessin",
+    "lat": 49.3499831,
+    "lon": -0.7560233,
+    "region": "MANW",
+    "distanceKm": 0.23715018463148926
+  },
+  {
+    "name": "Port de plaisance de St-Suliac",
+    "lat": 48.5684732,
+    "lon": -1.9778715,
+    "region": "MANW",
+    "distanceKm": 0.09162297158146393
+  },
+  {
+    "name": "Port du Hable",
+    "lat": 49.7058093,
+    "lon": -1.8346105,
+    "region": "MANW",
+    "distanceKm": 0.17567786889589543
+  },
+  {
+    "name": "Port du Houguet",
+    "lat": 49.6594799,
+    "lon": -1.8852907,
+    "region": "MANW",
+    "distanceKm": 0.13870688951938617
+  },
+  {
+    "name": "Port Lazo",
+    "lat": 48.7629496,
+    "lon": -2.9597774,
+    "region": "MANW",
+    "distanceKm": 0.33673971524264557
+  },
+  {
+    "name": "Port Le Goff",
+    "lat": 48.82046,
+    "lon": -3.36704,
+    "region": "MANW",
+    "distanceKm": 0.11012204641502155
+  },
+  {
+    "name": "Port Racine",
+    "lat": 49.7121329,
+    "lon": -1.8965808,
+    "region": "MANW",
+    "distanceKm": 0.273399512854027
+  },
+  {
+    "name": "Port Saint-Père",
+    "lat": 48.6343522,
+    "lon": -2.0270025,
+    "region": "MANW",
+    "distanceKm": 0.13212168267551835
+  },
+  {
+    "name": "Port Saint-Sauveur",
+    "lat": 48.7952473,
+    "lon": -3.5863036,
+    "region": "MANW",
+    "distanceKm": 0.24499670949910934
+  },
+  {
+    "name": "Port Winston",
+    "lat": 49.3449225,
+    "lon": -0.6178952,
+    "region": "MANW",
+    "distanceKm": 0.10242881071459455
+  },
+  {
+    "name": "Portbail",
+    "lat": 49.3355434,
+    "lon": -1.6999359,
+    "region": "MANW",
+    "distanceKm": 1.5715012754443538
+  },
+  {
+    "name": "Précey",
+    "lat": 48.6076833,
+    "lon": -1.3769407,
+    "region": "MANW",
+    "distanceKm": 3.468264712151243
+  },
+  {
+    "name": "Primel-Trégastel",
+    "lat": 48.7125965,
+    "lon": -3.8133692,
+    "region": "MANW",
+    "distanceKm": 0.3246073748733342
+  },
+  {
+    "name": "Regnéville-sur-Mer",
+    "lat": 49.0091854,
+    "lon": -1.5526882,
+    "region": "MANW",
+    "distanceKm": 0.47924617657987395
+  },
+  {
+    "name": "Renouville",
+    "lat": 49.6980114,
+    "lon": -1.3837708,
+    "region": "MANW",
+    "distanceKm": 1.0964747220368547
+  },
+  {
+    "name": "Réville",
+    "lat": 49.6199669,
+    "lon": -1.2601168,
+    "region": "MANW",
+    "distanceKm": 1.261103401029659
+  },
+  {
+    "name": "Roc'h Annick",
+    "lat": 48.8391363,
+    "lon": -3.3180395,
+    "region": "MANW",
+    "distanceKm": 0.14866216041780375
+  },
+  {
+    "name": "Roscoff",
+    "lat": 48.7255816,
+    "lon": -3.9828983,
+    "region": "MANW",
+    "distanceKm": 0.2666633728259246
+  },
+  {
+    "name": "Roz-sur-Couesnon",
+    "lat": 48.5884457,
+    "lon": -1.5917533,
+    "region": "MANW",
+    "distanceKm": 3.7638284563931776
+  },
+  {
+    "name": "Ryes",
+    "lat": 49.313468,
+    "lon": -0.6236968,
+    "region": "MANW",
+    "distanceKm": 3.1939007916249493
+  },
+  {
+    "name": "Sables-d'Or-les-Pins",
+    "lat": 48.6404552,
+    "lon": -2.4064673,
+    "region": "MANW",
+    "distanceKm": 0.22819120254047726
+  },
+  {
+    "name": "Saint-Alban",
+    "lat": 48.5569125,
+    "lon": -2.5339979,
+    "region": "MANW",
+    "distanceKm": 3.869864948070551
+  },
+  {
+    "name": "Saint-Benoît-des-Ondes",
+    "lat": 48.6204307,
+    "lon": -1.8531685,
+    "region": "MANW",
+    "distanceKm": 0.3499449657522735
+  },
+  {
+    "name": "Saint-Broladre",
+    "lat": 48.5873125,
+    "lon": -1.655408,
+    "region": "MANW",
+    "distanceKm": 2.846350682672445
+  },
+  {
+    "name": "Saint-Coulomb",
+    "lat": 48.6755188,
+    "lon": -1.9114049,
+    "region": "MANW",
+    "distanceKm": 1.8101293434121042
+  },
+  {
+    "name": "Saint-Germain-sur-Ay",
+    "lat": 49.2353152,
+    "lon": -1.5951475,
+    "region": "MANW",
+    "distanceKm": 0.5097526360958906
+  },
+  {
+    "name": "Saint-Germain-sur-Ay-Plage",
+    "lat": 49.2308722,
+    "lon": -1.6456847,
+    "region": "MANW",
+    "distanceKm": 0.33504562182975733
+  },
+  {
+    "name": "Saint-Jacut-de-la-Mer",
+    "lat": 48.601608,
+    "lon": -2.187603,
+    "region": "MANW",
+    "distanceKm": 0.2842692877428406
+  },
+  {
+    "name": "Saint-Jean-du-Doigt",
+    "lat": 48.6946598,
+    "lon": -3.773205,
+    "region": "MANW",
+    "distanceKm": 1.040791237424706
+  },
+  {
+    "name": "Saint-Jean-le-Thomas",
+    "lat": 48.730187,
+    "lon": -1.5189527,
+    "region": "MANW",
+    "distanceKm": 0.7298691278374474
+  },
+  {
+    "name": "Saint-Jouan-des-Guérets",
+    "lat": 48.5991065,
+    "lon": -1.9730216,
+    "region": "MANW",
+    "distanceKm": 1.010928523575251
+  },
+  {
+    "name": "Saint-Lunaire",
+    "lat": 48.6354993,
+    "lon": -2.1090269,
+    "region": "MANW",
+    "distanceKm": 0.49834105215169966
+  },
+  {
+    "name": "Saint-Malo-de-la-Lande",
+    "lat": 49.0715715,
+    "lon": -1.5407591,
+    "region": "MANW",
+    "distanceKm": 3.896537822620272
+  },
+  {
+    "name": "Saint-Marcouf",
+    "lat": 49.473372,
+    "lon": -1.2898534,
+    "region": "MANW",
+    "distanceKm": 2.969284178087357
+  },
+  {
+    "name": "Saint-Martin de Bréhal",
+    "lat": 48.8987261,
+    "lon": -1.5677154,
+    "region": "MANW",
+    "distanceKm": 0.3677761319448556
+  },
+  {
+    "name": "Saint-Martin-de-Varreville",
+    "lat": 49.4266475,
+    "lon": -1.236324,
+    "region": "MANW",
+    "distanceKm": 3.002888657495722
+  },
+  {
+    "name": "Saint-Méloir-des-Ondes",
+    "lat": 48.6380887,
+    "lon": -1.9051339,
+    "region": "MANW",
+    "distanceKm": 2.801031292070098
+  },
+  {
+    "name": "Saint-Pair-sur-Mer",
+    "lat": 48.8139133,
+    "lon": -1.5665949,
+    "region": "MANW",
+    "distanceKm": 0.6986535757372492
+  },
+  {
+    "name": "Saint-Père-Marc-en-Poulet",
+    "lat": 48.5881364,
+    "lon": -1.9243628,
+    "region": "MANW",
+    "distanceKm": 2.8876551048752086
+  },
+  {
+    "name": "Saint-Pierre-du-Mont",
+    "lat": 49.3893604,
+    "lon": -0.9814739,
+    "region": "MANW",
+    "distanceKm": 0.853960298918999
+  },
+  {
+    "name": "Saint-Pierre-Église",
+    "lat": 49.6679883,
+    "lon": -1.4046471,
+    "region": "MANW",
+    "distanceKm": 3.9302743326651126
+  },
+  {
+    "name": "Saint-Planchers",
+    "lat": 48.8249399,
+    "lon": -1.5257414,
+    "region": "MANW",
+    "distanceKm": 3.682089653809751
+  },
+  {
+    "name": "Saint-Quay-Portrieux",
+    "lat": 48.6521014,
+    "lon": -2.8306322,
+    "region": "MANW",
+    "distanceKm": 0.4334418390086926
+  },
+  {
+    "name": "Saint-Quentin-sur-le-Homme",
+    "lat": 48.6472036,
+    "lon": -1.317431,
+    "region": "MANW",
+    "distanceKm": 3.4997472270324916
+  },
+  {
+    "name": "Saint-René",
+    "lat": 48.4862193,
+    "lon": -2.6403309,
+    "region": "MANW",
+    "distanceKm": 3.723532216968672
+  },
+  {
+    "name": "Saint-Senier-sous-Avranches",
+    "lat": 48.6851987,
+    "lon": -1.3422157,
+    "region": "MANW",
+    "distanceKm": 3.4007103015471745
+  },
+  {
+    "name": "Saint-Vaast-la-Hougue",
+    "lat": 49.5877016,
+    "lon": -1.2662184,
+    "region": "MANW",
+    "distanceKm": 0.2606738834632955
+  },
+  {
+    "name": "Sainte-Honorine-des-Pertes",
+    "lat": 49.3480556,
+    "lon": -0.8061111,
+    "region": "MANW",
+    "distanceKm": 0.9368866579649915
+  },
+  {
+    "name": "Santec",
+    "lat": 48.7031864,
+    "lon": -4.0260322,
+    "region": "MANW",
+    "distanceKm": 0.9870675752951136
+  },
+  {
+    "name": "Sibiril",
+    "lat": 48.6648843,
+    "lon": -4.0633184,
+    "region": "MANW",
+    "distanceKm": 2.578617049974772
+  },
+  {
+    "name": "Siouville-Hague",
+    "lat": 49.5589537,
+    "lon": -1.8392427,
+    "region": "MANW",
+    "distanceKm": 1.0466703316214554
+  },
+  {
+    "name": "Surtainville",
+    "lat": 49.4591638,
+    "lon": -1.8130945,
+    "region": "MANW",
+    "distanceKm": 1.4344148548061075
+  },
+  {
+    "name": "Tonneville",
+    "lat": 49.6429956,
+    "lon": -1.7147792,
+    "region": "MANW",
+    "distanceKm": 3.2913868886963837
+  },
+  {
+    "name": "Toull Ar Vilin",
+    "lat": 48.6872399,
+    "lon": -3.5723378,
+    "region": "MANW",
+    "distanceKm": 0.2739116477510009
+  },
+  {
+    "name": "Trébeurden",
+    "lat": 48.7694756,
+    "lon": -3.5626633,
+    "region": "MANW",
+    "distanceKm": 1.3730335660087598
+  },
+  {
+    "name": "Trédarzec",
+    "lat": 48.7873525,
+    "lon": -3.1987639,
+    "region": "MANW",
+    "distanceKm": 3.1645510332123363
+  },
+  {
+    "name": "Tréduder",
+    "lat": 48.651009,
+    "lon": -3.564796,
+    "region": "MANW",
+    "distanceKm": 2.6785294151153223
+  },
+  {
+    "name": "Tréveneuc",
+    "lat": 48.6646572,
+    "lon": -2.8708469,
+    "region": "MANW",
+    "distanceKm": 1.0603190910536695
+  },
+  {
+    "name": "Urville-Nacqueville",
+    "lat": 49.672978,
+    "lon": -1.7378289,
+    "region": "MANW",
+    "distanceKm": 0.6229770579176687
+  },
+  {
+    "name": "Vains",
+    "lat": 48.6812724,
+    "lon": -1.4124754,
+    "region": "MANW",
+    "distanceKm": 1.2394407545509245
+  },
+  {
+    "name": "Vauville",
+    "lat": 49.6377602,
+    "lon": -1.8445771,
+    "region": "MANW",
+    "distanceKm": 0.8018399850612594
+  },
+  {
+    "name": "Ver-sur-Mer",
+    "lat": 49.3319444,
+    "lon": -0.5283333,
+    "region": "MANW",
+    "distanceKm": 1.7181926063990158
+  },
+  {
+    "name": "Vierville-sur-Mer",
+    "lat": 49.374547,
+    "lon": -0.9040986,
+    "region": "MANW",
+    "distanceKm": 0.7510211451907817
+  },
+  {
+    "name": "Ambon",
+    "lat": 47.5542438,
+    "lon": -2.5566945,
+    "region": "SUDBZH",
+    "distanceKm": 0.819346742777659
+  },
+  {
+    "name": "Arradon",
+    "lat": 47.62798,
+    "lon": -2.8229152,
+    "region": "SUDBZH",
+    "distanceKm": 1.0074469035661229
+  },
+  {
+    "name": "Arzal",
+    "lat": 47.5160748,
+    "lon": -2.3768159,
+    "region": "SUDBZH",
+    "distanceKm": 2.9114345949295193
+  },
+  {
+    "name": "Avant port",
+    "lat": 47.3474335,
+    "lon": -3.1522015,
+    "region": "SUDBZH",
+    "distanceKm": 0.2066465190494163
+  },
+  {
+    "name": "Avant port",
+    "lat": 47.7428586,
+    "lon": -3.3526391,
+    "region": "SUDBZH",
+    "distanceKm": 0.41282904302161616
+  },
+  {
+    "name": "Baden",
+    "lat": 47.6199988,
+    "lon": -2.9184744,
+    "region": "SUDBZH",
+    "distanceKm": 2.2824614501440643
+  },
+  {
+    "name": "Bangor",
+    "lat": 47.3151265,
+    "lon": -3.1885206,
+    "region": "SUDBZH",
+    "distanceKm": 2.0522878175609396
+  },
+  {
+    "name": "Barbâtre",
+    "lat": 46.9447222,
+    "lon": -2.1794444,
+    "region": "SUDBZH",
+    "distanceKm": 0.8229483898453177
+  },
+  {
+    "name": "Base nautique du Ter",
+    "lat": 47.7316553,
+    "lon": -3.3922556,
+    "region": "SUDBZH",
+    "distanceKm": 1.1041688372401792
+  },
+  {
+    "name": "Beauvoir-sur-Mer",
+    "lat": 46.9169461,
+    "lon": -2.0413971,
+    "region": "SUDBZH",
+    "distanceKm": 3.6379378734193764
+  },
+  {
+    "name": "Beg-Meil",
+    "lat": 47.8605262,
+    "lon": -3.9872266,
+    "region": "SUDBZH",
+    "distanceKm": 0.5698927762762634
+  },
+  {
+    "name": "Bénodet",
+    "lat": 47.8746373,
+    "lon": -4.1109828,
+    "region": "SUDBZH",
+    "distanceKm": 0.6419302090141197
+  },
+  {
+    "name": "Bourgneuf-en-Retz",
+    "lat": 47.0433591,
+    "lon": -1.9520688,
+    "region": "SUDBZH",
+    "distanceKm": 2.9724890328101417
+  },
+  {
+    "name": "Bureau Du Port du Logeo",
+    "lat": 47.547233,
+    "lon": -2.8460039,
+    "region": "SUDBZH",
+    "distanceKm": 0.28233861241565006
+  },
+  {
+    "name": "Camoël",
+    "lat": 47.4815566,
+    "lon": -2.3962015,
+    "region": "SUDBZH",
+    "distanceKm": 1.403088358213706
+  },
+  {
+    "name": "Capitainerie",
+    "lat": 47.6233299,
+    "lon": -2.7783271,
+    "region": "SUDBZH",
+    "distanceKm": 0.5229087400350916
+  },
+  {
+    "name": "Careil",
+    "lat": 47.2975123,
+    "lon": -2.4018438,
+    "region": "SUDBZH",
+    "distanceKm": 1.9596713559095167
+  },
+  {
+    "name": "Clis",
+    "lat": 47.3369311,
+    "lon": -2.465293,
+    "region": "SUDBZH",
+    "distanceKm": 2.990830048930181
+  },
+  {
+    "name": "Clohars-Carnoët",
+    "lat": 47.7955209,
+    "lon": -3.5826145,
+    "region": "SUDBZH",
+    "distanceKm": 3.1110545901926936
+  },
+  {
+    "name": "Combrit",
+    "lat": 47.8873445,
+    "lon": -4.1563101,
+    "region": "SUDBZH",
+    "distanceKm": 2.099125945707538
+  },
+  {
+    "name": "Crac'h",
+    "lat": 47.6166941,
+    "lon": -3.0011326,
+    "region": "SUDBZH",
+    "distanceKm": 3.0950932705709038
+  },
+  {
+    "name": "Damgan",
+    "lat": 47.5198994,
+    "lon": -2.5788036,
+    "region": "SUDBZH",
+    "distanceKm": 0.5670292131464844
+  },
+  {
+    "name": "Darse de Castéro",
+    "lat": 47.4888055,
+    "lon": -3.1019736,
+    "region": "SUDBZH",
+    "distanceKm": 0.08776803619249594
+  },
+  {
+    "name": "Donges",
+    "lat": 47.3185376,
+    "lon": -2.0745708,
+    "region": "SUDBZH",
+    "distanceKm": 1.6151717262873861
+  },
+  {
+    "name": "Erdeven",
+    "lat": 47.6417056,
+    "lon": -3.1557523,
+    "region": "SUDBZH",
+    "distanceKm": 3.462334156194327
+  },
+  {
+    "name": "Étel",
+    "lat": 47.6579001,
+    "lon": -3.1971925,
+    "region": "SUDBZH",
+    "distanceKm": 1.9014085783579264
+  },
+  {
+    "name": "Fouesnant",
+    "lat": 47.8945402,
+    "lon": -4.0115365,
+    "region": "SUDBZH",
+    "distanceKm": 2.125738480454453
+  },
+  {
+    "name": "Gâvres",
+    "lat": 47.6941,
+    "lon": -3.35401,
+    "region": "SUDBZH",
+    "distanceKm": 0.3523455077357986
+  },
+  {
+    "name": "Hœdic",
+    "lat": 47.3394301,
+    "lon": -2.8801952,
+    "region": "SUDBZH",
+    "distanceKm": 0.6321497062317828
+  },
+  {
+    "name": "Île-d'Arz",
+    "lat": 47.5901465,
+    "lon": -2.8019664,
+    "region": "SUDBZH",
+    "distanceKm": 0.5518971474227851
+  },
+  {
+    "name": "Île-d'Houat",
+    "lat": 47.38995,
+    "lon": -2.9552112,
+    "region": "SUDBZH",
+    "distanceKm": 0.4141559459243578
+  },
+  {
+    "name": "Kercabellec",
+    "lat": 47.4082707,
+    "lon": -2.4641812,
+    "region": "SUDBZH",
+    "distanceKm": 0.755953751979599
+  },
+  {
+    "name": "Kerouarc'h",
+    "lat": 47.5846185,
+    "lon": -2.9641543,
+    "region": "SUDBZH",
+    "distanceKm": 0.2745625636455303
+  },
+  {
+    "name": "Kervaziou",
+    "lat": 47.8113863,
+    "lon": -3.6390141,
+    "region": "SUDBZH",
+    "distanceKm": 3.7258503572155868
+  },
+  {
+    "name": "L'Épine",
+    "lat": 46.9794444,
+    "lon": -2.2669444,
+    "region": "SUDBZH",
+    "distanceKm": 1.1056243154383687
+  },
+  {
+    "name": "La Barre-de-Monts",
+    "lat": 46.8848965,
+    "lon": -2.1163235,
+    "region": "SUDBZH",
+    "distanceKm": 1.5694855346694814
+  },
+  {
+    "name": "La Bernerie-en-Retz",
+    "lat": 47.0814025,
+    "lon": -2.0383793,
+    "region": "SUDBZH",
+    "distanceKm": 0.47982509616563024
+  },
+  {
+    "name": "La Guérinière",
+    "lat": 46.9680556,
+    "lon": -2.2302778,
+    "region": "SUDBZH",
+    "distanceKm": 0.33885117928860353
+  },
+  {
+    "name": "La Trinité-sur-Mer",
+    "lat": 47.5862608,
+    "lon": -3.0293672,
+    "region": "SUDBZH",
+    "distanceKm": 0.4288328087464023
+  },
+  {
+    "name": "La Turballe",
+    "lat": 47.3468646,
+    "lon": -2.5080068,
+    "region": "SUDBZH",
+    "distanceKm": 0.4968350629693165
+  },
+  {
+    "name": "Larmor-Baden",
+    "lat": 47.5865525,
+    "lon": -2.8947121,
+    "region": "SUDBZH",
+    "distanceKm": 0.5098489153484411
+  },
+  {
+    "name": "Lavau-sur-Loire",
+    "lat": 47.3068471,
+    "lon": -1.966515,
+    "region": "SUDBZH",
+    "distanceKm": 2.002217193180727
+  },
+  {
+    "name": "Le Bélon",
+    "lat": 47.8154268,
+    "lon": -3.705981,
+    "region": "SUDBZH",
+    "distanceKm": 1.9301741297805972
+  },
+  {
+    "name": "Le Bono",
+    "lat": 47.6402896,
+    "lon": -2.947793,
+    "region": "SUDBZH",
+    "distanceKm": 1.5698027203567155
+  },
+  {
+    "name": "Le Clion-sur-Mer",
+    "lat": 47.1225439,
+    "lon": -2.0542306,
+    "region": "SUDBZH",
+    "distanceKm": 3.025026149338995
+  },
+  {
+    "name": "Le Courégant",
+    "lat": 47.711532,
+    "lon": -3.4715667,
+    "region": "SUDBZH",
+    "distanceKm": 0.4760348612856346
+  },
+  {
+    "name": "Le Croisic",
+    "lat": 47.2933971,
+    "lon": -2.5094404,
+    "region": "SUDBZH",
+    "distanceKm": 0.2848517910163633
+  },
+  {
+    "name": "Le Fort-Bloqué",
+    "lat": 47.7371134,
+    "lon": -3.4972389,
+    "region": "SUDBZH",
+    "distanceKm": 0.7210589806351503
+  },
+  {
+    "name": "Le Grand Vieil",
+    "lat": 47.0226598,
+    "lon": -2.251131,
+    "region": "SUDBZH",
+    "distanceKm": 0.5123140790726377
+  },
+  {
+    "name": "Le Hallate",
+    "lat": 47.6430883,
+    "lon": -2.8965367,
+    "region": "SUDBZH",
+    "distanceKm": 3.7086387060553183
+  },
+  {
+    "name": "Le Magouëro",
+    "lat": 47.6720633,
+    "lon": -3.2432895,
+    "region": "SUDBZH",
+    "distanceKm": 1.0864442563109662
+  },
+  {
+    "name": "Le Port du Bec",
+    "lat": 46.9395282,
+    "lon": -2.0764904,
+    "region": "SUDBZH",
+    "distanceKm": 0.10661050513838993
+  },
+  {
+    "name": "Le Pouldu",
+    "lat": 47.7675788,
+    "lon": -3.5462989,
+    "region": "SUDBZH",
+    "distanceKm": 0.47381002683802675
+  },
+  {
+    "name": "Le Rohaliguen",
+    "lat": 47.4978259,
+    "lon": -2.7725673,
+    "region": "SUDBZH",
+    "distanceKm": 0.23545222159051507
+  },
+  {
+    "name": "Les Moutiers-en-Retz",
+    "lat": 47.0628755,
+    "lon": -2.0009009,
+    "region": "SUDBZH",
+    "distanceKm": 0.6464454379672643
+  },
+  {
+    "name": "Les Trois Fontaines",
+    "lat": 47.5920927,
+    "lon": -2.854388,
+    "region": "SUDBZH",
+    "distanceKm": 0.2915836509521888
+  },
+  {
+    "name": "Locmaria",
+    "lat": 47.2939984,
+    "lon": -3.0823003,
+    "region": "SUDBZH",
+    "distanceKm": 0.7478737561880547
+  },
+  {
+    "name": "Mousterlin",
+    "lat": 47.8496095,
+    "lon": -4.0411119,
+    "region": "SUDBZH",
+    "distanceKm": 0.5127628904210806
+  },
+  {
+    "name": "Muzillac",
+    "lat": 47.5538771,
+    "lon": -2.4830285,
+    "region": "SUDBZH",
+    "distanceKm": 3.9662180291312437
+  },
+  {
+    "name": "Névez",
+    "lat": 47.8201167,
+    "lon": -3.7921065,
+    "region": "SUDBZH",
+    "distanceKm": 3.32443667821636
+  },
+  {
+    "name": "Notre-Dame-de-Monts",
+    "lat": 46.8313889,
+    "lon": -2.1305556,
+    "region": "SUDBZH",
+    "distanceKm": 1.4900916204457693
+  },
+  {
+    "name": "Noyalo",
+    "lat": 47.6107773,
+    "lon": -2.6818529,
+    "region": "SUDBZH",
+    "distanceKm": 3.8126504069240648
+  },
+  {
+    "name": "Paimbœuf",
+    "lat": 47.2871357,
+    "lon": -2.02641,
+    "region": "SUDBZH",
+    "distanceKm": 0.443079512004501
+  },
+  {
+    "name": "Pen Lan",
+    "lat": 47.5170087,
+    "lon": -2.4994969,
+    "region": "SUDBZH",
+    "distanceKm": 0.38112326352156745
+  },
+  {
+    "name": "Pénerf",
+    "lat": 47.5121805,
+    "lon": -2.6227762,
+    "region": "SUDBZH",
+    "distanceKm": 0.3354595070398898
+  },
+  {
+    "name": "Penvins",
+    "lat": 47.5058996,
+    "lon": -2.6849815,
+    "region": "SUDBZH",
+    "distanceKm": 1.0577044252541055
+  },
+  {
+    "name": "Plouharnel",
+    "lat": 47.5980139,
+    "lon": -3.1128349,
+    "region": "SUDBZH",
+    "distanceKm": 0.9801039342137331
+  },
+  {
+    "name": "Pont d'Armes",
+    "lat": 47.4146807,
+    "lon": -2.3998394,
+    "region": "SUDBZH",
+    "distanceKm": 2.878935712378801
+  },
+  {
+    "name": "ponton A",
+    "lat": 47.2748778,
+    "lon": -2.4245549,
+    "region": "SUDBZH",
+    "distanceKm": 0.48455033485547216
+  },
+  {
+    "name": "Pornichet",
+    "lat": 47.2613293,
+    "lon": -2.3364238,
+    "region": "SUDBZH",
+    "distanceKm": 0.8040634635614398
+  },
+  {
+    "name": "Port au Loup",
+    "lat": 47.3872237,
+    "lon": -2.5274734,
+    "region": "SUDBZH",
+    "distanceKm": 0.2475404614078883
+  },
+  {
+    "name": "Port de l'Herbaudière",
+    "lat": 47.0257961,
+    "lon": -2.2980261,
+    "region": "SUDBZH",
+    "distanceKm": 0.1738861483121404
+  },
+  {
+    "name": "Port de la Gravette",
+    "lat": 47.1584947,
+    "lon": -2.2125955,
+    "region": "SUDBZH",
+    "distanceKm": 0.03144285462368391
+  },
+  {
+    "name": "Port de Merrien",
+    "lat": 47.7823868,
+    "lon": -3.6480482,
+    "region": "SUDBZH",
+    "distanceKm": 0.49375513994234216
+  },
+  {
+    "name": "Port de Stêr Ouen",
+    "lat": 47.3716315,
+    "lon": -3.2536276,
+    "region": "SUDBZH",
+    "distanceKm": 0.3224974837229144
+  },
+  {
+    "name": "Port des Champs",
+    "lat": 46.9689625,
+    "lon": -2.0353357,
+    "region": "SUDBZH",
+    "distanceKm": 0.9272223771048835
+  },
+  {
+    "name": "Port Navalo",
+    "lat": 47.5460954,
+    "lon": -2.9142298,
+    "region": "SUDBZH",
+    "distanceKm": 0.28654916751174364
+  },
+  {
+    "name": "Port Tudy",
+    "lat": 47.6438269,
+    "lon": -3.4470463,
+    "region": "SUDBZH",
+    "distanceKm": 0.2849012116947312
+  },
+  {
+    "name": "Portivy",
+    "lat": 47.5293991,
+    "lon": -3.1456853,
+    "region": "SUDBZH",
+    "distanceKm": 0.38079892909407137
+  },
+  {
+    "name": "Préfailles",
+    "lat": 47.129703,
+    "lon": -2.2181648,
+    "region": "SUDBZH",
+    "distanceKm": 0.6131707827959316
+  },
+  {
+    "name": "Riantec",
+    "lat": 47.7119271,
+    "lon": -3.3088391,
+    "region": "SUDBZH",
+    "distanceKm": 1.2310786070113684
+  },
+  {
+    "name": "Saint-Armel",
+    "lat": 47.5727957,
+    "lon": -2.7099763,
+    "region": "SUDBZH",
+    "distanceKm": 0.7208041774948455
+  },
+  {
+    "name": "Saint-Brevin-les-Pins",
+    "lat": 47.2473358,
+    "lon": -2.1677298,
+    "region": "SUDBZH",
+    "distanceKm": 0.4353526354661806
+  },
+  {
+    "name": "Saint-Colombier",
+    "lat": 47.5466188,
+    "lon": -2.7226926,
+    "region": "SUDBZH",
+    "distanceKm": 0.740450231267871
+  },
+  {
+    "name": "Saint-Gildas-de-Rhuys",
+    "lat": 47.5004209,
+    "lon": -2.8403204,
+    "region": "SUDBZH",
+    "distanceKm": 0.779251885596903
+  },
+  {
+    "name": "Saint-Jean-de-Monts",
+    "lat": 46.7936111,
+    "lon": -2.0588889,
+    "region": "SUDBZH",
+    "distanceKm": 1.808774273028461
+  },
+  {
+    "name": "Saint-Michel-Chef-Chef",
+    "lat": 47.1816681,
+    "lon": -2.1497904,
+    "region": "SUDBZH",
+    "distanceKm": 1.2780902820520175
+  },
+  {
+    "name": "Saint-Molf",
+    "lat": 47.3927175,
+    "lon": -2.4255358,
+    "region": "SUDBZH",
+    "distanceKm": 2.836995402727713
+  },
+  {
+    "name": "Saint-Nazaire",
+    "lat": 47.2733517,
+    "lon": -2.2138905,
+    "region": "SUDBZH",
+    "distanceKm": 0.6152538074256121
+  },
+  {
+    "name": "Saint-Viaud",
+    "lat": 47.2564348,
+    "lon": -2.0191384,
+    "region": "SUDBZH",
+    "distanceKm": 3.4008667501725873
+  },
+  {
+    "name": "Sainte-Marie-sur-Mer",
+    "lat": 47.1128995,
+    "lon": -2.1312061,
+    "region": "SUDBZH",
+    "distanceKm": 0.4424041069554618
+  },
+  {
+    "name": "Sarzeau",
+    "lat": 47.5275161,
+    "lon": -2.7684537,
+    "region": "SUDBZH",
+    "distanceKm": 1.4055340756204642
+  },
+  {
+    "name": "Séné",
+    "lat": 47.6199584,
+    "lon": -2.7373441,
+    "region": "SUDBZH",
+    "distanceKm": 1.7271355905819694
+  },
+  {
+    "name": "Surzur",
+    "lat": 47.5775697,
+    "lon": -2.629455,
+    "region": "SUDBZH",
+    "distanceKm": 3.102292062805767
+  },
+  {
+    "name": "Suscinio",
+    "lat": 47.5139889,
+    "lon": -2.7284627,
+    "region": "SUDBZH",
+    "distanceKm": 1.0302494143800796
+  },
+  {
+    "name": "Trehiguier",
+    "lat": 47.4932786,
+    "lon": -2.4418582,
+    "region": "SUDBZH",
+    "distanceKm": 0.27342471101669097
+  },
+  {
+    "name": "Trignac",
+    "lat": 47.3176944,
+    "lon": -2.1894926,
+    "region": "SUDBZH",
+    "distanceKm": 3.0395306277177943
+  }
+]

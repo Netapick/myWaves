@@ -15,6 +15,17 @@ export interface SlackWindow {
   minVelocity: number
 }
 
+export interface EtaleEvent {
+  /** Instant du courant minimal si un vrai passage sous le seuil a été trouvé à proximité
+   * de l'extremum de marée, sinon l'extremum de marée lui-même (voir extractEtaleEvents). */
+  time: Date
+  phase: TidePhase
+  /** Largeur (min) de la fenêtre où le courant reste sous le seuil, centrée sur `time`.
+   * null si aucun passage sous le seuil n'a été trouvé à proximité (courant résiduel). */
+  durationMin: number | null
+  minVelocityKmh: number | null
+}
+
 export interface DiveScoreBreakdown {
   wave: number
   wind: number

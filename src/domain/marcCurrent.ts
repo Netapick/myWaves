@@ -29,6 +29,56 @@ export interface MarcHarmonicTable {
   }
 }
 
+/** Un point côtier pré-extrait (voir scripts/extract-marc-harmonics.mjs) — `lat`/`lon` sont
+ * les coordonnées du point d'extraction lui-même (port, plage...), PAS celles d'un spot de
+ * l'app : plusieurs spots proches peuvent partager la même entrée via findNearestMarcTable. */
+export interface MarcAtlasEntry {
+  lat: number
+  lon: number
+  gridPoint: MarcHarmonicTable['gridPoint']
+  constituents: MarcConstituent[]
+  elevation: NonNullable<MarcHarmonicTable['elevation']>
+}
+
+/** Au-delà de cette distance (km), le point pré-extrait le plus proche est trop loin pour
+ * être représentatif du site recherché — mieux vaut retomber sur Open-Meteo (voir
+ * SpotPage.tsx) que d'afficher un courant local qui n'a plus de rapport avec le lieu réel.
+ * Généreux par rapport à l'espacement typique des points (~3-5 km, voir
+ * scripts/build-coastal-points.mjs), pour couvrir les zones un peu moins denses. */
+export const MAX_MARC_LOOKUP_DISTANCE_KM = 8
+
+/**
+ * Cherche, parmi tous les points côtiers pré-extraits, le plus proche de coordonnées
+ * données — le mécanisme qui permet à N'IMPORTE QUEL spot ajouté via la recherche de lieu
+ * (voir api/geocode.ts) de bénéficier du courant MARC sans extraction à la demande (le
+ * téléchargement FTP Ifremer ne peut de toute façon pas se faire depuis l'app elle-même,
+ * voir l'en-tête de scripts/extract-marc-harmonics.mjs). Retourne aussi la distance réelle
+ * entre le point demandé et le point utilisé, pour l'affichage ("courant à X km du site").
+ */
+export function findNearestMarcTable(
+  atlas: MarcAtlasEntry[],
+  lat: number,
+  lon: number,
+): { table: MarcHarmonicTable; distanceKm: number } | undefined {
+  let best: MarcAtlasEntry | undefined
+  let bestDist = Infinity
+  for (const entry of atlas) {
+    const dLat = entry.lat - lat
+    const dLon = (entry.lon - lon) * Math.cos((lat * Math.PI) / 180)
+    const dist = dLat * dLat + dLon * dLon
+    if (dist < bestDist) {
+      bestDist = dist
+      best = entry
+    }
+  }
+  if (!best) return undefined
+
+  const distanceKm = Math.sqrt(bestDist) * 111
+  if (distanceKm > MAX_MARC_LOOKUP_DISTANCE_KM) return undefined
+
+  return { table: { gridPoint: best.gridPoint, constituents: best.constituents, elevation: best.elevation }, distanceKm }
+}
+
 /**
  * Prédit la vitesse du courant de marée (km/h) à partir des composantes harmoniques
  * locales MARC/Ifremer — bien plus précises que le modèle océanique global Open-Meteo sur

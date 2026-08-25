@@ -44,4 +44,8 @@
          dégrade silencieusement l'alarme en programmation approximative (pas de crash),
          donc ce n'est pas bloquant si jamais elle devait être retirée pour publication. -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
+    <!-- Mise à jour in-app (téléchargement + installation de l'APK depuis l'app, voir
+         UpdaterPlugin.java) — myWaves n'étant pas sur le Play Store, pas d'alternative. -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 </manifest>

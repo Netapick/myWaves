@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Capacitor } from '@capacitor/core'
-import { Browser } from '@capacitor/browser'
 import { isTauri } from '@tauri-apps/api/core'
+import { ApkUpdater } from '../native/apkUpdater'
 import { version as currentVersion } from '../../package.json'
 
 const GITHUB_REPO = 'Netapick/myWaves'
@@ -9,6 +9,7 @@ const GITHUB_REPO = 'Netapick/myWaves'
 export type AppUpdateState =
   | { status: 'idle' | 'checking' | 'none' }
   | { status: 'available'; version: string; install: () => Promise<void> }
+  | { status: 'downloading'; progress: number }
   | { status: 'installing' }
   | { status: 'error'; message: string }
 
@@ -37,9 +38,10 @@ function isNewerVersion(remote: string, local: string): boolean {
  *   manifeste `latest.json` publié sur la release GitHub (voir tauri.conf.json).
  * - Android (APK) : pas d'équivalent natif hors Play Store — on interroge
  *   l'API GitHub Releases et on compare nous-mêmes les numéros de version ;
- *   "installer" ouvre simplement l'APK dans le navigateur, Android prend le
- *   relais via son gestionnaire de téléchargements habituel.
- * - Electron et web (dev) : pas de vérification, non demandé.
+ *   "installer" télécharge et lance l'installation directement depuis l'app
+ *   (plugin natif `ApkUpdater`, voir android/.../UpdaterPlugin.java), sans
+ *   passer par le navigateur.
+ * - Web (dev) : pas de vérification, non demandé.
  */
 export function useAppUpdate(): AppUpdateState {
   const [state, setState] = useState<AppUpdateState>({ status: 'idle' })
@@ -96,7 +98,21 @@ export function useAppUpdate(): AppUpdateState {
           status: 'available',
           version: data.tag_name.replace(/^v/, ''),
           install: async () => {
-            await Browser.open({ url: apkAsset.browser_download_url })
+            setState({ status: 'downloading', progress: 0 })
+            const listener = await ApkUpdater.addListener('downloadProgress', ({ percent }) => {
+              setState({ status: 'downloading', progress: percent })
+            })
+            try {
+              await ApkUpdater.downloadAndInstall({ url: apkAsset.browser_download_url })
+            } catch (e) {
+              const message =
+                (e as Error).message === 'INSTALL_PERMISSION_REQUIRED'
+                  ? "Autorisez l'installation d'applications inconnues pour myWaves, puis relancez la mise à jour."
+                  : (e as Error).message
+              setState({ status: 'error', message })
+            } finally {
+              await listener.remove()
+            }
           },
         })
       } catch (e) {
@@ -104,10 +120,39 @@ export function useAppUpdate(): AppUpdateState {
       }
     }
 
+    // Simule le flux Android (indisponible en navigateur) pour vérifier visuellement
+    // UpdateBanner en `npm run dev` — éliminé du build de production par Vite.
+    const runDevSimulation = async () => {
+      setState({ status: 'checking' })
+      await new Promise((r) => setTimeout(r, 600))
+      if (cancelled) return
+      setState({
+        status: 'available',
+        version: '9.9.9-simulation',
+        install: async () => {
+          for (let percent = 0; percent <= 100; percent += 10) {
+            if (cancelled) return
+            setState({ status: 'downloading', progress: percent })
+            await new Promise((r) => setTimeout(r, 250))
+          }
+          if (cancelled) return
+          setState({ status: 'installing' })
+          // Sur un vrai appareil Android, l'app passe ici la main à l'installeur système —
+          // rien de plus à observer côté app. On revient à l'état initial pour pouvoir
+          // rejouer la simulation, plutôt que de rester bloqué sur "Installation…".
+          await new Promise((r) => setTimeout(r, 1500))
+          if (cancelled) return
+          setState({ status: 'none' })
+        },
+      })
+    }
+
     if (isTauri()) {
       runTauriCheck()
     } else if (Capacitor.getPlatform() === 'android') {
       runAndroidCheck()
+    } else if (import.meta.env.DEV) {
+      runDevSimulation()
     } else {
       setState({ status: 'none' })
     }

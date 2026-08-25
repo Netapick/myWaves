@@ -9,7 +9,7 @@ lerna-debug.log*
 
 node_modules
 dist
-dist-electron
+dist-desktop
 dist-ssr
 *.local
 
@@ -29,6 +29,6 @@ releases/
 *.sw?
 
 # Cache local des fichiers NetCDF de l'atlas Ifremer/MARC (volumineux, régénérable via
-# scripts/extract-marc-harmonics.mjs) — seul le résultat extrait (quelques Ko) est committé.
+# scripts/extract-marc-harmonics.mjs) — seul le résultat extrait (marcCurrentAtlas.generated.ts) est committé.
 .marc-cache/
 .tmp-marc/

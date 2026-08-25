@@ -1,15 +1,20 @@
-import type { SlackWindow } from '../../domain/types'
-import { MAX_PLAUSIBLE_WINDOW_MIN } from '../../domain/slackWindows'
+import type { EtaleEvent } from '../../domain/types'
 import { formatDateTimeParis, formatTimeParis } from '../../lib/format'
 
-// Une vraie étale (pleine mer ou basse mer) est un instant précis, généralement inférieur
-// à 20 minutes — pas une durée qu'il est pertinent de calculer à partir d'un seuil de
-// courant arbitraire (voir extractSlackWindows) : le seuil sert seulement à repérer QUAND
-// le courant repasse par un minimum, l'affichage se limite donc à cet instant (`center`).
+const PHASE_LABEL: Record<'high' | 'low', string> = {
+  high: 'Étale de pleine mer',
+  low: 'Étale de basse mer',
+}
 
-/** Liste lisible des prochaines étales (instants de courant minimal) — la fonctionnalité différenciante pour la plongée. */
-export function SlackWindowsList({ windows, now = new Date() }: { windows: SlackWindow[]; now?: Date }) {
-  const upcoming = windows.filter((w) => w.end.getTime() >= now.getTime()).slice(0, 6)
+/** Liste lisible des prochaines étales — une par pleine mer, une par basse mer, jamais
+ * aucune manquante (voir domain/slackWindows.ts:extractEtaleEvents). */
+export function SlackWindowsList({ events, now = new Date() }: { events: EtaleEvent[]; now?: Date }) {
+  const upcoming = events
+    .filter((e) => {
+      const halfDurationMs = ((e.durationMin ?? 0) / 2) * 60_000
+      return e.time.getTime() + halfDurationMs >= now.getTime()
+    })
+    .slice(0, 6)
 
   if (upcoming.length === 0) {
     return <p className="text-sm text-(--color-text-muted)">Aucune étale trouvée dans la période affichée.</p>
@@ -17,21 +22,9 @@ export function SlackWindowsList({ windows, now = new Date() }: { windows: Slack
 
   return (
     <ul className="flex flex-col gap-2">
-      {upcoming.map((w, i) => {
-        const durationMin = (w.end.getTime() - w.start.getTime()) / 60_000
-        const isOngoing = w.start.getTime() <= now.getTime() && now.getTime() <= w.end.getTime()
-
-        if (durationMin > MAX_PLAUSIBLE_WINDOW_MIN) {
-          return (
-            <li
-              key={i}
-              className="rounded-md border px-3 py-2 text-sm"
-              style={{ borderColor: 'var(--color-good)', background: 'color-mix(in srgb, var(--color-good) 12%, transparent)' }}
-            >
-              Courant toujours sous le seuil sur toute la période affichée — jamais un frein à la plongée ici en ce moment.
-            </li>
-          )
-        }
+      {upcoming.map((e, i) => {
+        const halfDurationMs = ((e.durationMin ?? 0) / 2) * 60_000
+        const isOngoing = e.durationMin !== null && Math.abs(now.getTime() - e.time.getTime()) <= halfDurationMs
 
         return (
           <li
@@ -43,8 +36,13 @@ export function SlackWindowsList({ windows, now = new Date() }: { windows: Slack
             }}
           >
             {isOngoing ? 'En cours — ' : ''}
-            Étale à <strong>{formatTimeParis(w.center)}</strong>
-            <span className="text-(--color-text-muted)"> ({formatDateTimeParis(w.center)})</span>
+            {PHASE_LABEL[e.phase]} à <strong>{formatTimeParis(e.time)}</strong>
+            <span className="text-(--color-text-muted)"> ({formatDateTimeParis(e.time)})</span>
+            {e.durationMin !== null ? (
+              <span className="text-(--color-text-muted)"> — ~{Math.round(e.durationMin)} min</span>
+            ) : e.minVelocityKmh !== null ? (
+              <span className="text-(--color-text-muted)"> — courant minimal ~{e.minVelocityKmh.toFixed(2)} km/h (pas de vraie pause)</span>
+            ) : null}
           </li>
         )
       })}

@@ -1,6 +1,16 @@
 import { describe, expect, it } from 'vitest'
-import { predictMarcCurrentSeries, type MarcHarmonicTable } from './marcCurrent'
+import { findNearestMarcTable, predictMarcCurrentSeries, type MarcAtlasEntry, type MarcHarmonicTable } from './marcCurrent'
 import { MARC_CURRENT_ATLAS } from './marcCurrentAtlas.generated'
+
+function makeEntry(lat: number, lon: number): MarcAtlasEntry {
+  return {
+    lat,
+    lon,
+    gridPoint: { uLat: lat, uLon: lon, vLat: lat, vLon: lon, distanceKm: 0 },
+    constituents: [],
+    elevation: { gridPoint: { tLat: lat, tLon: lon, distanceKm: 0 }, constituents: [] },
+  }
+}
 
 describe('predictMarcCurrentSeries — cas synthétique (une seule constituante M2)', () => {
   const table: MarcHarmonicTable = {
@@ -30,18 +40,20 @@ describe('predictMarcCurrentSeries — cas synthétique (une seule constituante 
   })
 })
 
-describe('predictMarcCurrentSeries — donnée réelle extraite (Saint-Cast-le-Guildo)', () => {
-  const table = MARC_CURRENT_ATLAS['saint-cast-le-guildo']
+describe('findNearestMarcTable — donnée réelle extraite (Saint-Cast-le-Guildo)', () => {
+  // Coordonnées du spot (voir domain/spot.ts), pas celles d'un point de l'atlas : c'est
+  // exactement ce que fait SpotPage.tsx en pratique (recherche par plus proche voisin).
+  const match = findNearestMarcTable(MARC_CURRENT_ATLAS, 48.6408354, -2.2449483)
 
-  it('a bien été extraite près du spot (< 5 km)', () => {
-    expect(table).toBeDefined()
-    expect(table.gridPoint.distanceKm).toBeLessThan(5)
+  it('trouve bien un point à proximité (< 5 km)', () => {
+    expect(match).toBeDefined()
+    expect(match!.distanceKm).toBeLessThan(5)
   })
 
   it('produit une série plausible (pas de NaN, pas de valeurs aberrantes)', () => {
     const start = new Date('2026-08-25T00:00:00Z')
     const end = new Date('2026-08-27T00:00:00Z')
-    const series = predictMarcCurrentSeries(table, start, end, 15)
+    const series = predictMarcCurrentSeries(match!.table, start, end, 15)
 
     expect(series.length).toBeGreaterThan(100)
     for (const p of series) {
@@ -51,5 +63,35 @@ describe('predictMarcCurrentSeries — donnée réelle extraite (Saint-Cast-le-G
       // très supérieure indiquerait une erreur d'échelle dans l'extraction/la synthèse.
       expect(p.value as number).toBeLessThan(20)
     }
+  })
+})
+
+describe('findNearestMarcTable — hors couverture', () => {
+  it('retourne undefined loin de tout point extrait (ex. large Atlantique)', () => {
+    expect(findNearestMarcTable(MARC_CURRENT_ATLAS, 46, -15)).toBeUndefined()
+  })
+})
+
+describe('findNearestMarcTable — cas synthétique (plusieurs points)', () => {
+  const atlas = [makeEntry(48.0, -2.0), makeEntry(48.5, -2.5), makeEntry(47.0, -3.0)]
+
+  it('choisit le point le plus proche, pas le premier de la liste', () => {
+    const match = findNearestMarcTable(atlas, 48.51, -2.49)
+    expect(match).toBeDefined()
+    expect(match!.table.gridPoint.uLat).toBeCloseTo(48.5)
+  })
+
+  it('retourne la distance réelle jusqu’au point choisi (pas 0)', () => {
+    const match = findNearestMarcTable(atlas, 48.0, -2.05)
+    expect(match!.distanceKm).toBeGreaterThan(0)
+    expect(match!.distanceKm).toBeLessThan(8)
+  })
+
+  it('rejette un point au-delà de MAX_MARC_LOOKUP_DISTANCE_KM', () => {
+    expect(findNearestMarcTable(atlas, 40, -2)).toBeUndefined()
+  })
+
+  it('retourne undefined pour un atlas vide', () => {
+    expect(findNearestMarcTable([], 48, -2)).toBeUndefined()
   })
 })

@@ -1,10 +1,10 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { useSpotConditions } from '../hooks/useSpotConditions'
 import { useShomGauge } from '../hooks/useSillGauge'
 import { useBrestSeaLevelSeries } from '../hooks/useBrestCoefficient'
 import { extractTideEvents } from '../domain/tideEvents'
-import { extractSlackWindows } from '../domain/slackWindows'
+import { extractEtaleEvents } from '../domain/slackWindows'
 import { computeDiveScore } from '../domain/diveScore'
 import { applyObservedCorrection, calibrateForecastToGauge, mergeObservedWithForecast } from '../domain/sillLevel'
 import { officialCoefficientNear, withOfficialTideWhereAvailable } from '../domain/officialTideExtremes'
@@ -13,8 +13,8 @@ import { coefficientNear, estimateTideCoefficientSeries } from '../domain/tideCo
 import { valueNear, windowAround } from '../lib/timeseries'
 import { SEED_SPOTS, type Spot } from '../domain/spot'
 import { MARC_CURRENT_ATLAS } from '../domain/marcCurrentAtlas.generated'
-import { predictMarcCurrentSeries, predictMarcTideHeightSeries } from '../domain/marcCurrent'
-import { useFavoriteSpots, addFavoriteSpot, removeFavoriteSpot } from '../hooks/useFavoriteSpots'
+import { findNearestMarcTable, predictMarcCurrentSeries, predictMarcTideHeightSeries } from '../domain/marcCurrent'
+import { useFavoriteSpots, addFavoriteSpot, removeFavoriteSpot, renameFavoriteSpot } from '../hooks/useFavoriteSpots'
 import { NowPanel } from '../components/dashboard/NowPanel'
 import { TideChart } from '../components/charts/TideChart'
 import { SeaTempChart } from '../components/charts/SeaTempChart'
@@ -32,6 +32,8 @@ export function SpotPage() {
   const location = useLocation()
   const navigate = useNavigate()
   const favorites = useFavoriteSpots()
+  const [editingName, setEditingName] = useState(false)
+  const [nameDraft, setNameDraft] = useState('')
 
   // "Ma position" (SpotsListPage) navigue ici sans enregistrer de favori — le spot est
   // passé par l'état de navigation plutôt que Dexie, pour un simple aperçu tant que
@@ -59,11 +61,13 @@ export function SpotPage() {
   const openMeteoCurrentSeries =
     query.data?.data.marine.fine?.oceanCurrentVelocity ?? query.data?.data.marine.oceanCurrentVelocity ?? EMPTY_SERIES
 
-  // Quand un point de grille MARC/Ifremer a été extrait pour ce spot (voir
-  // scripts/extract-marc-harmonics.mjs), on lui préfère le courant recalculé
-  // localement par synthèse harmonique : résolution ~1 km contre 15-20 km pour le
-  // modèle global Open-Meteo sur cette côte découpée (voir domain/marcCurrent.ts).
-  const marcTable = spot ? MARC_CURRENT_ATLAS[spot.id] : undefined
+  // Point côtier pré-extrait le plus proche du spot (voir scripts/extract-marc-harmonics.mjs
+  // et domain/marcCurrent.ts:findNearestMarcTable) — fonctionne pour N'IMPORTE QUEL spot,
+  // y compris ceux ajoutés via la recherche de lieu, pas seulement une poignée codée en dur :
+  // résolution ~1-2,5 km contre 15-20 km pour le modèle global Open-Meteo sur cette côte
+  // découpée, tant que le point le plus proche reste à une distance raisonnable du site réel.
+  const marcMatch = spot ? findNearestMarcTable(MARC_CURRENT_ATLAS, spot.latitude, spot.longitude) : undefined
+  const marcTable = marcMatch?.table
   const currentSeries = useMemo(() => {
     if (!marcTable) return openMeteoCurrentSeries
     const start = new Date(Date.now() - 24 * 3_600_000)
@@ -110,7 +114,10 @@ export function SpotPage() {
     () => extractTideEvents(seaLevelSeries, observed.length > 0 ? 0.15 : 0),
     [seaLevelSeries, observed.length],
   )
-  const slackWindows = useMemo(() => extractSlackWindows(currentSeries), [currentSeries])
+  // Une étale par pleine mer et une par basse mer, TOUJOURS (voir extractEtaleEvents) —
+  // recherche le minimum local de courant dans le voisinage de chaque extremum de marée,
+  // borné pour ne jamais fusionner deux étales proches et faibles en une seule fenêtre.
+  const etaleEvents = useMemo(() => extractEtaleEvents(tideEvents, currentSeries), [tideEvents, currentSeries])
 
   // Le coefficient est national (calculé à Brest) : il s'applique tel quel à n'importe
   // quel spot de la façade Manche/Atlantique, pas seulement à Brest lui-même.
@@ -142,13 +149,11 @@ export function SpotPage() {
 
   const now = new Date()
   const nearestSlackMinutes = (() => {
-    if (slackWindows.length === 0) return null
+    if (etaleEvents.length === 0) return null
     let best = Infinity
-    for (const w of slackWindows) {
-      const d =
-        now >= w.start && now <= w.end
-          ? 0
-          : Math.min(Math.abs(now.getTime() - w.start.getTime()), Math.abs(now.getTime() - w.end.getTime()))
+    for (const e of etaleEvents) {
+      const halfDurationMs = ((e.durationMin ?? 0) / 2) * 60_000
+      const d = Math.max(0, Math.abs(now.getTime() - e.time.getTime()) - halfDurationMs)
       if (d < best) best = d
     }
     return best / 60_000
@@ -199,7 +204,56 @@ export function SpotPage() {
             ← Spots
           </button>
           <div>
-            <h1 className="text-xl font-semibold">{spot.name}</h1>
+            {editingName ? (
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  renameFavoriteSpot(spot.id, nameDraft)
+                  setEditingName(false)
+                }}
+                className="flex items-center gap-1"
+              >
+                <input
+                  autoFocus
+                  value={nameDraft}
+                  onChange={(e) => setNameDraft(e.target.value)}
+                  className="rounded-md border px-2 py-1 text-sm"
+                  style={{ borderColor: 'var(--color-border)', background: 'var(--color-surface)' }}
+                />
+                <button type="submit" aria-label="Enregistrer le nom" title="Enregistrer" className="px-1 text-sm">
+                  ✓
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setEditingName(false)}
+                  aria-label="Annuler le renommage"
+                  title="Annuler"
+                  className="px-1 text-sm"
+                >
+                  ✕
+                </button>
+              </form>
+            ) : (
+              <h1 className="flex items-center gap-1.5 text-xl font-semibold">
+                {spot.name}
+                {/* Renommage réservé aux spots personnels (ajoutés via recherche ou carte) —
+                    les spots pré-configurés (SEED_SPOTS) restent tels quels pour l'association. */}
+                {spot.id.startsWith('custom-') && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setNameDraft(spot.name)
+                      setEditingName(true)
+                    }}
+                    aria-label="Renommer ce spot"
+                    title="Renommer ce spot"
+                    className="text-sm text-(--color-text-muted)"
+                  >
+                    ✏️
+                  </button>
+                )}
+              </h1>
+            )}
             <p className="text-xs text-(--color-text-muted)">{spot.region}</p>
           </div>
         </div>
@@ -207,7 +261,16 @@ export function SpotPage() {
           type="button"
           className="rounded-md border px-3 py-1.5 text-sm"
           style={{ borderColor: 'var(--color-border)' }}
-          onClick={() => (isFavorite ? removeFavoriteSpot(spot.id) : addFavoriteSpot(spot))}
+          onClick={async () => {
+            if (isFavorite) {
+              // Un spot personnel (recherche/carte) n'existe QUE via ses favoris : le
+              // retirer le fait disparaître, rester sur sa page afficherait "introuvable".
+              await removeFavoriteSpot(spot.id)
+              navigate('/')
+            } else {
+              await addFavoriteSpot(spot)
+            }
+          }}
         >
           {isFavorite ? '★ Favori' : '☆ Ajouter aux favoris'}
         </button>
@@ -247,7 +310,7 @@ export function SpotPage() {
             seaLevelSeries={windowAround(seaLevelSeries, now, 12)}
             tideEvents={tideEvents}
             tideCoefficients={tideCoefficients}
-            slackWindows={spot.underRanceInfluence ? [] : slackWindows}
+            etaleEvents={spot.underRanceInfluence ? [] : etaleEvents}
             currentVelocitySeries={spot.underRanceInfluence ? undefined : windowAround(currentSeries, now, 12)}
           />
           <h2 className="mt-4 mb-2 text-sm font-semibold text-(--color-text-muted)">Température de l'eau (7 jours)</h2>
@@ -272,11 +335,11 @@ export function SpotPage() {
             ) : (
               <>
                 <p className="mb-2 text-xs text-(--color-text-muted)">
-                  {marcTable
-                    ? `✓ Courant recalculé à partir de l'atlas de marée Ifremer/MARC (point à ${marcTable.gridPoint.distanceKm.toFixed(1)} km du site) — nettement plus précis qu'un modèle global, mais reste une donnée de marée pure (vent et autres effets non modélisés).`
+                  {marcMatch
+                    ? `✓ Courant recalculé à partir de l'atlas de marée Ifremer/MARC (point à ${marcMatch.distanceKm.toFixed(1)} km du site) — nettement plus précis qu'un modèle global, mais reste une donnée de marée pure (vent et autres effets non modélisés).`
                     : "⚠️ Courant issu d'un modèle océanique global (maille large, point de calcul parfois à 15-20 km du site) — peu fiable près des pointes, chenaux et zones à courants forts. À recouper avec l'observation sur place."}
                 </p>
-                <SlackWindowsList windows={slackWindows} now={now} />
+                <SlackWindowsList events={etaleEvents} now={now} />
               </>
             )}
           </div>
