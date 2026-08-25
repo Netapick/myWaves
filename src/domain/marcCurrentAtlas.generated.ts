@@ -1,5 +1,5 @@
 // Généré par scripts/extract-marc-harmonics.mjs — ne pas éditer à la main.
-// Source : atlas de composantes harmoniques de courant de marée Ifremer/MARC (V1_MANW).
+// Source : atlas de composantes harmoniques de courant de marée Ifremer/MARC.
 // Citation requise : Pineau-Guillou Lucia (2013). PREVIMER Validation des atlas de
 // composantes harmoniques de hauteurs et courants de marée. Rapport Ifremer, 89p.
 // http://archimer.ifremer.fr/doc/00157/26801/

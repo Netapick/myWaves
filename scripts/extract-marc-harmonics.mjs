@@ -2,9 +2,12 @@
 /**
  * Extrait, pour les spots listés ci-dessous, les composantes harmoniques de courant de
  * marée (amplitude + phase par constituante, pour les vitesses U est-ouest et V nord-sud)
- * depuis l'atlas Ifremer/MARC — région Manche-Ouest (V1_MANW, résolution ~1 km, bien plus
- * fine que la maille globale d'Open-Meteo qui peut être à 15-20 km du site réel sur cette
- * côte découpée).
+ * depuis l'atlas Ifremer/MARC — résolution ~1-2,5 km, bien plus fine que la maille globale
+ * d'Open-Meteo qui peut être à 15-20 km du site réel sur une côte découpée.
+ *
+ * Couvre toute la façade Manche/Atlantique française via 5 atlas régionaux (leurs
+ * emprises se chevauchent légèrement, pas de trou de couverture) : la région est choisie
+ * automatiquement pour chaque spot selon ses coordonnées, voir REGIONS ci-dessous.
  *
  * Source : accès FTP obtenu sur demande auprès d'Ifremer (formulaire
  * forms.ifremer.fr/lops-oc/marc-atlas-harmo/, réponse reçue le 2026-08-25 — voir mémoire
@@ -13,12 +16,13 @@
  * de hauteurs et courants de marée. Rapport Ifremer, 89p.
  * http://archimer.ifremer.fr/doc/00157/26801/
  *
- * Les fichiers NetCDF (76 au total, ~10 Mo chacun) sont mis en cache localement dans
- * .marc-cache/ (gitignored) — relancer ce script ne re-télécharge que ce qui manque.
+ * Les fichiers NetCDF (~76 par région, ~5-12 Mo chacun) sont mis en cache localement dans
+ * .marc-cache/ (gitignored) — relancer ce script ne re-télécharge que ce qui manque, et
+ * ne télécharge que les régions réellement nécessaires pour les spots listés.
  *
  * Usage :
  *   npm install --no-save netcdfjs
- *   node scripts/extract-marc-harmonics.mjs
+ *   MARC_FTP_USER=... MARC_FTP_PASS=... node scripts/extract-marc-harmonics.mjs
  * Résultat : src/domain/marcCurrentAtlas.generated.ts (committé — ce sont juste des
  * nombres, pas les fichiers NetCDF sources).
  */
@@ -33,15 +37,33 @@ import { NetCDFReader } from 'netcdfjs'
 const FTP_HOST = 'ftp.ifremer.fr'
 const FTP_USER = process.env.MARC_FTP_USER
 const FTP_PASS = process.env.MARC_FTP_PASS
-const FTP_BASE = 'MARC_L1-ATLAS-AHRMONIQUES/V1_MANW'
+const FTP_ROOT = 'MARC_L1-ATLAS-AHRMONIQUES'
+const CACHE_DIR = '.marc-cache'
 
 if (!FTP_USER || !FTP_PASS) {
   console.error('MARC_FTP_USER et MARC_FTP_PASS doivent être définis (identifiants reçus par email d’Ifremer).')
   process.exit(1)
 }
-const CACHE_DIR = '.marc-cache'
 
-// 38 constituantes présentes dans l'atlas MANW, avec leur vitesse angulaire standard
+// Emprises (lat/lon des points de mer valides, marge de sécurité incluse) des 5 atlas V1
+// couvrant la Manche et l'Atlantique — mesurées directement sur les fichiers (constituante
+// M2). Vérifiées sans trou de couverture entre régions adjacentes (légers chevauchements).
+// Ordre nord → sud : utilisé tel quel pour départager les zones de chevauchement.
+const REGIONS = [
+  { code: 'MANE', dir: 'V1_MANE', latMin: 49.0, latMax: 51.4, lonMin: -1.2, lonMax: 2.8 }, // Manche Est
+  { code: 'MANW', dir: 'V1_MANW', latMin: 48.4, latMax: 50.2, lonMin: -4.3, lonMax: -0.4 }, // Manche Ouest
+  { code: 'FINIS', dir: 'V1_FINIS', latMin: 47.2, latMax: 49.1, lonMin: -5.7, lonMax: -3.6 }, // Finistère
+  { code: 'SUDBZH', dir: 'V1_SUDBZH', latMin: 46.7, latMax: 48.0, lonMin: -4.3, lonMax: -1.9 }, // Sud Bretagne
+  { code: 'AQUI', dir: 'V1_AQUI', latMin: 43.2, latMax: 46.9, lonMin: -2.3, lonMax: -0.6 }, // Aquitaine
+]
+
+function selectRegion(lat, lon) {
+  const match = REGIONS.find((r) => lat >= r.latMin && lat <= r.latMax && lon >= r.lonMin && lon <= r.lonMax)
+  if (!match) throw new Error(`Aucun atlas MARC ne couvre (${lat}, ${lon}) — hors façade Manche/Atlantique ?`)
+  return match
+}
+
+// 38 constituantes présentes dans les atlas MARC, avec leur vitesse angulaire standard
 // (degrés/heure) — constantes astronomiques immuables, croisées avec la table de
 // référence de @neaps/tide-predictor (openwatersio/neaps, packages/tide-predictor/src/
 // constituents/data.json) pour associer les noms abrégés Ifremer (ex: "La2", "Sig1") à
@@ -90,13 +112,14 @@ export const CONSTITUENTS = [
 // Spots pour lesquels on extrait un tableau harmonique local. Sablons n'y figure PAS
 // délibérément : sous influence du barrage de la Rance, un atlas de marée océanique
 // (naturelle) ne peut de toute façon pas représenter le rejet artificiel de l'usine
-// marémotrice — voir RanceWarning.tsx.
+// marémotrice — voir RanceWarning.tsx. Pour ajouter un spot : lui donner ses coordonnées
+// ici et relancer ce script (ne télécharge que la région manquante, le reste est en cache).
 const SPOTS = [{ id: 'saint-cast-le-guildo', lat: 48.6241, lon: -2.2618 }]
 
-async function downloadIfMissing(component) {
+async function downloadIfMissing(region, component) {
   for (const { marcName } of CONSTITUENTS) {
-    const remote = `${FTP_BASE}/${marcName}-${component}-MANW-atlas.nc`
-    const local = path.join(CACHE_DIR, `${marcName}-${component}-MANW-atlas.nc`)
+    const remote = `${FTP_ROOT}/${region.dir}/${marcName}-${component}-${region.code}-atlas.nc`
+    const local = path.join(CACHE_DIR, `${marcName}-${component}-${region.code}-atlas.nc`)
     if (existsSync(local)) continue
     await mkdir(path.dirname(local), { recursive: true })
     const url = `ftp://${FTP_USER}:${FTP_PASS}@${FTP_HOST}/${remote}`
@@ -151,23 +174,24 @@ function extractAt(reader, ampVar, phaseVar, index) {
 }
 
 async function main() {
-  await downloadIfMissing('U')
-  await downloadIfMissing('V')
-
   const results = {}
   for (const spot of SPOTS) {
+    const region = selectRegion(spot.lat, spot.lon)
+    await downloadIfMissing(region, 'U')
+    await downloadIfMissing(region, 'V')
+
     // Le point de grille le plus proche est le même pour toutes les constituantes (seule
     // la donnée harmonique change, pas la grille du modèle) — calculé une fois avec M2.
-    const m2u = readNc(path.join(CACHE_DIR, 'M2-U-MANW-atlas.nc'))
-    const m2v = readNc(path.join(CACHE_DIR, 'M2-V-MANW-atlas.nc'))
+    const m2u = readNc(path.join(CACHE_DIR, `M2-U-${region.code}-atlas.nc`))
+    const m2v = readNc(path.join(CACHE_DIR, `M2-V-${region.code}-atlas.nc`))
     const uGrid = nearestIndex(m2u, 'longitude_u', 'latitude_u', 'U_a', spot.lat, spot.lon)
     const vGrid = nearestIndex(m2v, 'longitude_v', 'latitude_v', 'V_a', spot.lat, spot.lon)
-    console.log(`${spot.id}: grille U à ${uGrid.distanceKm.toFixed(2)} km, grille V à ${vGrid.distanceKm.toFixed(2)} km`)
+    console.log(`${spot.id}: région ${region.code}, grille U à ${uGrid.distanceKm.toFixed(2)} km, grille V à ${vGrid.distanceKm.toFixed(2)} km`)
 
     const constituents = []
     for (const { marcName, speed } of CONSTITUENTS) {
-      const u = extractAt(readNc(path.join(CACHE_DIR, `${marcName}-U-MANW-atlas.nc`)), 'U_a', 'U_G', uGrid.index)
-      const v = extractAt(readNc(path.join(CACHE_DIR, `${marcName}-V-MANW-atlas.nc`)), 'V_a', 'V_G', vGrid.index)
+      const u = extractAt(readNc(path.join(CACHE_DIR, `${marcName}-U-${region.code}-atlas.nc`)), 'U_a', 'U_G', uGrid.index)
+      const v = extractAt(readNc(path.join(CACHE_DIR, `${marcName}-V-${region.code}-atlas.nc`)), 'V_a', 'V_G', vGrid.index)
       constituents.push({ name: marcName, speed, uAmplitude: u.amplitude, uPhase: u.phase, vAmplitude: v.amplitude, vPhase: v.phase })
     }
 
@@ -178,7 +202,7 @@ async function main() {
   }
 
   const header = `// Généré par scripts/extract-marc-harmonics.mjs — ne pas éditer à la main.
-// Source : atlas de composantes harmoniques de courant de marée Ifremer/MARC (V1_MANW).
+// Source : atlas de composantes harmoniques de courant de marée Ifremer/MARC.
 // Citation requise : Pineau-Guillou Lucia (2013). PREVIMER Validation des atlas de
 // composantes harmoniques de hauteurs et courants de marée. Rapport Ifremer, 89p.
 // http://archimer.ifremer.fr/doc/00157/26801/
